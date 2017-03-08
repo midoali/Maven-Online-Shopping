@@ -1,11 +1,14 @@
 package com.iti.daos.datasource.c3p0;
 
+import com.iti.daos.ProductDAO;
+import com.iti.dtos.Product;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 public class C3P0DataSourceExample {
 
@@ -13,20 +16,8 @@ public class C3P0DataSourceExample {
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
-        try {
-            connection = DataSource.getInstance().getConnection();
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from emp3");
-              while (resultSet.next()) {
-                  System.out.println("employeeid: " + resultSet.getString("first_name"));
-                  System.out.println("employeename: " + resultSet.getString("last_name"));
-              }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (resultSet != null) try { resultSet.close(); } catch (SQLException e) {e.printStackTrace();}
-            if (statement != null) try { statement.close(); } catch (SQLException e) {e.printStackTrace();}
-            if (connection != null) try { connection.close(); } catch (SQLException e) {e.printStackTrace();}
-        }
+        
+        Vector<Product> products  = new ProductDAO().getAllProducts();
+        System.out.println("length of products : "+products.size());
     }
 }
