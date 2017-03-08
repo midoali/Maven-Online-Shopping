@@ -1,14 +1,16 @@
+package com.iti.daos;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.iti.daos;
 
 /**
  *
- * @author MIDO
+ * @author fatma
  */
-public class NewClass {
-    
+public interface DBHandlerInt {
+   public void connect();
+   public void disConnect();
 }

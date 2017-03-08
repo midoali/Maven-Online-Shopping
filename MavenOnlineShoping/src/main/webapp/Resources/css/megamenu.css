@@ -47,8 +47,8 @@
 }
 	
 .skyblue li>a,.skyblue>li.showhide span{color:#fff}
-.skyblue>li:hover>a,.skyblue .dropdown li:hover>a{color:#fff; background:#3C3B3B;}.
-skyblue .megapanel img:hover,.skyblue form.contact input[type="text"]:focus,.skyblue form.contact textarea:focus{}
+.skyblue>li:hover>a,.skyblue .dropdown li:hover>a{color:#fff; background:#3C3B3B;}
+.skyblue .megapanel img:hover,.skyblue form.contact input[type="text"]:focus,.skyblue form.contact textarea:focus{}
 .skyblue form.contact input[type="submit"]{background:#00405d;text-transform:uppercase;}
 @media(max-width:1024px){
 	.megamenu>li>a {
