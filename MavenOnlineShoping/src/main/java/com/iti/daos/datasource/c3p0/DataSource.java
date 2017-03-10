@@ -10,9 +10,9 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 public class DataSource {
 
     private static DataSource datasource;
-    private ComboPooledDataSource cpds;
-    private String dbUser = "mydbuser";
-    private String dbPass = "mydbuser";
+    private final ComboPooledDataSource cpds;
+    private final String dbUser = "mydbuser";
+    private final String dbPass = "mydbuser";
 
     private DataSource() throws IOException, SQLException, PropertyVetoException {
         cpds = new ComboPooledDataSource();
