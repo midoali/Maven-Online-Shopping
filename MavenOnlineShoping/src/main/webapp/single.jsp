@@ -334,8 +334,8 @@ etalage_show($(this).find('option:selected').attr('class'));
                             <div class="details-left-slider">
                                 <ul id="etalage">
                                     <li>
-                                        <img class="etalage_thumb_image" src="Resources/images/s1.jpg" />
-                                        <img class="etalage_source_image" src="Resources/images/s1.jpg" />
+                                        <img class="etalage_thumb_image" src="Resources/images/products/${product.imagePath}" />
+                                        <img class="etalage_source_image" src="Resources/images/products/${product.imagePath}"  />
                                     </li>
                                 </ul>
 
@@ -345,7 +345,7 @@ etalage_show($(this).find('option:selected').attr('class'));
 
                                 <p>$<c:out value="${product.price}"/></p>
 
-                                       <p class="qty">Qty ::</p><input  min="1"  type="number"  id="quantity" name="quantity" value="1"  class="form-control input-small">
+                                       <p class="qty">Qty ::</p><input max="${product.quantity}" min="1"  type="number"  id="quantity" name="quantity" value="1"  class="form-control input-small">
                                     <div class="btn_form">
                                         <a href="cart.html">Add to cart</a>
                                     </div>

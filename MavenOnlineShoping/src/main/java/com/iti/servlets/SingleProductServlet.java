@@ -7,7 +7,7 @@ package com.iti.servlets;
 
 import com.iti.daos.ProductDAO;
 import com.iti.dtos.Product;
-import com.iti.facadeservices.ProductFacade;
+import com.iti.facadeservices.ProductService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -31,9 +31,12 @@ public class SingleProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String ProductId = "1";
+        
+        HttpSession session=request.getSession();
+           // int ProductId = (int) session.getAttribute("productId");
+            int ProductId = Integer.parseInt( request.getParameter("productId"));
 
-              Product product=new ProductFacade().getSingleProduct(ProductId);
+              Product product=new ProductService().getSingleProduct(ProductId);
               
               	request.setAttribute("product", product);
               RequestDispatcher rd = getServletContext().getRequestDispatcher("/single.jsp");

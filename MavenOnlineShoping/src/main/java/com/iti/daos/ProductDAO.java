@@ -101,8 +101,8 @@ public class ProductDAO extends DBHandler{
         }
     }
     
-    public Product getSingleProduct(String id){
-        int productId=Integer.parseInt(id);
+    public Product getSingleProduct(int productId){
+        //int productId=Integer.parseInt(id);
         
      try {
          Product product=new Product();
