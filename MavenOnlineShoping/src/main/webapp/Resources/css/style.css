@@ -159,11 +159,11 @@ i.arrow{
 }
 .caption{
 	display:inline-block;
-	color:#fff;
+	color: #3054E3;
 	text-align:center;
 	position:absolute;
-	left: 12%;
-   top: 45%;
+        top: 45%;
+        margin-left: 150px;
 }
 .caption h1{
 	font-size:5em;
@@ -175,6 +175,7 @@ i.arrow{
 	 color:#64C4B8;
 }
 .caption p{
+        color: whitesmoke;
 	font-size:1.15em;
 	font-weight:400;
 	margin:0 auto;
@@ -232,7 +233,7 @@ ul.tabs-menu li a{
 	font-size: 1em;
 	padding: 0.5em 2em;
 	text-decoration: none;
-	background: #fa558f;
+	background: #3054E3;
 	color: #fff;
 }
 ul.tabs-menu li.active a{
@@ -338,7 +339,7 @@ border:2px solid #fff;
 	font-weight:500;
 	padding:5px 10px;
 	display: block;
-	background:#fa558f;
+	background:#3054E3;
 	position: absolute;
 	top: 0px;
 	right: 0;
@@ -594,7 +595,7 @@ i.boque{
 	text-decoration:none;
 }
 .fotter-logo{
-background:#fa558f;
+background:#3054E3;
 padding:1.5em 0;
 }
 .ftr-logo{
@@ -660,7 +661,7 @@ color:#999;
 font-size:1.1em;
 }
 .about-info a{
-background: #fa558f;
+background: #3054E3;
 float: left;
 padding: 8px 10px;
 border-radius: 3px;
@@ -670,7 +671,7 @@ border-radius: 3px;
 text-transform: uppercase;
 text-decoration: none;
 margin-top: 2em;
-border:2px solid #fa558f;
+border:2px solid #3054E3;
 color:#fff;
 }
 .about-info a:hover{
@@ -745,7 +746,7 @@ border: 0;
 font-size: 0.8em;
 }
 .subscribe input[type="submit"]:hover {
-background: #fa558f;
+background: #3054E3;
 transition: 0.5s all;
 -webkit-transition: 0.5s all;
 -o-transition: 0.5s all;
@@ -837,7 +838,7 @@ font-family: 'Raleway', sans-serif;
 	border: 0;
 }
 .text-but input[type="submit"]:hover, .text-cmt input[type="submit"]:hover {
-background: #fa558f;
+background: #3054E3;
 transition: 0.5s all;
 -webkit-transition: 0.5s all;
 -o-transition: 0.5s all;
@@ -853,13 +854,13 @@ color: #ABABAB;
   text-decoration: underline;
 }
 p.author a:hover{
-	color:#fa558f;
+	color:#3054E3;
 }
 p.author span{
 color:#ff7105;
 }
 a.read{
-background: #fa558f;
+background: #3054E3;
 padding: 8px 10px;
 border-radius: 3px;
 -moz-border-radius: 3px;
@@ -868,7 +869,7 @@ border-radius: 3px;
 text-transform: uppercase;
 text-decoration: none;
 margin: 0.5em 0 0em 0;
-border: 2px solid #fa558f;
+border: 2px solid #3054E3;
 color: #fff;
 display:inline-block;
 
@@ -1082,10 +1083,10 @@ margin-bottom: 2em;
   background: url(../images/p_minus.png) no-repeat 0px 10px;
 }
 .metro li:hover{
-	background-color:#fa558f;
+	background-color:#3054E3;
 }
 .metro li:hover{
-	background-color:#fa558f;
+	background-color:#3054E3;
 }
 .metro li.focus{
 	background:#ef8743;
@@ -1223,7 +1224,7 @@ font-family: 'Raleway', sans-serif;
 .details-left-info p {
 margin-top: 2%;
 font-size: 1.8em;
-color: #fa558f;
+color: #3054E3;
 line-height: 1.8em;
 text-shadow: 0 1px 0 #ffffff;
 letter-spacing: 1px;
@@ -1379,7 +1380,7 @@ padding-top:8%;
 letter-spacing: -15px;
 }
 .page-no-found h1 span{
-color:#fa558f;
+color:#3054E3;
 }
 .page-no-found h2{
 padding-top:3%;
@@ -1390,7 +1391,7 @@ p.product_descr{
 	color:#999;
 }
 .page-no-found a{
-background:#fa558f;
+background:#3054E3;
 color: #fff;
 font-size: 1.2em;
 display: inline-block;
@@ -1487,7 +1488,7 @@ font-family: 'Raleway', sans-serif;
 	text-transform:uppercase;
 	outline: none;
 	cursor: pointer;
-	background:#fa558f;
+	background:#3054E3;
 }
 .form_details input[type="submit"]:hover {
  	text-decoration: none;
