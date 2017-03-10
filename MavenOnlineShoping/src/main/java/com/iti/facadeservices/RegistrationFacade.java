@@ -5,8 +5,8 @@
  */
 package com.iti.facadeservices;
 
-import com.iti.daos.UserDAO;
-import com.iti.dtos.User;
+import com.iti.daos.CustomerDAO;
+import com.iti.dtos.Customer;
 
 /**
  *
@@ -16,9 +16,9 @@ public class RegistrationFacade {
 
     boolean regFlag = false;
 
-    public boolean register(User userObj) {
+    public boolean register(Customer userObj) {
 
-        UserDAO userDAO = new UserDAO();
+        CustomerDAO userDAO = new CustomerDAO();
 
         regFlag = userDAO.addUser(userObj);
         System.out.println("RegistrationFacade " + regFlag);
