@@ -5,17 +5,20 @@
  */
 package com.iti.servlets;
 
+import com.iti.facadeservices.LoginFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author MIDO
+ * @author fatma
  */
+@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -35,7 +38,7 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");            
+            out.println("<title>Servlet LoginServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
@@ -56,7 +59,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
     }
 
     /**
@@ -70,7 +73,20 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        String loginName = request.getParameter("loginName");
+        String loginPass = request.getParameter("loginPass");
+
+        System.out.println("doPost: " + loginName + " " + loginPass);
+
+        LoginFacade loginFacadeObj = new LoginFacade();
+        
+        if (loginFacadeObj.checkValidate(loginName, loginPass)) {
+
+            request.getRequestDispatcher("index.html").forward(request, response);
+        } else {
+            request.getRequestDispatcher("login.html").forward(request, response);
+        }
     }
 
     /**
