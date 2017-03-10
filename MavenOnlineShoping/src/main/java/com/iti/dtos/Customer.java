@@ -21,6 +21,7 @@ public class Customer {
     private int phone;
     private String address;
 
+    public Customer(){}
     public Customer(String name, String password) {
         this.name = name;
         this.password = password;

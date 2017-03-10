@@ -5,6 +5,7 @@
  */
 package com.iti.servlets;
 
+import com.iti.classes.MyShoppingCart;
 import com.iti.facadeservices.LoginFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,10 +42,15 @@ public class LoginServlet extends HttpServlet {
         LoginFacade loginFacadeObj = new LoginFacade();
         
         if (loginFacadeObj.checkValidate(loginName, loginPass)) {
-
-            request.getRequestDispatcher("index.html").forward(request, response);
+            HttpSession session = request.getSession(true);
+            session.setAttribute("loggedIn", "true");
+            session.setAttribute("myCustomer", loginFacadeObj.getCustomer());
+            session.setAttribute("myShoppingCart", new MyShoppingCart());
+            
+            response.sendRedirect(request.getServletContext().getContextPath()+"/home");
+            
         } else {
-            request.getRequestDispatcher("login.html").forward(request, response);
+            request.getRequestDispatcher("login").forward(request, response);
         }
     }
 

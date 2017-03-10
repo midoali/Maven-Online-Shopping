@@ -29,7 +29,7 @@ public class CustomerDAO extends DBHandler {
         new DBHandler();
     }
 
-    public boolean addUser(Customer userObj) {
+    public boolean addCustomer(Customer customerObj) {
         boolean addFlag = false;
         int nextRowId = 0;
         String nextId = "select customer_id_seq.nextval from dual";
@@ -44,20 +44,20 @@ public class CustomerDAO extends DBHandler {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String addQuery = "INSERT INTO Customer (id,name, birthday, password,job, email,credit, phone, address) values('" + nextRowId + "', ?,?,?,?,?,?,?,?)";
+        String addQuery = "INSERT INTO Customer (name, birthday, password,job, email,credit, phone, address) values(?,?,?,?,?,?,?,?)";
 
         try {
 
             pst = connection.prepareStatement(addQuery);
 
-            pst.setString(1, userObj.getName());
-            pst.setDate(2, Date.valueOf(userObj.getBirthday()));
-            pst.setString(3, userObj.getPassword());
-            pst.setString(4, userObj.getJob());
-            pst.setString(5, userObj.getEmail());
-            pst.setInt(6, userObj.getCredit());
-            pst.setInt(7, userObj.getPhone());
-            pst.setString(8, userObj.getAddress());
+            pst.setString(1, customerObj.getName());
+            pst.setDate(2, Date.valueOf(customerObj.getBirthday()));
+            pst.setString(3, customerObj.getPassword());
+            pst.setString(4, customerObj.getJob());
+            pst.setString(5, customerObj.getEmail());
+            pst.setInt(6, customerObj.getCredit());
+            pst.setInt(7, customerObj.getPhone());
+            pst.setString(8, customerObj.getAddress());
 
             int rowNo = pst.executeUpdate();
             addFlag = true;
@@ -68,14 +68,16 @@ public class CustomerDAO extends DBHandler {
         return addFlag;
     }
 
-    public Customer getUser(Customer userObj) {
-
-        String selectQuery = "SELECT USERNAME, Birthday, password,job, email,credit, phone from USER";
+    public Customer getCustomer() {
+        Customer customerObj = new Customer();
+        String selectQuery = "SELECT NAME, Birthday, password,job, email,credit, phone from CUSTOMER";
         try {
             pst = connection.prepareStatement(selectQuery);
             rs = pst.executeQuery();
+            
             while (rs.next()) {
                 String uName = rs.getString(1);
+                customerObj.setName(uName);
                 String uBirthday = rs.getString(2);
                 String uPassword = rs.getString(3);
                 String uJob = rs.getString(4);
@@ -87,13 +89,13 @@ public class CustomerDAO extends DBHandler {
         } catch (SQLException ex) {
             System.out.println("Selection Successed");
         }
-        return userObj;
+        return customerObj;
     }
 
-    public void deleteUser(Customer userObj) {
+    public void deleteCustomer(Customer customerObj) {
         try {
 
-            pst = connection.prepareStatement("DELETE FROM EMP where EMPNO='" + userObj.getId() + "' ");
+            pst = connection.prepareStatement("DELETE FROM customer where id='" + customerObj.getId() + "' ");
             pst.executeUpdate();
             System.out.println("row Deleted Successfully!");
 
@@ -102,14 +104,14 @@ public class CustomerDAO extends DBHandler {
         }
     }
 
-    public boolean checkExistance(Customer userObj) {
+    public boolean checkExistance(Customer customerObj) {
         boolean flag = false;
 
         String selectQuery = "SELECT NAME, PASSWORD FROM CUSTOMER WHERE NAME=? AND PASSWORD=? ";
         try {
             pst = connection.prepareStatement(selectQuery);
-            pst.setString(1, userObj.getName());
-            pst.setString(2, userObj.getPassword());
+            pst.setString(1, customerObj.getName());
+            pst.setString(2, customerObj.getPassword());
 
             rs = pst.executeQuery();
             while (rs.next()) {

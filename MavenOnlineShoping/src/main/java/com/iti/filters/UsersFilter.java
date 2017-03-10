@@ -40,13 +40,14 @@ public class UsersFilter implements Filter {
         if (session == null) {
             
             response.sendRedirect(homeUrl+"/login");
-        } else {
-            String loggedIn = (String) session.getAttribute("loggedIn");
-            if (!loggedIn.equals("true")) {
-                response.sendRedirect(homeUrl+"/login");
-            }
-
         }
+//        else {
+//            String loggedIn = (String) session.getAttribute("loggedIn");
+//            if (loggedIn == null || !loggedIn.equals("true")) {
+//                response.sendRedirect(homeUrl+"/login");
+//            }
+//
+//        }
     }
     
     private void doAfterProcessing(ServletRequest request, ServletResponse response)

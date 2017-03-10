@@ -16,11 +16,11 @@ public class RegistrationFacade {
 
     boolean regFlag = false;
 
-    public boolean register(Customer userObj) {
+    public boolean register(Customer customerObj) {
 
-        CustomerDAO userDAO = new CustomerDAO();
+        CustomerDAO customerDAO = new CustomerDAO();
 
-        regFlag = userDAO.addUser(userObj);
+        regFlag = customerDAO.addCustomer(customerObj);
         System.out.println("RegistrationFacade " + regFlag);
         return regFlag;
     }

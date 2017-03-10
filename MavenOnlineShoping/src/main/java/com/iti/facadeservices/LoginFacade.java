@@ -22,13 +22,20 @@ public class LoginFacade {
     boolean flag = false;
     public boolean checkValidate(String name, String pass) {
 
-        Customer userObj = new Customer(name, pass);
-        CustomerDAO userDAO = new CustomerDAO();
-        System.out.println("checkValidate : " + userObj.getName() + userObj.getPassword());
+        Customer customerObj = new Customer(name, pass);
+        CustomerDAO customerDAO = new CustomerDAO();
+        System.out.println("checkValidate : " + customerObj.getName() + customerObj.getPassword());
 
-        flag = userDAO.checkExistance(userObj);
+        flag = customerDAO.checkExistance(customerObj);
+        
         System.out.println("checkExistance " + flag);
 
         return flag;
+    }
+   
+    public Customer getCustomer(){
+        CustomerDAO customerDAO = new CustomerDAO();
+        
+        return customerDAO.getCustomer();
     }
 }
