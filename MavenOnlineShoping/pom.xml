@@ -40,13 +40,18 @@
             <version>11.2.0.3</version>
         </dependency>
         <dependency>
-            <groupId>c3p0</groupId>
+            <groupId>mchange</groupId>
+            <artifactId>mchange</artifactId>
+            <version>0.2.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
             <version>0.9.5.2</version>
         </dependency>
         <dependency>
-            <groupId>mchange</groupId>
-            <artifactId>mchange</artifactId>
+            <groupId>com.mchange</groupId>
+            <artifactId>mchange-commons-java</artifactId>
             <version>0.2.11</version>
         </dependency>
     </dependencies>
