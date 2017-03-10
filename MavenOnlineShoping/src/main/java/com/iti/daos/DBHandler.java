@@ -4,13 +4,9 @@ import com.iti.daos.datasource.c3p0.DataSource;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import oracle.jdbc.OracleDriver;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
