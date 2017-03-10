@@ -9,21 +9,21 @@
 <html>
 <head>
 <title>New Fashions a Flat Ecommerce Bootstarp Responsive Website Template | Shop :: w3layouts</title>
-<link href="Resources/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-<link href="Resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="${pageContext.request.servletContext.contextPath}/Resources/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="${pageContext.request.servletContext.contextPath}/Resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,200,600,800,700,500,300,100,900' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Arimo:400,700,700italic' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="Resources/css/component.css" />
+<link rel="stylesheet" type="text/css" href="${pageContext.request.servletContext.contextPath}/Resources/css/component.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="New Fashions Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" 
 		/>
-<script src="Resources/js/jquery.min.js"></script>
-<script src="Resources/js/simpleCart.min.js"> </script>
+<script src="${pageContext.request.servletContext.contextPath}/Resources/js/jquery.min.js"></script>
+<script src="${pageContext.request.servletContext.contextPath}/Resources/js/simpleCart.min.js"> </script>
 <!-- start menu -->
-<link href="Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
-<script type="text/javascript" src="Resources/js/megamenu.js"></script>
+<link href="${pageContext.request.servletContext.contextPath}/Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+<script type="text/javascript" src="${pageContext.request.servletContext.contextPath}/Resources/js/megamenu.js"></script>
 <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
 <!-- start menu -->
 </head>
