@@ -1,6 +1,6 @@
 package com.iti.daos;
 
-import com.iti.dtos.User;
+import com.iti.dtos.Customer;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,16 +20,16 @@ import java.util.logging.Logger;
  *
  * @author fatma
  */
-public class UserDAO extends DBHandler {
+public class CustomerDAO extends DBHandler {
 
     private PreparedStatement pst;
     private ResultSet rs;
 
-    public UserDAO() {
+    public CustomerDAO() {
         new DBHandler();
     }
 
-    public boolean addUser(User userObj) {
+    public boolean addUser(Customer userObj) {
         boolean addFlag = false;
         int nextRowId = 0;
         String nextId = "select customer_id_seq.nextval from dual";
@@ -41,7 +41,7 @@ public class UserDAO extends DBHandler {
             }
             System.out.println("nextId " + nextId + " " + rs.getInt(1));
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         String addQuery = "INSERT INTO Customer (id,name, birthday, password,job, email,credit, phone, address) values('" + nextRowId + "', ?,?,?,?,?,?,?,?)";
@@ -63,12 +63,12 @@ public class UserDAO extends DBHandler {
             addFlag = true;
             System.out.println("Insertion Done!" + rowNo + " row");
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return addFlag;
     }
 
-    public User getUser(User userObj) {
+    public Customer getUser(Customer userObj) {
 
         String selectQuery = "SELECT USERNAME, Birthday, password,job, email,credit, phone from USER";
         try {
@@ -90,7 +90,7 @@ public class UserDAO extends DBHandler {
         return userObj;
     }
 
-    public void deleteUser(User userObj) {
+    public void deleteUser(Customer userObj) {
         try {
 
             pst = connection.prepareStatement("DELETE FROM EMP where EMPNO='" + userObj.getId() + "' ");
@@ -98,11 +98,11 @@ public class UserDAO extends DBHandler {
             System.out.println("row Deleted Successfully!");
 
         } catch (SQLException ex) {
-            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public boolean checkExistance(User userObj) {
+    public boolean checkExistance(Customer userObj) {
         boolean flag = false;
 
         String selectQuery = "SELECT NAME, PASSWORD FROM CUSTOMER WHERE NAME=? AND PASSWORD=? ";
