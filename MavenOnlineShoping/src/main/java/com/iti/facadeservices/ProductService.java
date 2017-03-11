@@ -31,6 +31,13 @@ public class ProductService {
     /**
      * ******************ahmed Start**************
      */
+      public Product getSingleProduct(int id){
+         ProductDAO pDao=new ProductDAO();
+      return  pDao.getSingleProduct(id);
+        
+    }
+    
+    
     /**
      * *****************ahmed end****************
      */

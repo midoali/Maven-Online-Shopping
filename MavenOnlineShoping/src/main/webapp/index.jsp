@@ -318,8 +318,7 @@
                                 <c:if test="${!empty requestScope.products}">
                                     <c:forEach items="${requestScope.products}" var="product">
                                     <div class="product-grid">					  
-                                        <a href="single.html" onclick="<c:set var="productId" value="${product.id}"
-                                               scope="request" />"><div class="more-product-info"><span>NEW</span></div>						
+                                        <a href="SingleProduct?productId=${product.id}" ><div class="more-product-info"><span>NEW</span></div>						
                                             <div class="product-img b-link-stripe b-animate-go  thickbox">						   
                                                 <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt=""/>
                                                 <div class="b-wrapper">

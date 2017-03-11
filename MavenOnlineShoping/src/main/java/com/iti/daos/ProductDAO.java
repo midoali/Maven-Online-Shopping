@@ -126,4 +126,30 @@ public class ProductDAO extends DBHandler{
             return null;
         }
     }
+    
+    public Product getSingleProduct(int productId){
+        //int productId=Integer.parseInt(id);
+        
+     try {
+         Product product=new Product();
+            ResultSet resultSet;
+            preparedStatement=connection.prepareStatement("select * from \"PRODUCT\" where ID=" + productId + "",ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            resultSet=preparedStatement.executeQuery();
+            while(resultSet.next())
+            {
+                product.setId(resultSet.getInt("ID"));
+                product.setType(resultSet.getString("TYPE"));
+                product.setPrice(resultSet.getDouble("PRICE"));
+                product.setBrand(resultSet.getString("BRAND"));
+                product.setQuantity(resultSet.getInt("QUANTITY"));
+                product.setColor(resultSet.getString("COLOR"));
+                product.setDescription(resultSet.getString("DESCRIPTION"));
+                product.setImagePath(resultSet.getString("iMAGE"));
+            }
+            return product;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }
