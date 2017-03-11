@@ -1262,7 +1262,7 @@ display:inline-block;
 .btn_form{
 margin-top:2em;
 }
-.btn_form a {
+.btn_form a,.btn_form input {
 outline: none;
 display: inline-block;
 font-size: 1em;
