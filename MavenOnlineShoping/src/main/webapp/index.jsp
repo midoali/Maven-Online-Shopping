@@ -320,7 +320,7 @@
                                         <a href="single.html" onclick="<c:set var="productId" value="${product.id}"
                                                scope="request" />"><div class="more-product-info"><span>NEW</span></div>						
                                             <div class="product-img b-link-stripe b-animate-go  thickbox">						   
-                                                <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt=""/>
+                                                <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt="" style="width:400px;height: 350px;"/>
                                                 <div class="b-wrapper">
                                                     <h4 class="b-animate b-from-left  b-delay03">							
                                                         <button class="btns">ORDER NOW</button>
@@ -330,11 +330,8 @@
                                         <div class="product-info simpleCart_shelfItem">
                                             <div class="product-info-cust">
                                                 <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
-                                                <h6><c:out value="${product.description}"/></h6>
-                                                <h6>Brand: <c:out value="${product.brand}"/></h6>
-                                                <h6>Available color: <c:out value="${product.color}"/></h6>
                                                 <span class="item_price">$<c:out value="${product.price}"/></span>
-                                                <input type="number" class="item_quantity" min="1" max="${product.quantity}" />
+                                                <input type="number" class="item_quantity" min="0" max="${product.quantity}" value="0" />
                                             </div>													
                                             <div class="clearfix"> </div>
                                         </div>
