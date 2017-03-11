@@ -37,6 +37,12 @@ public class ProductService {
     /**
      * ******************youssef Start**************
      */
+    public Vector<Product> getProductsTestData(){
+        ProductDAO productDAO = new ProductDAO();
+        Vector<Product> result = productDAO.getProductsTest();
+        productDAO.disConnect();
+        return result;
+    }
     /**
      * *****************youssef end****************
      */

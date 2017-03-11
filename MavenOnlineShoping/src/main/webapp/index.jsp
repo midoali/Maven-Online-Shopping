@@ -4,7 +4,7 @@
     Author     : Nour
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" session="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,8 @@
         <!-- start menu -->
         <link href="Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
         <script type="text/javascript" src="Resources/js/megamenu.js"></script>
-        <script>$(document).ready(function () {
+        <script>
+            $(document).ready(function () {
                 $(".megamenu").megamenu();
             });
         </script>

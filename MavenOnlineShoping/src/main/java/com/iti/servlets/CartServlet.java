@@ -5,9 +5,13 @@
  */
 package com.iti.servlets;
 
+import com.iti.classes.MyItem;
 import com.iti.classes.MyShoppingCart;
+import com.iti.dtos.Product;
+import com.iti.facadeservices.ProductService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,23 +31,14 @@ public class CartServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sess = request.getSession(false);
-        
-        String homeUrl = request.getServletContext().getContextPath();
-        
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/cart.jsp");
+
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/users/cart.jsp");
         
         MyShoppingCart myCart =(MyShoppingCart) sess.getAttribute("myShoppingCart");
         
         
-//        myCart.getItems().add(e)
+        
         requestDispatcher.forward(request, response);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-    }
-
-   
 }

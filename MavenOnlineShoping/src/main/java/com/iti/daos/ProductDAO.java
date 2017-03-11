@@ -24,6 +24,32 @@ public class ProductDAO extends DBHandler{
     public ProductDAO() {
         new DBHandler();
     }
+    
+    public Vector<Product> getProductsTest(){
+         try {
+            ResultSet resultSet;
+            Vector<Product> products=new Vector<>();
+            preparedStatement=connection.prepareStatement("select * from PRODUCT where quantity < 9",ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            resultSet=preparedStatement.executeQuery();
+            while(resultSet.next())
+            {
+                Product product=new Product();
+                product.setId(resultSet.getInt("ID"));
+                product.setType(resultSet.getString("TYPE"));
+                product.setPrice(resultSet.getDouble("PRICE"));
+                product.setBrand(resultSet.getString("BRAND"));
+                product.setQuantity(resultSet.getInt("QUANTITY"));
+                product.setColor(resultSet.getString("COLOR"));
+                product.setDescription(resultSet.getString("DESCRIPTION"));
+                product.setImagePath(resultSet.getString("iMAGE"));
+                products.addElement(product);
+            }
+            return products;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 
     public boolean addProduct(Product p) {
         

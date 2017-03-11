@@ -5,10 +5,14 @@
  */
 package com.iti.servlets;
 
+import com.iti.classes.MyItem;
 import com.iti.classes.MyShoppingCart;
+import com.iti.dtos.Product;
 import com.iti.facadeservices.LoginFacade;
+import com.iti.facadeservices.ProductService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,7 +49,16 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession(true);
             session.setAttribute("loggedIn", "true");
             session.setAttribute("myCustomer", loginFacadeObj.getCustomer());
-            session.setAttribute("myShoppingCart", new MyShoppingCart());
+            MyShoppingCart myCart = new MyShoppingCart();
+            ProductService productService = new ProductService();
+            Vector<Product> products = productService.getProductsTestData();
+            MyItem item = new MyItem(products.elementAt(0), 2);
+            MyItem item2 = new MyItem(products.elementAt(1), 3);
+
+            myCart.getItems().add(item);
+            myCart.getItems().add(item2);
+            session.setAttribute("myShoppingCart", myCart);
+            session.setAttribute("homeUrl",request.getServletContext().getContextPath());
             
             response.sendRedirect(request.getServletContext().getContextPath()+"/home");
             

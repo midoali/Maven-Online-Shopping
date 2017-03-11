@@ -33,39 +33,35 @@ public class UsersFilter implements Filter {
     public UsersFilter() {
     }    
     
-    private void doBeforeProcessing(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        HttpSession session = request.getSession(false);
-        String homeUrl = request.getServletContext().getContextPath();
-        if (session == null) {
-            
-            response.sendRedirect(homeUrl+"/login");
-        }
-//        else {
-//            String loggedIn = (String) session.getAttribute("loggedIn");
-//            if (loggedIn == null || !loggedIn.equals("true")) {
-//                response.sendRedirect(homeUrl+"/login");
-//            }
-//
-//        }
-    }
-    
-    private void doAfterProcessing(ServletRequest request, ServletResponse response)
-            throws IOException, ServletException {
-        
-    }
+   
 
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        HttpServletResponse httpResponse = (HttpServletResponse) response;
+        HttpSession session = httpRequest.getSession(false);
+        String homeUrl = request.getServletContext().getContextPath();
+        if (session == null) {
+            httpResponse.sendRedirect(homeUrl+"/login");
+            System.out.println("here if session null");
+            return;
+        }else {
+            System.out.println("here if session not null");
+            String loggedIn = (String) session.getAttribute("loggedIn");
+            if (loggedIn == null || !loggedIn.equals("true")) {
+                httpResponse.sendRedirect(homeUrl+"/login");
+                return;
+            }
+           
+        }
         
-        doBeforeProcessing((HttpServletRequest)request,(HttpServletResponse)response);
         try {
             chain.doFilter(request, response);
         } catch (Throwable t) {
             t.printStackTrace();
         }  
-        doAfterProcessing((HttpServletRequest)request,(HttpServletResponse)response);
+       
     }
 
     /**
