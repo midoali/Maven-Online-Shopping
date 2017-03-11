@@ -5,7 +5,7 @@
  */
 package com.iti.servlets;
 
-import com.iti.dtos.User;
+import com.iti.dtos.Customer;
 import com.iti.facadeservices.RegistrationFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author fatma
  */
-@WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
+@WebServlet(name = "RegisterServlet", urlPatterns = {"/registration"})
 public class RegisterServlet extends HttpServlet {
 
     /**
@@ -85,7 +85,7 @@ public class RegisterServlet extends HttpServlet {
         String regJob = request.getParameter("regJob");
         String regAdd = request.getParameter("regAdd");
 
-        User userObj = new User(regName, regBirthday, regPass, regJob, regMail, regCredit, regPhone, regAdd);
+        Customer userObj = new Customer(regName, regBirthday, regPass, regJob, regMail, regCredit, regPhone, regAdd);
 
         RegistrationFacade registrationFacadeObj = new RegistrationFacade();
 

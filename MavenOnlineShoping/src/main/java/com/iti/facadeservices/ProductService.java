@@ -31,12 +31,25 @@ public class ProductService {
     /**
      * ******************ahmed Start**************
      */
+      public Product getSingleProduct(int id){
+         ProductDAO pDao=new ProductDAO();
+      return  pDao.getSingleProduct(id);
+        
+    }
+    
+    
     /**
      * *****************ahmed end****************
      */
     /**
      * ******************youssef Start**************
      */
+    public Vector<Product> getProductsTestData(){
+        ProductDAO productDAO = new ProductDAO();
+        Vector<Product> result = productDAO.getProductsTest();
+        productDAO.disConnect();
+        return result;
+    }
     /**
      * *****************youssef end****************
      */

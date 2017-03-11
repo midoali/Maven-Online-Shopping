@@ -6,8 +6,8 @@
 package com.iti.facadeservices;
 
 
-import com.iti.daos.UserDAO;
-import com.iti.dtos.User;
+import com.iti.daos.CustomerDAO;
+import com.iti.dtos.Customer;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,25 +19,23 @@ import java.sql.Statement;
  * @author fatma
  */
 public class LoginFacade {
-
     boolean flag = false;
-
-    protected Connection connection;
-    protected Statement stm;
-    protected String dbUser = "fatma";
-    protected String dbPass = "fatma28";
-    private PreparedStatement pst;
-    private ResultSet rs;
-
     public boolean checkValidate(String name, String pass) {
 
-        User userObj = new User(name, pass);
-        UserDAO userDAO = new UserDAO();
-        System.out.println("checkValidate : " + userObj.getName() + userObj.getPassword());
+        Customer customerObj = new Customer(name, pass);
+        CustomerDAO customerDAO = new CustomerDAO();
+        System.out.println("checkValidate : " + customerObj.getName() + customerObj.getPassword());
 
-        flag = userDAO.checkExistance(userObj);
+        flag = customerDAO.checkExistance(customerObj);
+        
         System.out.println("checkExistance " + flag);
 
         return flag;
+    }
+   
+    public Customer getCustomer(){
+        CustomerDAO customerDAO = new CustomerDAO();
+        
+        return customerDAO.getCustomer();
     }
 }

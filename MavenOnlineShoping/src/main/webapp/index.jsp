@@ -4,7 +4,7 @@
     Author     : Nour
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" session="false"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,8 @@
         <!-- start menu -->
         <link href="Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
         <script type="text/javascript" src="Resources/js/megamenu.js"></script>
-        <script>$(document).ready(function () {
+        <script>
+            $(document).ready(function () {
                 $(".megamenu").megamenu();
             });
         </script>
@@ -317,8 +318,7 @@
                                 <c:if test="${!empty requestScope.products}">
                                     <c:forEach items="${requestScope.products}" var="product">
                                     <div class="product-grid">					  
-                                        <a href="single.html" onclick="<c:set var="productId" value="${product.id}"
-                                               scope="request" />"><div class="more-product-info"><span>NEW</span></div>						
+                                        <a href="SingleProduct?productId=${product.id}" ><div class="more-product-info"><span>NEW</span></div>						
                                             <div class="product-img b-link-stripe b-animate-go  thickbox">						   
                                                 <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt="" style="width:400px;height: 350px;"/>
                                                 <div class="b-wrapper">

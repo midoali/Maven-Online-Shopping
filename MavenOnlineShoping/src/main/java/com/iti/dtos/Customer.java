@@ -9,7 +9,7 @@ package com.iti.dtos;
  *
  * @author fatma
  */
-public class User {
+public class Customer {
 
     private int id;
     private String name;
@@ -21,12 +21,13 @@ public class User {
     private int phone;
     private String address;
 
-    public User(String name, String password) {
+    public Customer(){}
+    public Customer(String name, String password) {
         this.name = name;
         this.password = password;
     }
 
-    public User(String name, String Birthday, String password, String job, String email, int credit, int phone, String address) {
+    public Customer(String name, String Birthday, String password, String job, String email, int credit, int phone, String address) {
         this.name = name;
         this.Birthday = Birthday;
         this.password = password;
