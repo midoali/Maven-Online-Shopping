@@ -25,7 +25,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- start menu -->
 <link href="${homeUrl}/Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
 <script type="text/javascript" src="${homeUrl}/Resources/js/megamenu.js"></script>
-<script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
+<script>
+    function clearCart(){
+                    $.post("${homeUrl}/users/clearCart",
+                        {},
+                        function (data) {          
+                            console.log(data);
+                           if(data.status == 'ok'){
+                               console.log(data.message);
+                           }
+                        });
+                }
+    $(document).ready(function(){$(".megamenu").megamenu();});
+        
+</script>
 <!-- start menu -->
 </head>
 <body>
@@ -38,11 +51,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				 </div>
 			 <div class="logo">
 				 <h3><a href="${homeUrl}/home">SPORTS SHOP</a></h3>
-			  </div>			  
-			 <div class="box_1">				 
-				 <a href="${homeUrl}/users/cart"><h3>Cart: <span >$${myShoppingCart.getTotalCost()}</span> (<span id="simpleCart_quantity" >${myShoppingCart.getItems().size()}</span> items)<img src="${homeUrl}/Resources/images/cart.png" alt=""/></h3></a>
-				 <p><a href="javascript:;" class="simpleCart_empty">clear cart</a></p>
-			 
+			  </div>
+                      
+			 <div class="box_1">	
+                             
+				 <a href="
+                                    <c:if test="${loggedIn == 'true'}">
+                                    ${homeUrl}/users/cart
+                                    </c:if>
+                                    "><h3>Cart: <span >$${myShoppingCart.getTotalCost()}</span> (<span id="simpleCart_quantity" >${myShoppingCart.getItems().size()}</span> items)<img src="${homeUrl}/Resources/images/cart.png" alt=""/></h3></a>
+                                    <p><a href="javascript:;" onclick="clearCart()" class="simpleCart_empty">clear cart</a></p>
+                            
 			 </div>
 			 
 			 <div class="clearfix"></div>

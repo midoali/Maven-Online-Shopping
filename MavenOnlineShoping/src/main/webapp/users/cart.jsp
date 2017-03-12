@@ -7,13 +7,13 @@
             var item_id = $(this).attr("item_id");
             $("#" + item_id).fadeOut('slow', function (c) {
                 $(this).remove();
-                $.post("${homeUrl}/users/deleteCartItem",
+                $.get("${homeUrl}/users/deleteCartItem",
                         {itemIndex: item_id},
-                        function (data) {          
+                        function (data){          
                             console.log(data);
                            if(data.status == 'ok'){
                                console.log(data.message);
-                           }
+                           },"json"
                         });
             });
         });

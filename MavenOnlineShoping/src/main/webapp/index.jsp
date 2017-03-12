@@ -4,7 +4,7 @@
     Author     : Nour
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8" session="false"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="homeUrl" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -27,6 +27,16 @@
         <link href="${homeUrl}/Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
         <script type="text/javascript" src="${homeUrl}/Resources/js/megamenu.js"></script>
         <script>
+            function clearCart(){
+                    $.post("${homeUrl}/users/clearCart",
+                        {},
+                        function (data) {          
+                            console.log(data);
+                           if(data.status == 'ok'){
+                               console.log(data.message);
+                           }
+                        });
+                }
             $(document).ready(function () {
                 $(".megamenu").megamenu();
             });
@@ -45,8 +55,20 @@
                         <h3><a href="${homeUrl}/home">SPORTS SHOP</a></h3>
                     </div>			  
                     <div class="box_1">				 
-                        <a href="${homeUrl}/cart"><h3>Cart: <span class="simpleCart_total"></span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)<img src="${homeUrl}/Resources/images/cart.png" alt=""/></h3></a>
-                        <p><a href="javascript:;" class="simpleCart_empty">clear cart</a></p>
+                        <a href="${homeUrl}/users/cart"><h3>Cart: <span >
+                                    <c:if test="${loggedIn == 'true'}"  >
+                                    $${myShoppingCart.getTotalCost()}
+                                    </c:if>
+                                </span> (<span id="simpleCart_quantity" >
+                                    <c:if test="${loggedIn == 'true'}"  >
+                                        ${myShoppingCart.getItems().size()}
+                                    </c:if>
+                                </span> items)<img src="${homeUrl}/Resources/images/cart.png" alt=""/></h3></a>
+                                <p><a href="javascript:;"
+                                      <c:if test="${loggedIn == 'true'}"  >
+                                      onclick="clearCart()"
+                                      </c:if>
+                                      class="simpleCart_empty">clear cart</a></p>
 
                     </div>
 
