@@ -19,22 +19,20 @@ import javax.servlet.http.HttpSession;
  *
  * @author Yousef
  */
-@WebServlet(name = "CartItemDeletionServlet", urlPatterns = {"/users/deleteCartItem"})
-public class CartItemDeletionServlet extends HttpServlet {
+@WebServlet(name = "CartClearingService", urlPatterns = {"/users/clearCart"})
+public class CartClearingServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        response.setContentType("application/json");
-       int itemId = Integer.parseInt(request.getParameter("itemIndex"));
+        response.setContentType("application/json");
        HttpSession mySession = request.getSession(false);
        MyShoppingCart myCart = (MyShoppingCart)mySession.getAttribute("myShoppingCart");
        
-       myCart.getItems().remove(itemId);
+       myCart.getItems().clear();
        
-       String myResponse = "{\"status\":\"ok\",\"message\":\"Item deleted successfully\"}";
+       String myResponse = "{status:'ok',message:'cart cleared successfully'}";
        response.getWriter().print(myResponse);
        response.getWriter().close();
     }
-
 }

@@ -9,6 +9,7 @@ import com.iti.dtos.Customer;
 import com.iti.facadeservices.RegistrationFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,7 +61,8 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("registration.jsp");        
+        requestDispatcher.forward(request, response);
     }
 
     /**

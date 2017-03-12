@@ -1708,6 +1708,7 @@ a.continue:hover{
 	color:#333;
 	font-size:1em;
 	margin-bottom:1em;
+        font-weight: bold;
 }
 .price-details span{
 	width:50%;
@@ -1734,6 +1735,7 @@ h4.last-price{
 .cart-total {
   padding-top: 26px;
   border-left: 1px solid;
+  min-height: 447px;
 }
 a.order {
   background:#333;
