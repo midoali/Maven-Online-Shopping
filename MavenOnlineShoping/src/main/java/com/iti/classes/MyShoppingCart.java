@@ -5,7 +5,6 @@
  */
 package com.iti.classes;
 
-import com.iti.classes.MyItem;
 import java.util.ArrayList;
 
 /**

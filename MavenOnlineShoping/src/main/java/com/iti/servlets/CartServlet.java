@@ -5,13 +5,8 @@
  */
 package com.iti.servlets;
 
-import com.iti.classes.MyItem;
 import com.iti.classes.MyShoppingCart;
-import com.iti.dtos.Product;
-import com.iti.facadeservices.ProductService;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Vector;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
