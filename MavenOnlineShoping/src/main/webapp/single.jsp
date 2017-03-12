@@ -328,6 +328,9 @@ $('.dropdownlist').change(function () {
 etalage_show($(this).find('option:selected').attr('class'));
 });
 
+
+    var numQuant = $("#quantity").val();
+    
 });
                             </script>
                             <!--//details-product-slider-->
@@ -344,11 +347,16 @@ etalage_show($(this).find('option:selected').attr('class'));
                                 <h3><c:out value="${product.type}"/> <c:out value="${product.id}"/></h3>
 
                                 <p>$<c:out value="${product.price}"/></p>
-
+                                
+                                
+                                <form method="post" action="users/addToCart">
                                        <p class="qty">Qty ::</p><input max="${product.quantity}" min="1"  type="number"  id="quantity" name="quantity" value="1"  class="form-control input-small">
+                                       <input type="hidden" name="productId" value="${product.id}"/>
                                     <div class="btn_form">
-                                        <a href="cart.html">Add to cart</a>
+                                        <input type="submit" value="add to cart" />
                                     </div>
+                                    </form>
+
                                     <div class="flower-type">
                                         <p>Mobel  <c:out value="${product.type}"/></p>
                                         <p>Brand  ::<c:out value="${product.brand}"/></p>
