@@ -75,7 +75,7 @@
             <h4 class="last-price">TOTAL</h4>
             <span class="total final">${myShoppingCart.getTotalCost() + 100.00}</span>
             <div class="clearfix"></div>
-            <a class="order" href="#">Place Order</a>
+            <a class="order" href="BuyServlet">Place Order</a>
 <!--            <div class="total-item">
                 <h3>OPTIONS</h3>
                 <h4>COUPONS</h4>
