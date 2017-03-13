@@ -5,14 +5,19 @@
  */
 package com.iti.servlets;
 
-import com.iti.facadeservices.LoginFacade;
+import com.iti.dtos.Customer;
+import com.iti.dtos.Product;
+import com.iti.facadeservices.CustomerFacade;
+//import com.iti.facadeservices.LoginFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -79,13 +84,57 @@ public class LoginServlet extends HttpServlet {
 
         System.out.println("doPost: " + loginName + " " + loginPass);
 
-        LoginFacade loginFacadeObj = new LoginFacade();
-        
-        if (loginFacadeObj.checkValidate(loginName, loginPass)) {
+//        LoginFacade loginFacadeObj = new LoginFacade();
 
-            request.getRequestDispatcher("index.html").forward(request, response);
+        CustomerFacade customerFacadeObj= new CustomerFacade();
+        
+        if (customerFacadeObj.checkValidate(loginName, loginPass)) {
+
+            HttpSession session = request.getSession(true);
+            session.setAttribute("loggedIn", "true");
+            session.setAttribute("myCustomer", customerFacadeObj.getCustomer());
+
+            Customer custObj = new Customer(loginName, loginPass);
+
+            CustomerFacade loginFacade = new CustomerFacade();
+
+            int id = loginFacade.getCustomerID(custObj);
+
+            System.out.println("id ... " + id);
+
+            Customer customerInfo = loginFacade.getCustomerInfo(id);
+
+            session.setAttribute("myCustomerInfo", customerInfo);
+
+            System.out.println("customerInfo.getName()  " + customerInfo.getName());
+
+//            session.setAttribute("name", loginName);
+//            session.setAttribute("pass", loginPass);
+            ////////////
+//            session.setAttribute("mail", loginFacadeObj.getCustomer().getEmail());
+//            session.setAttribute("birthday", loginFacadeObj.getCustomer().getBirthday());
+//            session.setAttribute("add", loginFacadeObj.getCustomer().getAddress());
+//            session.setAttribute("credit", loginFacadeObj.getCustomer().getCredit());
+//            session.setAttribute("job", loginFacadeObj.getCustomer().getJob());
+//            session.setAttribute("phone", loginFacadeObj.getCustomer().getPhone());
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//            MyShoppingCart myCart = new MyShoppingCart();
+//            ProductService productService = new ProductService();
+//
+//            Vector<Product> products = productService.getProductsTestData();
+//            MyItem item = new MyItem(products.elementAt(0), 2);
+//            MyItem item2 = new MyItem(products.elementAt(1), 3);
+//
+//            myCart.getItems().add(item);
+//            myCart.getItems().add(item2);
+//            session.setAttribute("myShoppingCart", myCart);
+            session.setAttribute("homeUrl", request.getServletContext().getContextPath());
+
+//            response.sendRedirect(request.getServletContext().getContextPath()+"/home");
+            request.getRequestDispatcher("homePage.html").forward(request, response);
+
         } else {
-            request.getRequestDispatcher("login.html").forward(request, response);
+            request.getRequestDispatcher("loginFailed.html").forward(request, response);
         }
     }
 

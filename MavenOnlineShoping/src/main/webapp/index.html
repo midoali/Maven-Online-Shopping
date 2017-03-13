@@ -24,11 +24,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <link href="Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
         <script type="text/javascript" src="Resources/js/megamenu.js"></script>
         <script>$(document).ready(function () {
-    $(".megamenu").megamenu();
-});</script>
+                $(".megamenu").megamenu();
+            });</script>
         <!-- start menu -->
     </head>
     <body>
+
         <!--header-->
         <div class="header">
             <div class="container">
@@ -739,14 +740,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <div class="col-md-6 contact">
             <form>
                 <input type="text" class="text" value="Name..." onfocus="this.value = '';" onblur="if (this.value == '') {
-                                     this.value = 'Name...';
-                                 }">
+                            this.value = 'Name...';
+                        }">
                 <input type="text" class="text" value="Email..." onfocus="this.value = '';" onblur="if (this.value == '') {
-                                     this.value = 'Email...';
-                                 }">
+                            this.value = 'Email...';
+                        }">
                 <textarea onfocus="if (this.value == 'Message...')
-                                     this.value = '';" onblur="if (this.value == '')
-                                                 this.value = 'Message...';" >Message...</textarea>	
+                            this.value = '';" onblur="if (this.value == '')
+                                        this.value = 'Message...';" >Message...</textarea>	
                 <div class="clearfix"></div>
                 <input type="submit" value="SUBMIT">
             </form>
@@ -800,6 +801,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     </div>
 </div>
 <!--fotter//-->
+
+<form action="Adminservlet" method="get">
+    <input type="submit" value="View Customers"/>
+</form>
 
 </body>
 </html>

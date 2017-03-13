@@ -12,16 +12,13 @@
 // *
 // * @author fatma
 // */
-//public class RegistrationFacade {
-//
-//    boolean regFlag = false;
-//
-//    public boolean register(Customer userObj) {
-//
-//        CustomerDAO userDAO = new CustomerDAO();
-//
-//        regFlag = userDAO.addUser(userObj);
-//        System.out.println("RegistrationFacade " + regFlag);
-//        return regFlag;
+//public class UpdateCustomerFacade {
+//    
+//    public void updateInfo(Customer cObj){
+//        
+//        CustomerDAO customerDAO= new CustomerDAO();
+//        
+//        customerDAO.updateCustomer(cObj);
+//        
 //    }
 //}

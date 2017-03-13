@@ -7,31 +7,33 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>New Fashions a Flat Ecommerce Bootstarp Responsive Website Template | Login :: w3layouts</title>
-        <link href="Resources/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="Resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
+     <head>
+        <title>Sports Shopping Cart</title>
+        <link href="${homeUrl}/Resources/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="${homeUrl}/Resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
         <link href='http://fonts.googleapis.com/css?family=Raleway:400,200,600,800,700,500,300,100,900' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Arimo:400,700,700italic' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" type="text/css" href="Resources/css/component.css" />
+        <link rel="stylesheet" type="text/css" href="${homeUrl}/Resources/css/component.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta name="keywords" content="New Fashions Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
               Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" 
-              />		
-        <script src="Resources/js/jquery.min.js"></script>
-        <script src="Resources/js/simpleCart.min.js"></script>
+              />
+        <script src="${homeUrl}/Resources/js/jquery.min.js"></script>
+        <script src="${homeUrl}/Resources/js/simpleCart.min.js"></script>
         <!-- start menu -->
-        <link href="Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
-        <script type="text/javascript" src="Resources/js/megamenu.js"></script>
-        <script>$(document).ready(function () {
+        <link href="${homeUrl}/Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+        <script type="text/javascript" src="${homeUrl}/Resources/js/megamenu.js"></script>
+        <script>
+            $(document).ready(function () {
                 $(".megamenu").megamenu();
-            });</script>
+            });
+        </script>
         <!-- start menu -->
     </head>
     <body>
         <!--header-->
-        <div class="header2 text-center">
+<!--        <div class="header2 text-center">
             <div class="container">
                 <div class="main-header">
                     <div class="carting">
@@ -48,7 +50,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                     <div class="clearfix"></div>
                 </div>
-                <!-- start header menu -->
+                 start header menu 
                 <ul class="megamenu skyblue">
                     <li><a href="index.html">HOME</a></li>							
                     <li><a href="#">WOMEN</a>
@@ -291,7 +293,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </ul> 
             </div>
             <div class="clearfix"></div> 
-        </div>
+        </div>-->
 
         <!--header//-->
         <div class="login">
@@ -306,9 +308,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!--                    <p>If you have previously Login with us, <span>click here</span></p>-->
                     <form action="LoginServlet" method="post">
                         <h5>User Name:</h5>	
-                        <input type="text" name="loginName"/>
+                        <input type="text" name="loginName" required/>
                         <h5>Password:</h5>
-                        <input type="password" name="loginPass"/>			
+                        <input type="password" name="loginPass" required/>			
                         <input type="submit" value="Login">
                         <a href="#">Forgot Password ?</a>
                     </form>				 

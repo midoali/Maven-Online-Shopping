@@ -5,11 +5,13 @@
  */
 package com.iti.servlets;
 
+import com.google.gson.Gson;
 import com.iti.dtos.Customer;
-import com.iti.facadeservices.CustomerFacade;
-//import com.iti.facadeservices.RegistrationFacade;
+import com.iti.facadeservices.AdminService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author fatma
  */
-@WebServlet(name = "RegisterServlet", urlPatterns = {"/RegisterServlet"})
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "Adminservlet", urlPatterns = {"/Adminservlet"})
+public class Adminservlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +42,10 @@ public class RegisterServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterServlet</title>");
+            out.println("<title>Servlet Adminservlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Adminservlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,7 +63,34 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+
+        PrintWriter out = response.getWriter();
+        System.out.println("AdminServlet **************");
+
+        AdminService adminService = new AdminService();
+        Vector<Customer> custVector = adminService.getCustomers();
+
+        request.setAttribute("custVector", custVector);
+//        System.out.println("**************"+custList.size() );
+
+        Gson customerGson = new Gson();
+        customerGson.toJson(custVector);
+        System.out.println("customerGson: " + customerGson.toJson(custVector));
+
+//        for (Customer c : custList) {
+//
+//            out.println(c.getName());
+//            out.println(c.getEmail());
+//            out.println(c.getPhone());
+//            out.println(c.getBirthday());
+//            out.println(c.getAddress());
+//            out.println(c.getJob());
+//            
+//
+//        }
+        request.getRequestDispatcher("viewCustomerInfo.jsp").forward(request, response);
     }
 
     /**
@@ -75,29 +104,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        
-        String regName = request.getParameter("regName");
-        String regPass = request.getParameter("regPass");
-        String regMail = request.getParameter("regMail");
-        int regCredit = 1;//Integer.parseInt(request.getParameter("regCredit"));
-        int regPhone = Integer.parseInt(request.getParameter("regPhone"));
-        String regBirthday = request.getParameter("regBirthday");
-        String regJob = request.getParameter("regJob");
-        String regAdd = request.getParameter("regAdd");
-
-        Customer userObj = new Customer(regName, regBirthday, regPass, regJob, regMail, regCredit, regPhone, regAdd);
-
-//        RegistrationFacade registrationFacadeObj = new RegistrationFacade();
-        
-           CustomerFacade customerFacadeObj= new CustomerFacade();
-           
-
-        if (customerFacadeObj.register(userObj)) {
-            request.getRequestDispatcher("index.html").forward(request, response);
-        } else {
-            request.getRequestDispatcher("registration.html").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
