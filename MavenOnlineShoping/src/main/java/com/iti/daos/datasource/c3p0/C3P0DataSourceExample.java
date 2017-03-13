@@ -11,7 +11,7 @@ public class C3P0DataSourceExample {
 
     public static void main(String[] args) throws PropertyVetoException, SQLException, IOException {
         
-        Vector<Product> products  = new ProductDAO().getAllProducts();
-        System.out.println("length of products : "+products.size());
+//        Vector<Product> products  = new ProductDAO().getAllProducts();
+//        System.out.println("length of products : "+products.size());
     }
 }

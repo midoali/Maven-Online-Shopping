@@ -46,28 +46,33 @@ public class LoginServlet extends HttpServlet {
         System.out.println("doPost: " + loginName + " " + loginPass);
 
         LoginFacade loginFacadeObj = new LoginFacade();
+        String status=(String) request.getSession(false).getAttribute("loggedIn");
+        System.out.println("status="+status);
+        if (!"true".equals(status)) {
+            if (loginFacadeObj.checkValidate(loginName, loginPass)) {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("loggedIn", "true");
+                session.setAttribute("myCustomer", loginFacadeObj.getCustomer());
+                MyShoppingCart myCart = new MyShoppingCart();
+                ProductService productService = new ProductService();
+                Vector<Product> products = productService.getProductsTestData();
+                MyItem item = new MyItem(products.elementAt(0), 2);
+                MyItem item2 = new MyItem(products.elementAt(1), 3);
+                myCart.getItems().add(item);
+                myCart.getItems().add(item2);
+                session.setAttribute("myShoppingCart", myCart);
+                session.setAttribute("homeUrl", request.getServletContext().getContextPath());
+                System.out.println("logged in successfully");
+                response.sendRedirect(request.getServletContext().getContextPath() + "/home");
 
-        if (loginFacadeObj.checkValidate(loginName, loginPass)) {
-            HttpSession session = request.getSession(true);
-            session.setAttribute("loggedIn", "true");
-            session.setAttribute("myCustomer", loginFacadeObj.getCustomer());
-            MyShoppingCart myCart = new MyShoppingCart();
-
-            session.setAttribute("myShoppingCart", myCart);
-            session.setAttribute("homeUrl", request.getServletContext().getContextPath());
-
-            Customer custObj = new Customer(loginName, loginPass);
-            CustomerFacade loginFacade = new CustomerFacade();
-            int id = loginFacade.getCustomerID(custObj);
-            System.out.println("id ... " + id);
-            Customer customerInfo = loginFacade.getCustomerInfo(id);
-            session.setAttribute("myCustomerInfo", customerInfo);
-            System.out.println("customerInfo.getName()  " + customerInfo.getName());
-
+            } else {
+                request.getRequestDispatcher("login").forward(request, response);
+            }
+        }
+        else
+        {
+            System.out.println("you are already logged in");
             response.sendRedirect(request.getServletContext().getContextPath() + "/home");
-
-        } else {
-            request.getRequestDispatcher("login").forward(request, response);
         }
     }
 

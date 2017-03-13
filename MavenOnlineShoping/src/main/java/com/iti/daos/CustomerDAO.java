@@ -207,25 +207,5 @@ public class CustomerDAO extends DBHandler {
         return customerObj;
     }
 
-//    public void updateCustomer(Customer cObj) {
-//        int rowNo = 0;
-//        String updateQuery = "UPDATE customer SET name=?, birthday=?, job=? , email=? , phone=? , address= ? where id='" + cObj.getId() + "'";
-//
-//        try {
-//            pst = connection.prepareStatement(updateQuery);
-//            pst.setString(1, cObj.getName());
-//            pst.setDate(2, Date.valueOf(cObj.getBirthday())); //TO_DATE('17/12/2015', 'DD/MM/YYYY');
-//            pst.setString(3, cObj.getJob());
-//            pst.setString(4, cObj.getEmail());
-//            pst.setInt(5, cObj.getPhone());
-//            pst.setString(6, cObj.getAddress());
-//
-//            rowNo = pst.executeUpdate();
-//            System.out.println("updated Successfully : no of Rows: " + rowNo);
-//        } catch (SQLException ex) {
-//            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//    }
 
 }

@@ -15,6 +15,7 @@ import com.iti.facadeservices.CustomerService;
 import com.iti.facadeservices.ProductService;
 import com.iti.facadeservices.ReceiptService;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Vector;
@@ -39,16 +40,25 @@ public class BuyServlet extends HttpServlet {
         MyShoppingCart myCart = (MyShoppingCart) session.getAttribute("myShoppingCart");
         Customer customer = (Customer) session.getAttribute("myCustomer");
         double total = myCart.getTotalCost();
-        int currentCredit=-1;
-        if (total <= customer.getCredit()) {
-            if (checkQuantities(myCart)) {
-                currentCredit=updateUserCredit(customer, total);
-                updateProductsQuantity(myCart);
-                makeReceipt(myCart,customer);
-                clearCart(session, myCart);
+        PrintWriter out=response.getWriter();
+        if (!myCart.getItems().isEmpty()) {
+            if (total <= customer.getCredit()) {
+                if (checkQuantities(myCart)) {
+                    int currentCredit = updateUserCredit(customer, total);
+                    updateProductsQuantity(myCart);
+                    makeReceipt(myCart, customer);
+                    clearCart(session, myCart);
+                    out.print("Buying operation finished successfully.\nyour current credit = $"+currentCredit);
+                }
+                else
+                    out.print("quanities of products available now are less than your chosen quantity.\n please decrease your quantity and try again");
             }
+            else
+                out.print("Your credit is less than total price.\n please recharge your credit first");
         }
-        
+        else
+            out.print("Cart is Empty.\n please choose items to buy first");
+        out.close();
     }
 
     @Override
@@ -73,7 +83,7 @@ public class BuyServlet extends HttpServlet {
     }
 
     private int updateUserCredit(Customer customer, double total) {
-        int currentcredit=(int) (customer.getCredit() - total);
+        int currentcredit = (int) (customer.getCredit() - total);
         customer.setCredit(currentcredit);
         new CustomerService().updateCustomer(customer);
         return currentcredit;
@@ -83,7 +93,7 @@ public class BuyServlet extends HttpServlet {
         ProductService productService = new ProductService();
         for (MyItem item : myCart.getItems()) {
             Product product = item.getProduct();
-            product.setQuantity(product.getQuantity()-item.getQuantity());
+            product.setQuantity(product.getQuantity() - item.getQuantity());
             productService.updateProduct(product);
         }
     }
@@ -94,23 +104,22 @@ public class BuyServlet extends HttpServlet {
     }
 
     private void makeReceipt(MyShoppingCart myCart, Customer customer) {
-        Receipt receipt=new Receipt();
+        Receipt receipt = new Receipt();
         receipt.setCustomerId(customer.getId());
         receipt.setDate(Date.valueOf(LocalDate.now()));
         receipt.setTotalCost(myCart.getTotalCost());
-        Vector<Item> items=new Vector<>();
-        for(MyItem item:myCart.getItems())
-        {
-            Item i=new Item();
+        Vector<Item> items = new Vector<>();
+        for (MyItem item : myCart.getItems()) {
+            Item i = new Item();
             i.setPrice(item.getPrice());
             i.setProductId(item.getProduct().getId());
             i.setQuantity(item.getQuantity());
             items.addElement(i);
         }
         receipt.setItems(items);
-        ReceiptService receiptService=new ReceiptService();
+        ReceiptService receiptService = new ReceiptService();
         receiptService.addReceipt(receipt);
-        
+
     }
 
 }
