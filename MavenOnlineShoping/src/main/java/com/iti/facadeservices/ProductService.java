@@ -14,37 +14,47 @@ import java.util.Vector;
  * @author MIDO
  */
 public class ProductService {
+
     /**
-     * ******************Nour Start**************
-     * @return 
+     * ******************Nour Start
+     *
+     **************
+     * @return
      */
-    public Vector<Product> getAllProducts()
-    {
-        ProductDAO productDAO=new ProductDAO();
-        Vector<Product> result=productDAO.getAllProducts();
+    public Vector<Product> getAllProducts() {
+        ProductDAO productDAO = new ProductDAO();
+        Vector<Product> result = productDAO.getAllProducts();
         productDAO.disConnect();
         return result;
     }
+
+    public boolean updateProduct(Product product) {
+        ProductDAO productDAO = new ProductDAO();
+        boolean result = productDAO.updateProduct(product);
+        productDAO.disConnect();
+        return result;
+    }
+
     /**
      * *****************nour end****************
      */
     /**
      * ******************ahmed Start**************
      */
-      public Product getSingleProduct(int id){
-         ProductDAO pDao=new ProductDAO();
-      return  pDao.getSingleProduct(id);
-        
+    public Product getSingleProduct(int id) {
+        ProductDAO pDao = new ProductDAO();
+        Product p= pDao.getSingleProduct(id);
+        pDao.disConnect();
+        return p;
     }
-    
-    
+
     /**
      * *****************ahmed end****************
      */
     /**
      * ******************youssef Start**************
      */
-    public Vector<Product> getProductsTestData(){
+    public Vector<Product> getProductsTestData() {
         ProductDAO productDAO = new ProductDAO();
         Vector<Product> result = productDAO.getProductsTest();
         productDAO.disConnect();

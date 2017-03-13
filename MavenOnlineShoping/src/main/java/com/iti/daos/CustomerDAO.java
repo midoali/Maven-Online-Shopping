@@ -1,6 +1,7 @@
 package com.iti.daos;
 
 import com.iti.dtos.Customer;
+import com.iti.dtos.Product;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -66,6 +67,26 @@ public class CustomerDAO extends DBHandler {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return addFlag;
+    }
+    
+     public boolean updateCustomer(Customer customer) {
+        try {
+            pst=connection.prepareStatement("update CUSTOMER set NAME=? ,BIRTHDAY=? ,PASSWORD=? ,JOB=? ,EMAIL=? ,CREDIT=? ,PHONE=?,ADDRESS=? where ID=?");
+            pst.setString(0,customer.getName());
+            pst.setDate(1,Date.valueOf(customer.getBirthday()));
+            pst.setString(2,customer.getPassword());
+            pst.setString(3,customer.getJob());
+            pst.setString(4,customer.getEmail());
+            pst.setInt(5,customer.getCredit());
+            pst.setInt(6,customer.getPhone());
+            pst.setString(7,customer.getAddress());
+            pst.setInt(8,customer.getId());
+            int addedRows=pst.executeUpdate();
+            return addedRows>0;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
     }
 
     public Customer getCustomer() {

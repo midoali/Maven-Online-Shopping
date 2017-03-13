@@ -8,10 +8,6 @@ package com.iti.facadeservices;
 
 import com.iti.daos.CustomerDAO;
 import com.iti.dtos.Customer;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 
 /**
@@ -35,7 +31,6 @@ public class LoginFacade {
    
     public Customer getCustomer(){
         CustomerDAO customerDAO = new CustomerDAO();
-        
         return customerDAO.getCustomer();
     }
 }
