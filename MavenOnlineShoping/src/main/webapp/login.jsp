@@ -1,16 +1,12 @@
-<%-- 
-    Document   : login
-    Created on : Mar 11, 2017, 6:41:44 PM
-    Author     : Yousef
---%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8" session="false"%>
 <jsp:directive.include file="/header.jsp"/>
 
 <div class="login">
     <div class="container">
         <ol class="breadcrumb">
             <li><a href="index.html">Home</a></li>
-            <li class="active">Login</li>
+            <!--<li class="active">Login</li>-->
         </ol>
         <h2>Login</h2>
         <div class="col-md-6 log">			 

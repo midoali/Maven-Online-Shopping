@@ -3,10 +3,10 @@
     Created on : Mar 8, 2017, 9:11:30 PM
     Author     : Nour
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>  
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="homeUrl" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,15 +27,17 @@
         <link href="${homeUrl}/Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
         <script type="text/javascript" src="${homeUrl}/Resources/js/megamenu.js"></script>
         <script>
-            function clearCart(){
-                    $.post("${homeUrl}/users/clearCart",
+            function clearCart() {
+                $.post("${homeUrl}/users/clearCart",
                         {},
-                        function (data) {          
+                        function (data) {
                             console.log(data);
                            if(data.status == 'ok'){
                                console.log(data.message);
+                               $("#simpleCart_quantity").html("0");
+                               $("#cartCost").html("0.00");
                            }
-                        });
+                        },"json");
                 }
             $(document).ready(function () {
                 $(".megamenu").megamenu();
@@ -63,9 +65,9 @@
                         <h3><a href="${homeUrl}/home">SPORTS SHOP</a></h3>
                     </div>			  
                     <div class="box_1">				 
-                        <a href="${homeUrl}/users/cart"><h3>Cart: <span >
+                        <a href="${homeUrl}/users/cart"><h3>Cart: <span id="cartCost">
                                     <c:if test="${loggedIn == 'true'}"  >
-                                    $${myShoppingCart.getTotalCost()}
+                                        $${myShoppingCart.getTotalCost()}
                                     </c:if>
                                 </span> (<span id="simpleCart_quantity" >
                                     <c:if test="${loggedIn == 'true'}"  >
@@ -186,7 +188,10 @@
                         </div>
                     </li>
                     <li class="grid"><a href="${homeUrl}/aboutus">ABOUT US</a></li>
-                    <li class="grid"><a href="${homeUrl}/blog.html">BLOG</a></li>				
+                    <li class="grid"><a href="blog.html">BLOG</a></li>			
+                     <%--<c:if test="${loggedIn == 'true'}"  >--%>
+                         <li class="grid"><a href="CustHomeServlet">Edit Profile</a></li>	
+                    <%--</c:if>--%>
 
                 </ul> 			 
                 <div class="clearfix"></div>			   	
@@ -250,20 +255,20 @@
                 <!-- tabs-box -->
                 <!-- Comman-js-files -->
                 <script>
-            $(document).ready(function () {
-                $("#tab2").hide();
-                $("#tab3").hide();
-                $(".tabs-menu a").click(function (event) {
-                    event.preventDefault();
-                    var tab = $(this).attr("href");
-                    $(".tab-grid1,.tab-grid2,.tab-grid3").not(tab).css("display", "none");
-                    $(tab).fadeIn("slow");
-                });
-                $("ul.tabs-menu li a").click(function () {
-                    $(this).parent().addClass("active a");
-                    $(this).parent().siblings().removeClass("active a");
-                });
-            });
+                    $(document).ready(function () {
+                        $("#tab2").hide();
+                        $("#tab3").hide();
+                        $(".tabs-menu a").click(function (event) {
+                            event.preventDefault();
+                            var tab = $(this).attr("href");
+                            $(".tab-grid1,.tab-grid2,.tab-grid3").not(tab).css("display", "none");
+                            $(tab).fadeIn("slow");
+                        });
+                        $("ul.tabs-menu li a").click(function () {
+                            $(this).parent().addClass("active a");
+                            $(this).parent().siblings().removeClass("active a");
+                        });
+                    });
                 </script>
                 <!-- Comman-js-files -->
             </div>

@@ -9,15 +9,14 @@
             var item_id = $(this).attr("item_id");
             $("#" + item_id).fadeOut('slow', function (c) {
                 $(this).remove();
-                $.get("${homeUrl}/users/deleteCartItem",
+                $.post("${homeUrl}/users/deleteCartItem",
                         {itemIndex: item_id},
-                        function (data) {
-                            console.log(data);
-                            if (data.status == 'ok') {
-                                console.log(data.message);
-                            }
-                            , "json"
-                        });
+                        function (data){          
+                           if(data.status == 'ok'){
+                               console.log(data.message);
+                               $("#numItems").html(data.numItems);
+                           }
+                        },"json");
             });
         });
         var buyReq = null;

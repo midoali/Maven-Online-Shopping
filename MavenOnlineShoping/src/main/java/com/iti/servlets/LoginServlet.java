@@ -9,6 +9,7 @@ import com.iti.classes.MyItem;
 import com.iti.classes.MyShoppingCart;
 import com.iti.dtos.Customer;
 import com.iti.dtos.Product;
+import com.iti.facadeservices.CustomerFacade;
 import com.iti.facadeservices.LoginFacade;
 import com.iti.facadeservices.ProductService;
 import java.io.IOException;
@@ -57,7 +58,6 @@ public class LoginServlet extends HttpServlet {
                 Vector<Product> products = productService.getProductsTestData();
                 MyItem item = new MyItem(products.elementAt(0), 2);
                 MyItem item2 = new MyItem(products.elementAt(1), 3);
-
                 myCart.getItems().add(item);
                 myCart.getItems().add(item2);
                 session.setAttribute("myShoppingCart", myCart);
