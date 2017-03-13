@@ -1,5 +1,7 @@
 package com.iti.dtos;
 
+import java.sql.Date;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,7 +15,7 @@ public class Customer {
 
     private int id;
     private String name;
-    private String birthday;
+    private Date birthday;
     private String password;
     private String job;
     private String email;
@@ -29,7 +31,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String name, String birthday, String password, String job, String email, int credit, int phone, String address) {
+    public Customer(String name, Date birthday, String password, String job, String email, int credit, int phone, String address) {
         this.name = name;
         this.birthday = birthday;
         this.password = password;
@@ -40,8 +42,8 @@ public class Customer {
         this.address = address;
     }
 
-    public Customer(int id, String name, String birthday, String password, String job, String email, int credit, int phone, String address) {
-        this.id=id;
+    public Customer(int id, String name, Date birthday, String password, String job, String email, int credit, int phone, String address) {
+        this.id = id;
         this.name = name;
         this.birthday = birthday;
         this.password = password;
@@ -51,8 +53,8 @@ public class Customer {
         this.phone = phone;
         this.address = address;
     }
-    
-    public Customer(int id, String name, String birthday, String job, String email, int credit, int phone, String address) {
+
+    public Customer(int id, String name, Date birthday, String job, String email, int credit, int phone, String address) {
         this.name = name;
         this.birthday = birthday;
         this.job = job;
@@ -61,7 +63,6 @@ public class Customer {
         this.phone = phone;
         this.address = address;
     }
-
 
     public int getId() {
         return id;
@@ -79,12 +80,12 @@ public class Customer {
         this.name = name;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public void setBirthday(Date Birthday) {
+        this.birthday = Birthday;
     }
 
     public String getPassword() {

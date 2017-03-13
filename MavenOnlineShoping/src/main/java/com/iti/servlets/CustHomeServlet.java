@@ -45,46 +45,6 @@ public class CustHomeServlet extends HttpServlet {
             throws ServletException, IOException {
         // processRequest(request, response);
 
-//        HttpSession session = request.getSession();
-//
-//        String name = (String) session.getAttribute("name");
-//        String pass = (String) session.getAttribute("pass");
-
-      //  Customer custObj = new Customer(name, pass);
-//
-//        LoginFacade loginFacade = new LoginFacade();
-//        int id = loginFacade.getCustomerID(custObj);
-//
-//        System.out.println("id ... "+ id);
-//        
-//        Customer customerInfo = loginFacade.getCustomerInfo(id);
-//
-//        System.out.println("customerInfo.getName()  " + customerInfo.getName());
-//        
-//        HttpSession sessionProfile = request.getSession(false);
-//        
-//        sessionProfile.setAttribute("name", customerInfo.getName());
-//        sessionProfile.setAttribute("mail", customerInfo.getEmail());
-//        sessionProfile.setAttribute("phone", customerInfo.getPhone());
-//        sessionProfile.setAttribute("add", customerInfo.getAddress());
-//        sessionProfile.setAttribute("job", customerInfo.getJob());
-//        sessionProfile.setAttribute("credit", customerInfo.getCredit());
-//        sessionProfile.setAttribute("birthday", customerInfo.getBirthday());
-//        
-//        
-//        System.out.println("Name "+  sessionProfile.getAttribute("name")+ " Mail " + sessionProfile.getAttribute("mail") );
-//     
-
-
-//          sessionProfile.setAttribute("password", customerInfo.getPassword()); 
-
-//         custObj = (Customer) session.getAttribute("myCustomer");
-//
-//        custObj.setEmail((String) session.getAttribute("mail"));
-//        custObj.setAddress((String) session.getAttribute("add"));
-//        custObj.setBirthday((String) session.getAttribute("birthday"));
-//        custObj.setCredit((int) session.getAttribute("credit"));
-//        custObj.setPhone((int) session.getAttribute("phone"));
         request.getRequestDispatcher("editProfile.jsp").forward(request, response);
     }
 
@@ -100,19 +60,6 @@ public class CustHomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //  processRequest(request, response);
-
-        HttpSession session = request.getSession();
-        Customer custObj = (Customer) session.getAttribute("myCustomer");
-
-        custObj.getEmail();
-        custObj.getAddress();
-        custObj.getBirthday();
-        custObj.getCredit();
-        custObj.getId();
-        custObj.getPhone();
-
-        request.getRequestDispatcher("editProfile.jsp").forward(request, response);
-
     }
 
     /**

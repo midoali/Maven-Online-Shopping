@@ -10,9 +10,9 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 public class DataSource {
 
     private static DataSource datasource;
-    private ComboPooledDataSource cpds;
-    private String dbUser = "mydbuser";
-    private String dbPass = "mydbuser";
+    private final ComboPooledDataSource cpds;
+    private final String dbUser = "mydbuser";
+    private final String dbPass = "mydbuser";
 
     private DataSource() throws IOException, SQLException, PropertyVetoException {
         cpds = new ComboPooledDataSource();
@@ -24,8 +24,8 @@ public class DataSource {
         // the settings below are optional -- c3p0 can work with defaults
         cpds.setMinPoolSize(5);
         cpds.setAcquireIncrement(5);
-        cpds.setMaxPoolSize(20);
-        cpds.setMaxStatements(180);
+        cpds.setMaxPoolSize(200);
+        cpds.setMaxStatements(1800);
 
     }
 

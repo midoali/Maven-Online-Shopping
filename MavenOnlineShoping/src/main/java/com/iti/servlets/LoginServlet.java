@@ -5,13 +5,16 @@
  */
 package com.iti.servlets;
 
+import com.iti.classes.MyItem;
+import com.iti.classes.MyShoppingCart;
 import com.iti.dtos.Customer;
 import com.iti.dtos.Product;
-import com.iti.facadeservices.CustomerFacade;
-//import com.iti.facadeservices.LoginFacade;
+import com.iti.facadeservices.CustomerService;
+import com.iti.facadeservices.ProductService;
+
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Vector;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,118 +26,65 @@ import javax.servlet.http.HttpSession;
  *
  * @author fatma
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/LoginServlet"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
+        requestDispatcher.forward(request, response);
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+
         String loginName = request.getParameter("loginName");
         String loginPass = request.getParameter("loginPass");
 
         System.out.println("doPost: " + loginName + " " + loginPass);
 
-//        LoginFacade loginFacadeObj = new LoginFacade();
+        CustomerService customerService = new CustomerService();
+        String status = (String) request.getSession(false).getAttribute("loggedIn");
+        System.out.println("status=" + status);
+        if (!"true".equals(status)) {
+            if (customerService.checkValidate(loginName, loginPass)) {
 
-        CustomerFacade customerFacadeObj= new CustomerFacade();
-        
-        if (customerFacadeObj.checkValidate(loginName, loginPass)) {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("loggedIn", "true");
+                session.setAttribute("myCustomer", customerService.getCustomer());
 
-            HttpSession session = request.getSession(true);
-            session.setAttribute("loggedIn", "true");
-            session.setAttribute("myCustomer", customerFacadeObj.getCustomer());
+                ///////////////
+                Customer custObj = new Customer(loginName, loginPass);
+                int id = customerService.getCustomerID(custObj);
+                System.out.println("id ... " + id);
+                
+                Customer customerInfo = customerService.getCustomerInfo(id);
+                session.setAttribute("myCustomerInfo", customerInfo);
+                System.out.println("customerInfo.getName()  " + customerInfo.getName());
 
-            Customer custObj = new Customer(loginName, loginPass);
+                ///////////////
+                MyShoppingCart myCart = new MyShoppingCart();
+                ProductService productService = new ProductService();
+                Vector<Product> products = productService.getProductsTestData();
+                MyItem item = new MyItem(products.elementAt(0), 2);
+                MyItem item2 = new MyItem(products.elementAt(1), 3);
 
-            CustomerFacade loginFacade = new CustomerFacade();
+                myCart.getItems().add(item);
+                myCart.getItems().add(item2);
+                session.setAttribute("myShoppingCart", myCart);
+                session.setAttribute("homeUrl", request.getServletContext().getContextPath());
+                System.out.println("logged in successfully");
+                response.sendRedirect(request.getServletContext().getContextPath() + "/home");
 
-            int id = loginFacade.getCustomerID(custObj);
-
-            System.out.println("id ... " + id);
-
-            Customer customerInfo = loginFacade.getCustomerInfo(id);
-
-            session.setAttribute("myCustomerInfo", customerInfo);
-
-            System.out.println("customerInfo.getName()  " + customerInfo.getName());
-
-//            session.setAttribute("name", loginName);
-//            session.setAttribute("pass", loginPass);
-            ////////////
-//            session.setAttribute("mail", loginFacadeObj.getCustomer().getEmail());
-//            session.setAttribute("birthday", loginFacadeObj.getCustomer().getBirthday());
-//            session.setAttribute("add", loginFacadeObj.getCustomer().getAddress());
-//            session.setAttribute("credit", loginFacadeObj.getCustomer().getCredit());
-//            session.setAttribute("job", loginFacadeObj.getCustomer().getJob());
-//            session.setAttribute("phone", loginFacadeObj.getCustomer().getPhone());
-//////////////////////////////////////////////////////////////////////////////////////////////////
-//            MyShoppingCart myCart = new MyShoppingCart();
-//            ProductService productService = new ProductService();
-//
-//            Vector<Product> products = productService.getProductsTestData();
-//            MyItem item = new MyItem(products.elementAt(0), 2);
-//            MyItem item2 = new MyItem(products.elementAt(1), 3);
-//
-//            myCart.getItems().add(item);
-//            myCart.getItems().add(item2);
-//            session.setAttribute("myShoppingCart", myCart);
-            session.setAttribute("homeUrl", request.getServletContext().getContextPath());
-
-//            response.sendRedirect(request.getServletContext().getContextPath()+"/home");
-            request.getRequestDispatcher("homePage.html").forward(request, response);
-
+            } else {
+                request.getRequestDispatcher("login").forward(request, response);
+            }
         } else {
-            request.getRequestDispatcher("loginFailed.html").forward(request, response);
+            System.out.println("you are already logged in");
+            response.sendRedirect(request.getServletContext().getContextPath() + "/home");
+
         }
     }
 

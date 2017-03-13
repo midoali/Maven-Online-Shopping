@@ -10,6 +10,7 @@ import com.iti.facadeservices.CustomerFacade;
 //import com.iti.facadeservices.RegistrationFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -76,24 +77,32 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        
+
         String regName = request.getParameter("regName");
         String regPass = request.getParameter("regPass");
         String regMail = request.getParameter("regMail");
-        int regCredit = 1;//Integer.parseInt(request.getParameter("regCredit"));
+        int regCredit = 0;//Integer.parseInt(request.getParameter("regCredit"));
         int regPhone = Integer.parseInt(request.getParameter("regPhone"));
         String regBirthday = request.getParameter("regBirthday");
         String regJob = request.getParameter("regJob");
         String regAdd = request.getParameter("regAdd");
 
-        Customer userObj = new Customer(regName, regBirthday, regPass, regJob, regMail, regCredit, regPhone, regAdd);
+        Customer customerObj = new Customer();
+        customerObj.setName(regName);
+        customerObj.setPassword(regPass);
+        customerObj.setEmail(regMail);
+        customerObj.setCredit(regCredit);
+        customerObj.setPhone(regPhone);
+        customerObj.setBirthday(java.sql.Date.valueOf(regBirthday));
+        customerObj.setJob(regJob);
+        customerObj.setAddress(regAdd);
+
+//        Customer userObj = new Customer(regName, regBirthday, regPass, regJob, regMail, regCredit, regPhone, regAdd);
 
 //        RegistrationFacade registrationFacadeObj = new RegistrationFacade();
-        
-           CustomerFacade customerFacadeObj= new CustomerFacade();
-           
+        CustomerFacade customerFacadeObj = new CustomerFacade();
 
-        if (customerFacadeObj.register(userObj)) {
+        if (customerFacadeObj.register(customerObj)) {
             request.getRequestDispatcher("index.html").forward(request, response);
         } else {
             request.getRequestDispatcher("registration.html").forward(request, response);

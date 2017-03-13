@@ -10,18 +10,26 @@ package com.iti.dtos;
  * @author Nour
  */
 public class Item {
+    private int id;
     private int receiptId;
     private int productId;
     private int quantity;
     private double price;
 
     public Item() {
+        id = 0;
         receiptId=0;
         productId=0;
         quantity=0;
         price=0;
     }
 
+    public int getId(){
+        return id;
+    }
+    public void setId(int id){
+        this.id = id;
+    }
     public int getReceiptId() {
         return receiptId;
     }

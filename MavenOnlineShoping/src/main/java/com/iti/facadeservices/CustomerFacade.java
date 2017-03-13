@@ -20,12 +20,12 @@ public class CustomerFacade {
 
     boolean flag = false;
 
-    protected Connection connection;
-    protected Statement stm;
-    protected String dbUser = "fatma";
-    protected String dbPass = "fatma28";
-    private PreparedStatement pst;
-    private ResultSet rs;
+//    protected Connection connection;
+//    protected Statement stm;
+//    protected String dbUser = "fatma";
+//    protected String dbPass = "fatma28";
+//    private PreparedStatement pst;
+//    private ResultSet rs;
 
     public boolean checkValidate(String name, String pass) {
 
@@ -63,13 +63,13 @@ public class CustomerFacade {
     }
 
     //
-    boolean regFlag = false;
+     boolean regFlag = false;
 
-    public boolean register(Customer userObj) {
+    public boolean register(Customer customerObj) {
 
-        CustomerDAO userDAO = new CustomerDAO();
+        CustomerDAO customerDAO = new CustomerDAO();
 
-        regFlag = userDAO.addUser(userObj);
+        regFlag = customerDAO.addCustomer(customerObj);
         System.out.println("RegistrationFacade " + regFlag);
         return regFlag;
     }

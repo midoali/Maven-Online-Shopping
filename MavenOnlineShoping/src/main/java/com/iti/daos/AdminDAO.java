@@ -38,7 +38,7 @@ public class AdminDAO extends DBHandler {
             while (rs.next()) {
                 Customer customerObj = new Customer();
                 customerObj.setName(rs.getString(1));
-                customerObj.setBirthday(rs.getString(2));
+                customerObj.setBirthday(rs.getDate(2));
                 customerObj.setPassword(rs.getString(3));
                 customerObj.setJob(rs.getString(4));
                 customerObj.setEmail(rs.getString(5));

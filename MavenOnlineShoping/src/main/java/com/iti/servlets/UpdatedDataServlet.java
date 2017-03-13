@@ -7,7 +7,6 @@ package com.iti.servlets;
 
 import com.iti.dtos.Customer;
 import com.iti.facadeservices.CustomerFacade;
-//import com.iti.facadeservices.UpdateCustomerFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,7 +14,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -90,13 +88,13 @@ public class UpdatedDataServlet extends HttpServlet {
         String updatedBirthday = request.getParameter("updatedBirthday");
         String updatedJob = request.getParameter("updatedJob");
 
-        Customer cObj = new Customer(cSession.getId(), updatedName, updatedBirthday, updatedJob, updatedMail, updatedCredit, updatedPhone, updatedAdd);
+        Customer cObj = new Customer(cSession.getId(), updatedName, java.sql.Date.valueOf(updatedBirthday), updatedJob, updatedMail, updatedCredit, updatedPhone, updatedAdd);
 
 //        UpdateCustomerFacade updateCustomer = new UpdateCustomerFacade();
 //        updateCustomer.updateInfo(cObj);
-            CustomerFacade customerFacadeObj= new CustomerFacade();
-            customerFacadeObj.updateInfo(cObj);
-        
+        CustomerFacade customerFacadeObj = new CustomerFacade();
+        customerFacadeObj.updateInfo(cObj);
+
         request.getRequestDispatcher("homePage.html").forward(request, response);
     }
 
