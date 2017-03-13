@@ -13,7 +13,7 @@ public class Customer {
 
     private int id;
     private String name;
-    private String Birthday;
+    private String birthday;
     private String password;
     private String job;
     private String email;
@@ -21,23 +21,46 @@ public class Customer {
     private int phone;
     private String address;
 
-    public Customer(){}
     public Customer(String name, String password) {
         this.name = name;
         this.password = password;
     }
 
-    public Customer(String name, String Birthday, String password, String job, String email, int credit, int phone, String address) {
+    public Customer() {
+    }
+
+    public Customer(String name, String birthday, String password, String job, String email, int credit, int phone, String address) {
         this.name = name;
-        this.Birthday = Birthday;
+        this.birthday = birthday;
         this.password = password;
         this.job = job;
         this.email = email;
         this.credit = credit;
         this.phone = phone;
-        this.address=address;
+        this.address = address;
     }
-    
+
+    public Customer(int id, String name, String birthday, String password, String job, String email, int credit, int phone, String address) {
+        this.id = id;
+        this.name = name;
+        this.birthday = birthday;
+        this.password = password;
+        this.job = job;
+        this.email = email;
+        this.credit = credit;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    public Customer(int id, String name, String birthday, String job, String email, int credit, int phone, String address) {
+        this.name = name;
+        this.birthday = birthday;
+        this.job = job;
+        this.email = email;
+        this.credit = credit;
+        this.phone = phone;
+        this.address = address;
+    }
 
     public int getId() {
         return id;
@@ -56,11 +79,11 @@ public class Customer {
     }
 
     public String getBirthday() {
-        return Birthday;
+        return birthday;
     }
 
     public void setBirthday(String Birthday) {
-        this.Birthday = Birthday;
+        this.birthday = Birthday;
     }
 
     public String getPassword() {

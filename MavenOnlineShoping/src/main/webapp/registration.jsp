@@ -1,9 +1,5 @@
-<%-- 
-    Document   : registration
-    Created on : Mar 11, 2017, 6:53:48 PM
-    Author     : Yousef
---%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8" session="false"%>
 <jsp:directive.include file="/header.jsp"/>
 
 <div class="registration-form">
@@ -18,7 +14,7 @@
             <h2>Registration</h2>
             <div class="col-md-6 reg-form">
                 <div class="reg">
-                    <p>Welcome, please enter the folling to continue.</p>
+                    <p>Welcome, please enter the following to continue.</p>
                     <p>If you have previously registered with us, <a href="#">click here</a></p>
                     <form action="registration" method="post">
                         <ul>
@@ -49,14 +45,14 @@
                             <li><input type="tel" name="regPhone" placeholder="(020)000-000-0000" required/></li>
                         </ul>					
                         
-                        <ul>
+<!--                        <ul>
                             <li class="text-info">Credit Card:* </li>
-                            <li><input type="number" name="regCredit" placeholder="xxxx-xxxx-xxxx-xxxx" pattern="/[0-9]{4}-[0-9]{4}-[0-9]{4}$/"></li>
-                        </ul>
+                            <li><input type="number" name="regCredit"></li>
+                        </ul>-->
 
                         <ul>
-                            <li class="text-info">Address: </li>
-                            <li> <input type="text" name="regAdd"/></li>
+                            <li class="text-info">Address:* </li>
+                            <li> <input type="text" name="regAdd" required/></li>
                         </ul>
 
                         <ul>
@@ -77,10 +73,10 @@
             </div>
             <div class="col-md-6 reg-right">
                 <h3>Completely Free Accouent</h3>
-                <p>Pellentesque neque leo, dictum sit amet accumsan non, dignissim ac mauris. Mauris rhoncus, lectus tincidunt tempus aliquam, odio 
-                    libero tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.</p>
-                <h3 class="lorem">Lorem ipsum dolor sit amet elit.</h3>
-                <p>Tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.</p>
+                <p>By creating an account with our store, you will be able to move through the checkout process faster, store multiple shipping addresses, view and track your orders in your account and more.</p>
+                <!--             <h3 class="lorem">Lorem ipsum dolor sit amet elit.</h3>
+                                <p>Tincidunt metus, sed euismod elit enim ut mi. Nulla porttitor et dolor sed condimentum. Praesent porttitor lorem dui, in pulvinar enim rhoncus vitae. Curabitur tincidunt, turpis ac lobortis hendrerit, ex elit vestibulum est, at faucibus erat ligula non neque.</p>-->
+
             </div>
             <div class="clearfix"></div>		 
         </div>

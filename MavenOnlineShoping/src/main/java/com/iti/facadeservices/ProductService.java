@@ -24,15 +24,22 @@ public class ProductService {
     public Vector<Product> getAllProducts() {
         ProductDAO productDAO = new ProductDAO();
         Vector<Product> result = productDAO.getAllProducts();
-        productDAO.disConnect();
+//        productDAO.disConnect();
         return result;
     }
 
     public boolean updateProduct(Product product) {
         ProductDAO productDAO = new ProductDAO();
         boolean result = productDAO.updateProduct(product);
-        productDAO.disConnect();
+//        productDAO.disConnect();
         return result;
+    }
+    
+    public void addProduct(Product product)
+    {
+        ProductDAO productDAO = new ProductDAO();
+        productDAO.updateProduct(product);
+        productDAO.disConnect();
     }
 
     /**
@@ -44,7 +51,7 @@ public class ProductService {
     public Product getSingleProduct(int id) {
         ProductDAO pDao = new ProductDAO();
         Product p= pDao.getSingleProduct(id);
-        pDao.disConnect();
+//        pDao.disConnect();
         return p;
     }
 
@@ -54,10 +61,22 @@ public class ProductService {
     /**
      * ******************youssef Start**************
      */
+    
+    public Vector<Product> getProductsByKeyword(String keyWord) {
+        ProductDAO productDAO = new ProductDAO();
+        Vector<Product> result = productDAO.getProductsByKeyword(keyWord);
+//        productDAO.disConnect();
+        return result;
+    }
+    
+    public Boolean deleteProduct(int id) {
+        ProductDAO pDao = new ProductDAO();
+        return pDao.deleteProduct(id);
+    }
     public Vector<Product> getProductsTestData() {
         ProductDAO productDAO = new ProductDAO();
         Vector<Product> result = productDAO.getProductsTest();
-        productDAO.disConnect();
+//        productDAO.disConnect();
         return result;
     }
     /**

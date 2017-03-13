@@ -2,22 +2,44 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:directive.include file="/header.jsp"/>
 <script>
+
+
     $(document).ready(function (c) {
         $('.close1').on('click', function (c) {
             var item_id = $(this).attr("item_id");
             $("#" + item_id).fadeOut('slow', function (c) {
                 $(this).remove();
-                $.get("${homeUrl}/users/deleteCartItem",
+                $.post("${homeUrl}/users/deleteCartItem",
                         {itemIndex: item_id},
                         function (data){          
-                            console.log(data);
                            if(data.status == 'ok'){
                                console.log(data.message);
-                           },"json"
-                        });
+                               $("#numItems").html(data.numItems);
+                           }
+                        },"json");
             });
         });
+        var buyReq = null;
+        function buyCart()
+        {
+            if (window.XMLHttpRequest)
+                buyReq = new XMLHttpRequest();
+            else
+                buyReq = new ActiveXObject(Microsoft.XMLHTTP);
+            buyReq.onreadystatechange = handleReq;
+            var url = "BuyServlet?date=" + new Date().toString();
+            buyReq.open("GET", url, true);
+            buyReq.send(null);
+        }
+        function handleReq()
+        {
+            if (buyReq.readyState == 4)
+            {
+                document.getElementById("result").innerHTML = buyReq.responseText;
+            }
+        }
     });
+
 </script>
 <div class="cart">
     <div class="container">
@@ -75,13 +97,10 @@
             <h4 class="last-price">TOTAL</h4>
             <span class="total final">${myShoppingCart.getTotalCost() + 100.00}</span>
             <div class="clearfix"></div>
-            <a class="order" href="BuyServlet">Place Order</a>
-<!--            <div class="total-item">
-                <h3>OPTIONS</h3>
-                <h4>COUPONS</h4>
-                <a class="cpns" href="#">Apply Coupons</a>
-                <p><a href="#">Log In</a> to use accounts - linked coupons</p>
-            </div>-->
+            <a class="order" onclick="buyCart()">Place Order</a>
+            <div class="total-item">
+                <h4 id="result"></h4>
+            </div>
         </div>
     </div>
 </div>
