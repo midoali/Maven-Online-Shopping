@@ -67,7 +67,7 @@
 
                             <input type="submit" value="Save Changes">
 
-                            <p class="click">By clicking this button, you agree to my modern style <a href="#">Pollicy Terms and Conditions</a> to Use</p> 
+                            <p class="click">By clicking this button, you agree to my modern style <a href="#">Policy Terms and Conditions</a> to Use</p> 
                         </form>
                     </div>
                 </div>
