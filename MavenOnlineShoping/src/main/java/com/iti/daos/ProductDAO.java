@@ -58,13 +58,13 @@ public class ProductDAO extends DBHandler{
         
         try {
             preparedStatement=connection.prepareStatement("insert into PRODUCT (TYPE,BRAND,PRICE,QUANTITY,DESCRIPTION,IMAGE,COLOR) values(?,?,?,?,?,?,?)");
-            preparedStatement.setString(0,p.getType());
-            preparedStatement.setString(1,p.getBrand());
-            preparedStatement.setDouble(2,p.getPrice());
-            preparedStatement.setInt(3,p.getQuantity());
-            preparedStatement.setString(4,p.getDescription());
-            preparedStatement.setString(5,p.getImagePath());
-            preparedStatement.setString(6,p.getColor());
+            preparedStatement.setString(1,p.getType());
+            preparedStatement.setString(2,p.getBrand());
+            preparedStatement.setDouble(3,p.getPrice());
+            preparedStatement.setInt(4,p.getQuantity());
+            preparedStatement.setString(5,p.getDescription());
+            preparedStatement.setString(6,p.getImagePath());
+            preparedStatement.setString(7,p.getColor());
             int addedRows=preparedStatement.executeUpdate();
             return addedRows>0;
         } catch (SQLException ex) {
@@ -76,7 +76,7 @@ public class ProductDAO extends DBHandler{
     public boolean deleteProduct(Product p) {
         try {
             preparedStatement=connection.prepareStatement("delete from PRODUCT where ID =?");
-            preparedStatement.setInt(0, p.getId());
+            preparedStatement.setInt(1, p.getId());
             int addedRows=preparedStatement.executeUpdate();
             return addedRows>0;
         } catch (SQLException ex) {
@@ -88,7 +88,6 @@ public class ProductDAO extends DBHandler{
      public boolean deleteProduct(int id) {
         try {
             preparedStatement=connection.prepareStatement("delete from PRODUCT where ID ="+id);
-//            preparedStatement.setInt(0,id);
             int addedRows=preparedStatement.executeUpdate();
             return addedRows>0;
         } catch (SQLException ex) {
@@ -100,14 +99,14 @@ public class ProductDAO extends DBHandler{
     public boolean updateProduct(Product p) {
         try {
             preparedStatement=connection.prepareStatement("update PRODUCT set TYPE=? ,BRAND=? ,PRICE=? ,QUANTITY=? ,DESCRIPTION=? ,IMAGE=? ,COLOR=? where ID=?");
-            preparedStatement.setString(0,p.getType());
-            preparedStatement.setString(1,p.getBrand());
-            preparedStatement.setDouble(2,p.getPrice());
-            preparedStatement.setInt(3,p.getQuantity());
-            preparedStatement.setString(4,p.getDescription());
-            preparedStatement.setString(5,p.getImagePath());
-            preparedStatement.setString(6,p.getColor());
-            preparedStatement.setInt(7,p.getId());
+            preparedStatement.setString(1,p.getType());
+            preparedStatement.setString(2,p.getBrand());
+            preparedStatement.setDouble(3,p.getPrice());
+            preparedStatement.setInt(4,p.getQuantity());
+            preparedStatement.setString(5,p.getDescription());
+            preparedStatement.setString(6,p.getImagePath());
+            preparedStatement.setString(7,p.getColor());
+            preparedStatement.setInt(8,p.getId());
             int addedRows=preparedStatement.executeUpdate();
             return addedRows>0;
         } catch (SQLException ex) {

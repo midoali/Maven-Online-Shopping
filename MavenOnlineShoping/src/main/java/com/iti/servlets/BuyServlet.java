@@ -30,16 +30,17 @@ import javax.servlet.http.HttpSession;
  *
  * @author Nour
  */
-@WebServlet(name = "BuyServlet", urlPatterns = {"/BuyServlet"})
+@WebServlet(name = "BuyServlet", urlPatterns = {"/users/BuyServlet"})
 public class BuyServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html");
         HttpSession session = request.getSession(false);
         MyShoppingCart myCart = (MyShoppingCart) session.getAttribute("myShoppingCart");
         Customer customer = (Customer) session.getAttribute("myCustomer");
-        double total = myCart.getTotalCost();
+        double total = myCart.getTotalCost()+100;
         PrintWriter out=response.getWriter();
         if (!myCart.getItems().isEmpty()) {
             if (total <= customer.getCredit()) {
@@ -48,16 +49,16 @@ public class BuyServlet extends HttpServlet {
                     updateProductsQuantity(myCart);
                     makeReceipt(myCart, customer);
                     clearCart(session, myCart);
-                    out.print("Buying operation finished successfully.\nyour current credit = $"+currentCredit);
+                    out.print(currentCredit);
                 }
                 else
-                    out.print("quanities of products available now are less than your chosen quantity.\n please decrease your quantity and try again");
+                    out.print("-1");
             }
             else
-                out.print("Your credit is less than total price.\n please recharge your credit first");
+                out.print("-10");
         }
         else
-            out.print("Cart is Empty.\n please choose items to buy first");
+            out.print("-100");
         out.close();
     }
 

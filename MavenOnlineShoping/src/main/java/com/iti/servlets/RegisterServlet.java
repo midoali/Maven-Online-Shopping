@@ -9,6 +9,7 @@ import com.iti.dtos.Customer;
 import com.iti.facadeservices.RegistrationFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -84,10 +85,11 @@ public class RegisterServlet extends HttpServlet {
         int regCredit = 1;//Integer.parseInt(request.getParameter("regCredit"));
         int regPhone = Integer.parseInt(request.getParameter("regPhone"));
         String regBirthday = request.getParameter("regBirthday");
+        Date bd=Date.valueOf(regBirthday);
         String regJob = request.getParameter("regJob");
         String regAdd = request.getParameter("regAdd");
 
-        Customer userObj = new Customer(regName, regBirthday, regPass, regJob, regMail, regCredit, regPhone, regAdd);
+        Customer userObj = new Customer(regName, bd, regPass, regJob, regMail, regCredit, regPhone, regAdd);
 
         RegistrationFacade registrationFacadeObj = new RegistrationFacade();
 
