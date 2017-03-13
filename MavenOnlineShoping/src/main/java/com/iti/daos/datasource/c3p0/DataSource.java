@@ -24,8 +24,8 @@ public class DataSource {
         // the settings below are optional -- c3p0 can work with defaults
         cpds.setMinPoolSize(5);
         cpds.setAcquireIncrement(5);
-        cpds.setMaxPoolSize(20);
-        cpds.setMaxStatements(180);
+        cpds.setMaxPoolSize(200);
+        cpds.setMaxStatements(1800);
 
     }
 

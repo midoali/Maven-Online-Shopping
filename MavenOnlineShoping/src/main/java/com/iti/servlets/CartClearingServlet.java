@@ -31,7 +31,7 @@ public class CartClearingServlet extends HttpServlet {
        
        myCart.getItems().clear();
        
-       String myResponse = "{status:'ok',message:'cart cleared successfully'}";
+       String myResponse = "{\"status\":\"ok\",\"message\":\"cart cleared successfully\"}";
        response.getWriter().print(myResponse);
        response.getWriter().close();
     }

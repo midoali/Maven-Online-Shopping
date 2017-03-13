@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
 public class CartItemDeletionServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        response.setContentType("application/json");
        int itemId = Integer.parseInt(request.getParameter("itemIndex"));
@@ -31,7 +31,7 @@ public class CartItemDeletionServlet extends HttpServlet {
        
        myCart.getItems().remove(itemId);
        
-       String myResponse = "{\"status\":\"ok\",\"message\":\"Item deleted successfully\"}";
+       String myResponse = "{\"status\":\"ok\",\"message\":\"Item deleted successfully\",\"numItems\":\""+myCart.getItems().size()+"\"}";
        response.getWriter().print(myResponse);
        response.getWriter().close();
     }

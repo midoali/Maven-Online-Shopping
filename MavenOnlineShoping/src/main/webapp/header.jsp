@@ -33,8 +33,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             console.log(data);
                            if(data.status == 'ok'){
                                console.log(data.message);
+                               $("#simpleCart_quantity").html("0");
+                               $("#cartCost").html("0.00");
                            }
-                        });
+                        },"json");
                 }
     $(document).ready(function(){$(".megamenu").megamenu();});
         
@@ -59,7 +61,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     <c:if test="${loggedIn == 'true'}">
                                     ${homeUrl}/users/cart
                                     </c:if>
-                                    "><h3>Cart: <span >$${myShoppingCart.getTotalCost()}</span> (<span id="simpleCart_quantity" >${myShoppingCart.getItems().size()}</span> items)<img src="${homeUrl}/Resources/images/cart.png" alt=""/></h3></a>
+                                    "><h3>Cart: <span id="cartCost" >$${myShoppingCart.getTotalCost()}</span> (<span id="simpleCart_quantity" >${myShoppingCart.getItems().size()}</span> items)<img src="${homeUrl}/Resources/images/cart.png" alt=""/></h3></a>
                                     <p><a href="javascript:;" onclick="clearCart()" class="simpleCart_empty">clear cart</a></p>
                             
 			 </div>

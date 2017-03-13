@@ -34,8 +34,10 @@
                             console.log(data);
                            if(data.status == 'ok'){
                                console.log(data.message);
+                               $("#simpleCart_quantity").html("0");
+                               $("#cartCost").html("0.00");
                            }
-                        });
+                        },"json");
                 }
             $(document).ready(function () {
                 $(".megamenu").megamenu();
@@ -55,7 +57,7 @@
                         <h3><a href="${homeUrl}/home">SPORTS SHOP</a></h3>
                     </div>			  
                     <div class="box_1">				 
-                        <a href="${homeUrl}/users/cart"><h3>Cart: <span >
+                        <a href="${homeUrl}/users/cart"><h3>Cart: <span id="cartCost">
                                     <c:if test="${loggedIn == 'true'}"  >
                                     $${myShoppingCart.getTotalCost()}
                                     </c:if>
