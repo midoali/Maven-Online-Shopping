@@ -44,7 +44,7 @@ public class CustomerDAO extends DBHandler {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String addQuery = "INSERT INTO Customer (name, birthday, password,job, email,credit, phone, address) values(?,?,?,?,?,?,?,?)";
+        String addQuery = "INSERT INTO Customer (id,name, birthday, password,job, email,credit, phone, address) values('" + nextRowId + "', ?,?,?,?,?,?,?,?)";
 
         try {
 
@@ -74,7 +74,7 @@ public class CustomerDAO extends DBHandler {
         try {
             pst = connection.prepareStatement(selectQuery);
             rs = pst.executeQuery();
-            
+
             while (rs.next()) {
                 String uName = rs.getString(1);
                 customerObj.setName(uName);
@@ -82,9 +82,15 @@ public class CustomerDAO extends DBHandler {
                 String uPassword = rs.getString(3);
                 String uJob = rs.getString(4);
                 String uEmail = rs.getString(5);
-                String uCredit = rs.getString(6);
-                String uPhone = rs.getString(7);
+                int uCredit = rs.getInt(6);
+                int uPhone = rs.getInt(7);
 
+                customerObj.setBirthday(uBirthday);
+                customerObj.setEmail(uEmail);
+                customerObj.setJob(uJob);
+                customerObj.setPassword(uPassword);
+                customerObj.setPhone(uPhone);
+                customerObj.setCredit(uCredit);
             }
         } catch (SQLException ex) {
             System.out.println("Selection Successed");
@@ -119,10 +125,85 @@ public class CustomerDAO extends DBHandler {
                 System.out.println("name " + rs.getString(1) + "pass: " + (rs.getString(2)));
             }
         } catch (SQLException ex) {
-            System.out.println("Connection Started");
+            System.out.println("checkExistance Failed");
         }
 
         return flag;
+    }
+
+    public int getId(Customer custObj) {
+        int id = 0;
+        String selectQuery = "SELECT id FROM CUSTOMER WHERE NAME=? AND PASSWORD=? ";
+        try {
+            pst = connection.prepareStatement(selectQuery);
+            pst.setString(1, custObj.getName());
+            pst.setString(2, custObj.getPassword());
+
+            rs = pst.executeQuery();
+            while (rs.next()) {
+                id = rs.getInt(1);
+                System.out.println("id " + id + " name " + custObj.getName() + "pass: " + custObj.getPassword());
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.out.println("getIdMethod Exception:");
+        }
+        return id;
+    }
+
+    public Customer getInfo(int id) {
+
+//        Customer customerObj = new Customer();
+        Customer customerObj = null;
+        String selectQuery = "SELECT NAME, Birthday, password,job, email,credit, phone, address from CUSTOMER where id='" + id + "'";
+        try {
+            pst = connection.prepareStatement(selectQuery);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String uName = rs.getString(1);
+                String uBirthday = rs.getString(2);
+                String uPassword = rs.getString(3);
+                String uJob = rs.getString(4);
+                String uEmail = rs.getString(5);
+                int uCredit = rs.getInt(6);
+                int uPhone = rs.getInt(7);
+                String uAddress = rs.getString(8);
+
+//                customerObj.setName(uName);
+//                customerObj.setBirthday(uBirthday);
+//                customerObj.setEmail(uEmail);
+//                customerObj.setJob(uJob);
+//                customerObj.setPassword(uPassword);
+//                customerObj.setPhone(uPhone);
+//                customerObj.setCredit(uCredit);
+                customerObj = new Customer(id, uName, uBirthday, uPassword, uJob, uEmail, uCredit, uPhone, uAddress);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Selection Failed");
+        }
+        return customerObj;
+    }
+
+    public void updateCustomer(Customer cObj) {
+        int rowNo = 0;
+        String updateQuery = "UPDATE customer SET name=?, birthday=?, job=? , email=? , phone=? , address= ? where id='" + cObj.getId() + "'";
+
+        try {
+            pst = connection.prepareStatement(updateQuery);
+            pst.setString(1, cObj.getName());
+            pst.setDate(2, Date.valueOf(cObj.getBirthday())); //TO_DATE('17/12/2015', 'DD/MM/YYYY');
+            pst.setString(3, cObj.getJob());
+            pst.setString(4, cObj.getEmail());
+            pst.setInt(5, cObj.getPhone());
+            pst.setString(6, cObj.getAddress());
+
+            rowNo = pst.executeUpdate();
+            System.out.println("updated Successfully : no of Rows: " + rowNo);
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }

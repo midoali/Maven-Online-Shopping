@@ -3,10 +3,10 @@
     Created on : Mar 8, 2017, 9:11:30 PM
     Author     : Nour
 --%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>  
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="homeUrl" value="${pageContext.request.contextPath}" />
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -27,16 +27,16 @@
         <link href="${homeUrl}/Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
         <script type="text/javascript" src="${homeUrl}/Resources/js/megamenu.js"></script>
         <script>
-            function clearCart(){
-                    $.post("${homeUrl}/users/clearCart",
+            function clearCart() {
+                $.post("${homeUrl}/users/clearCart",
                         {},
-                        function (data) {          
+                        function (data) {
                             console.log(data);
-                           if(data.status == 'ok'){
-                               console.log(data.message);
-                           }
+                            if (data.status == 'ok') {
+                                console.log(data.message);
+                            }
                         });
-                }
+            }
             $(document).ready(function () {
                 $(".megamenu").megamenu();
             });
@@ -49,7 +49,13 @@
             <div class="container">
                 <div class="main-header">
                     <div class="carting">
-                        <ul><li><a href="${homeUrl}/login"> LOGIN</a></li></ul>
+                        <%--<c:if test="${sessionScope.loggedIn == 'true'}">--%>
+                            <!--<ul><li><a href="${homeUrl}/home"> LOGOUT</a></li></ul>-->
+                        <%--</c:if>--%>
+                        <%--<c:if test="${loggedIn == 'false'}">--%>
+                            <ul><li><a href="${homeUrl}/login"> LOGIN</a></li></ul>
+                        <%--</c:if>--%>
+                              
                     </div>
                     <div class="logo">
                         <h3><a href="${homeUrl}/home">SPORTS SHOP</a></h3>
@@ -57,18 +63,18 @@
                     <div class="box_1">				 
                         <a href="${homeUrl}/users/cart"><h3>Cart: <span >
                                     <c:if test="${loggedIn == 'true'}"  >
-                                    $${myShoppingCart.getTotalCost()}
+                                        $${myShoppingCart.getTotalCost()}
                                     </c:if>
                                 </span> (<span id="simpleCart_quantity" >
                                     <c:if test="${loggedIn == 'true'}"  >
                                         ${myShoppingCart.getItems().size()}
                                     </c:if>
                                 </span> items)<img src="${homeUrl}/Resources/images/cart.png" alt=""/></h3></a>
-                                <p><a href="javascript:;"
-                                      <c:if test="${loggedIn == 'true'}"  >
-                                      onclick="clearCart()"
-                                      </c:if>
-                                      class="simpleCart_empty">clear cart</a></p>
+                        <p><a href="javascript:;"
+                              <c:if test="${loggedIn == 'true'}"  >
+                                  onclick="clearCart()"
+                              </c:if>
+                              class="simpleCart_empty">clear cart</a></p>
 
                     </div>
 
@@ -234,7 +240,10 @@
                         </div>
                     </li>
                     <li class="grid"><a href="${homeUrl}/aboutus">ABOUT US</a></li>
-                    <li class="grid"><a href="blog.html">BLOG</a></li>				
+                    <li class="grid"><a href="blog.html">BLOG</a></li>			
+                     <%--<c:if test="${loggedIn == 'true'}"  >--%>
+                         <li class="grid"><a href="CustHomeServlet">Edit Profile</a></li>	
+                    <%--</c:if>--%>
 
                 </ul> 			 
                 <div class="clearfix"></div>			   	
@@ -301,20 +310,20 @@
                 <!-- tabs-box -->
                 <!-- Comman-js-files -->
                 <script>
-            $(document).ready(function () {
-                $("#tab2").hide();
-                $("#tab3").hide();
-                $(".tabs-menu a").click(function (event) {
-                    event.preventDefault();
-                    var tab = $(this).attr("href");
-                    $(".tab-grid1,.tab-grid2,.tab-grid3").not(tab).css("display", "none");
-                    $(tab).fadeIn("slow");
-                });
-                $("ul.tabs-menu li a").click(function () {
-                    $(this).parent().addClass("active a");
-                    $(this).parent().siblings().removeClass("active a");
-                });
-            });
+                    $(document).ready(function () {
+                        $("#tab2").hide();
+                        $("#tab3").hide();
+                        $(".tabs-menu a").click(function (event) {
+                            event.preventDefault();
+                            var tab = $(this).attr("href");
+                            $(".tab-grid1,.tab-grid2,.tab-grid3").not(tab).css("display", "none");
+                            $(tab).fadeIn("slow");
+                        });
+                        $("ul.tabs-menu li a").click(function () {
+                            $(this).parent().addClass("active a");
+                            $(this).parent().siblings().removeClass("active a");
+                        });
+                    });
                 </script>
                 <!-- Comman-js-files -->
             </div>
