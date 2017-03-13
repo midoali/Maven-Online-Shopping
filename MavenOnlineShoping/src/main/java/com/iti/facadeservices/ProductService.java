@@ -34,6 +34,13 @@ public class ProductService {
         productDAO.disConnect();
         return result;
     }
+    
+    public void addProduct(Product product)
+    {
+        ProductDAO productDAO = new ProductDAO();
+        productDAO.updateProduct(product);
+        productDAO.disConnect();
+    }
 
     /**
      * *****************nour end****************
