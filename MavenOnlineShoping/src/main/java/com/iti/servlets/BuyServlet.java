@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -73,9 +74,10 @@ public class BuyServlet extends HttpServlet {
 
     private boolean checkQuantities(MyShoppingCart myCart) {
         ProductService productService = new ProductService();
-        for (MyItem item : myCart.getItems()) {
-            Product product = productService.getSingleProduct(item.getProduct().getId());
-            if (product.getQuantity() < item.getQuantity()) {
+        for(Map.Entry<String,MyItem> entry : myCart.getItems().entrySet()){
+//        for (MyItem item : myCart.getItems()) {
+            Product product = productService.getSingleProduct(entry.getValue().getProduct().getId());
+            if (product.getQuantity() < entry.getValue().getQuantity()) {
                 return false;
             }
         }
@@ -91,9 +93,10 @@ public class BuyServlet extends HttpServlet {
 
     private void updateProductsQuantity(MyShoppingCart myCart) {
         ProductService productService = new ProductService();
-        for (MyItem item : myCart.getItems()) {
-            Product product = item.getProduct();
-            product.setQuantity(product.getQuantity() - item.getQuantity());
+        for(Map.Entry<String,MyItem> entry : myCart.getItems().entrySet()){
+//        for (MyItem item : myCart.getItems()) {
+            Product product = entry.getValue().getProduct();
+            product.setQuantity(product.getQuantity() - entry.getValue().getQuantity());
             productService.updateProduct(product);
         }
     }
@@ -109,11 +112,12 @@ public class BuyServlet extends HttpServlet {
         receipt.setDate(Date.valueOf(LocalDate.now()));
         receipt.setTotalCost(myCart.getTotalCost());
         Vector<Item> items = new Vector<>();
-        for (MyItem item : myCart.getItems()) {
+        for(Map.Entry<String,MyItem> entry : myCart.getItems().entrySet()){
+//        for (MyItem item : myCart.getItems()) {
             Item i = new Item();
-            i.setPrice(item.getPrice());
-            i.setProductId(item.getProduct().getId());
-            i.setQuantity(item.getQuantity());
+            i.setPrice(entry.getValue().getPrice());
+            i.setProductId(entry.getValue().getProduct().getId());
+            i.setQuantity(entry.getValue().getQuantity());
             items.addElement(i);
         }
         receipt.setItems(items);

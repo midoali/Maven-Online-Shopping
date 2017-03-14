@@ -6,22 +6,24 @@
 package com.iti.classes;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
  * @author Yousef
  */
 public class MyShoppingCart {
-    private ArrayList<MyItem> items = new ArrayList<>();
+    private HashMap<String,MyItem> items = new HashMap<>();
     
     public double getTotalCost(){
         double totalPrice = 0;
-        for(MyItem item : items){
-            totalPrice += item.getPrice();
+        for(Map.Entry<String,MyItem> entry : items.entrySet()){
+            totalPrice += entry.getValue().getPrice();
         }
         return totalPrice;
     }
-    public ArrayList<MyItem> getItems() {
+    public HashMap<String,MyItem> getItems() {
         return items;
     }
     

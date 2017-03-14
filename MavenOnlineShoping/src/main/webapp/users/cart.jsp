@@ -15,6 +15,10 @@
                            if(data.status == 'ok'){
                                console.log(data.message);
                                $("#numItems").html(data.numItems);
+                               $("#simpleCart_quantity").html(data.numItems);
+                               $("#cartCost").html("$"+data.totalCost);
+                               $("#totalCostReceipt").html(data.totalCost);
+                               $("#totalFinal").html(data.finalCost);
                            }
                         },"json");
             });
@@ -57,17 +61,18 @@
             <c:set var="counter" value="0" />
             <c:forEach items="${myShoppingCart.getItems()}" var="currentItem" >
 
-                <div class="cart-header" id="${counter}" >
-                    <div class="close1" item_id="${counter}"> </div>
+                <div class="cart-header" id="${currentItem.getKey()}" >
+                    <div class="close1" item_id="${currentItem.getKey()}"> </div>
                     <div class="cart-sec">
                         <div class="cart-item cyc">
-                            <img src="${homeUrl}/Resources/images/products/${currentItem.getProduct().getImagePath()}"/>
+                            <img src="${homeUrl}/Resources/images/products/${currentItem.getValue().getProduct().getImagePath()}"/>
                         </div>
                         <div class="cart-item-info">
-                            <h3>${currentItem.getProduct().getType()}<span>Model No: ${currentItem.getProduct().getId()}</span></h3>
-                            <h4><span>Price. $ </span>${currentItem.getProduct().getPrice()}</h4>
+                            <h3>${currentItem.getValue().getProduct().getType()}<span>Model No: ${currentItem.getValue().getProduct().getId()}</span></h3>
+                            <h4><span>Price. $ </span>${currentItem.getValue().getProduct().getPrice()}</h4>
                             <p class="qty">Quantity ::</p>
-                            <input min="1" max="${currentItem.getProduct().getQuantity()}" type="number" id="quantity" name="quantity" value="${currentItem.getQuantity()}" class="form-control input-small">
+                            <label>${currentItem.getValue().getQuantity()}</label>
+                            <!--<input min="1" max="${currentItem.getValue().getProduct().getQuantity()}" type="number" id="quantity" name="quantity" value="${currentItem.getValue().getQuantity()}" class="form-control input-small">-->
                         </div>
                         <div class="clearfix"></div>
                         <div class="delivery">
@@ -77,7 +82,7 @@
                         </div>						
                     </div>
                 </div>
-                <c:set var="counter" value="${counter+1}" />
+                <%--<c:set var="counter" value="${counter+1}" />--%>
             </c:forEach>
 
         </div>
@@ -87,7 +92,7 @@
             <div class="price-details">
                 <h3>Price Details</h3>
                 <span>Total</span>
-                <span class="total">${myShoppingCart.getTotalCost()}</span>
+                <span class="total" id="totalCostReceipt">${myShoppingCart.getTotalCost()}</span>
                 <span>Discount</span>
                 <span class="total">---</span>
                 <span>Delivery Charges</span>
@@ -95,7 +100,7 @@
                 <div class="clearfix"></div>				 
             </div>	
             <h4 class="last-price">TOTAL</h4>
-            <span class="total final">${myShoppingCart.getTotalCost() + 100.00}</span>
+            <span class="total final" id="totalFinal">${myShoppingCart.getTotalCost() + 100.00}</span>
             <div class="clearfix"></div>
             <a class="order" onclick="buyCart()">Place Order</a>
             <div class="total-item">

@@ -69,90 +69,114 @@
 			 <div class="clearfix"></div>
 		 </div>
 				<!-- start header menu -->
-		 <ul class="megamenu skyblue">
-			<li><a href="${homeUrl}/home">HOME</a></li>							
-			 <li><a href="#">Brands</a>
-				  <div class="megapanel">
-					  <div class="row">
-						<div class="col1">
-							<div class="h_nav">
-								<h4>shop</h4>
-								<ul>
-									<li><a href="products.html">new arrivals</a></li>
-									<li><a href="products.html">men</a></li>
-									<li><a href="products.html">women</a></li>
-									<li><a href="products.html">accessories</a></li>
-									<li><a href="products.html">kids</a></li>
-									<li><a href="products.html">brands</a></li>
-								</ul>	
-							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>help</h4>
-								<ul>
-									<li><a href="products.html">trends</a></li>
-									<li><a href="products.html">sale</a></li>
-									<li><a href="products.html">style videos</a></li>
-									<li><a href="products.html">accessories</a></li>
-									<li><a href="products.html">kids</a></li>
-									<li><a href="products.html">style videos</a></li>
-								</ul>	
-							</div>							
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Products</h4>
-								<ul>
-									<li><a href="products.html">trends</a></li>
-									<li><a href="products.html">sale</a></li>
-									<li><a href="products.html">style videos</a></li>
-									<li><a href="products.html">accessories</a></li>
-									<li><a href="products.html">kids</a></li>
-									<li><a href="products.html">style videos</a></li>
-								</ul>	
-							</div>												
-						</div>						
-						<div class="col1">
-							<div class="h_nav">
-								<h4>my company</h4>
-								<ul>
-									<li><a href="products.html">tremds</a></li>
-									<li><a href="products.html">sale</a></li>
-									<li><a href="products.html">style videos</a></li>
-									<li><a href="products.html">accessories</a></li>
-									<li><a href="products.html">kids</a></li>
-									<li><a href="products.html">style videos</a></li>
-								</ul>	
-							</div>
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>popular</h4>
-								<ul>
-									<li><a href="products.html">new arrivals</a></li>
-									<li><a href="products.html">men</a></li>
-									<li><a href="products.html">women</a></li>
-									<li><a href="products.html">accessories</a></li>
-									<li><a href="products.html">kids</a></li>
-									<li><a href="products.html">style videos</a></li>
-								</ul>	
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col2"></div>
-						<div class="col1"></div>
-						<div class="col1"></div>
-						<div class="col1"></div>
-						<div class="col1"></div>
-					</div>
-    				</div>
-				</li>				
-				<li><a href="#">Categories</a></li>
-				<li class="grid"><a href="${homeUrl}/aboutus">ABOUT US</a></li>
-			    <li class="grid"><a href="blog.html">BLOG</a></li>							
-				</ul> 
+		                <ul class="megamenu skyblue">
+                    <li class="active grid"><a class="color1" href="${homeUrl}/home">Home</a></li>
+                    <li class="grid"><a href="#">Categories</a>
+                        <div class="megapanel">
+                            <div class="row">
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <h4>Clothes</h4>
+                                        <ul>
+                                            <li><a href="">T-shirts</a></li>
+                                            <li><a href="">Training suits</a></li>
+                                            <li><a href="">Hoodies</a></li>
+                                            <li><a href="">Trousers</a></li>
+                                            <li><a href="">Shorts</a></li>
+                                        </ul>	
+                                    </div>							
+                                </div>
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <h4>Shoes</h4>
+                                        <ul>
+                                            <li><a href="">Sneakers</a></li>
+                                        </ul>	
+                                    </div>							
+                                </div>
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <h4>Accessories</h4>
+                                        <ul>
+                                            <li><a href="">Caps</a></li>
+                                            <li><a href="">Watches</a></li>
+                                            <li><a href="">Glasses</a></li>
+                                            <li><a href="">Balls</a></li>
+                                            <li><a href="">Bags</a></li>
+                                            <li><a href="">Others</a></li>
+                                        </ul>	
+                                    </div>												
+                                </div>	
+                            </div>
+                            <div class="row">
+                                <div class="col2"></div>
+                                <div class="col1"></div>
+                                <div class="col1"></div>
+                                <div class="col1"></div>
+                                <div class="col1"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#">Brands</a><div class="megapanel">
+                            <div class="row">
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <h4>Nike</h4>
+                                        <ul>
+                                            <li><a href="men.html">shoes</a></li>
+                                            <li><a href="men.html">football shirts</a></li>
+                                            <li><a href="men.html">bags</a></li>
+                                            <li><a href="men.html">accessories</a></li>
+                                        </ul>	
+                                    </div>							
+                                </div>
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <h4>addidas</h4>
+                                        <ul>
+                                            <li><a href="men.html">shoes</a></li>
+                                            <li><a href="men.html">T-shirts</a></li>
+                                            <li><a href="men.html">training suits</a></li>
+                                            <li><a href="men.html">accessories</a></li>
+                                            <li><a href="men.html">bags</a></li>
+                                        </ul>	
+                                    </div>							
+                                </div>
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <h4>puma</h4>
+                                        <ul>
+                                            <li><a href="men.html">bags</a></li>
+                                            <li><a href="men.html">accessories</a></li>
+                                        </ul>	
+                                    </div>												
+                                </div>						
+                                <div class="col1">
+                                    <div class="h_nav">
+                                        <h4>NB</h4>
+                                        <ul>
+                                            <li><a href="men.html">shoes</a></li>
+                                            <li><a href="men.html">accessories</a></li>
+                                        </ul>	
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col2"></div>
+                                <div class="col1"></div>
+                                <div class="col1"></div>
+                                <div class="col1"></div>
+                                <div class="col1"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="grid"><a href="${homeUrl}/aboutus">ABOUT US</a></li>
+                    <li class="grid"><a href="blog.html">BLOG</a></li>			
+                     <%--<c:if test="${loggedIn == 'true'}"  >--%>
+                         <li class="grid"><a href="CustHomeServlet">Edit Profile</a></li>	
+                    <%--</c:if>--%>
+
+                </ul> 
 			 </div>
 			  <div class="clearfix"></div> 
 	 </div>

@@ -25,13 +25,13 @@ public class CartItemDeletionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        response.setContentType("application/json");
-       int itemId = Integer.parseInt(request.getParameter("itemIndex"));
+       String itemId = request.getParameter("itemIndex");
        HttpSession mySession = request.getSession(false);
        MyShoppingCart myCart = (MyShoppingCart)mySession.getAttribute("myShoppingCart");
        
        myCart.getItems().remove(itemId);
-       
-       String myResponse = "{\"status\":\"ok\",\"message\":\"Item deleted successfully\",\"numItems\":\""+myCart.getItems().size()+"\"}";
+        System.out.println("deleteing item");
+       String myResponse = "{\"status\":\"ok\",\"message\":\"Item deleted successfully\",\"finalCost\":\""+String.valueOf(myCart.getTotalCost()+100)+"\",\"totalCost\":\""+String.valueOf(myCart.getTotalCost())+"\",\"numItems\":\""+myCart.getItems().size()+"\"}";
        response.getWriter().print(myResponse);
        response.getWriter().close();
     }

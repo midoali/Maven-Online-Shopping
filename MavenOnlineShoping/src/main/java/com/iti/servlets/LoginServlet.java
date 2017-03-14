@@ -56,10 +56,10 @@ public class LoginServlet extends HttpServlet {
                 MyShoppingCart myCart = new MyShoppingCart();
                 ProductService productService = new ProductService();
                 Vector<Product> products = productService.getProductsTestData();
-                MyItem item = new MyItem(products.elementAt(0), 2);
-                MyItem item2 = new MyItem(products.elementAt(1), 3);
-                myCart.getItems().add(item);
-                myCart.getItems().add(item2);
+//                MyItem item = new MyItem(products.elementAt(0), 2);
+//                MyItem item2 = new MyItem(products.elementAt(1), 3);
+//                myCart.getItems().add(item);
+//                myCart.getItems().add(item2);
                 session.setAttribute("myShoppingCart", myCart);
                 session.setAttribute("homeUrl", request.getServletContext().getContextPath());
                 System.out.println("logged in successfully");
