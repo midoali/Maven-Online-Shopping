@@ -6,9 +6,10 @@
 package com.iti.servlets;
 
 import com.iti.dtos.Customer;
-import com.iti.facadeservices.RegistrationFacade;
+import com.iti.facadeservices.CustomerService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -81,20 +82,21 @@ public class RegisterServlet extends HttpServlet {
         String regName = request.getParameter("regName");
         String regPass = request.getParameter("regPass");
         String regMail = request.getParameter("regMail");
-        int regCredit = 1;//Integer.parseInt(request.getParameter("regCredit"));
+        int regCredit = 0;//Integer.parseInt(request.getParameter("regCredit"));
         int regPhone = Integer.parseInt(request.getParameter("regPhone"));
         String regBirthday = request.getParameter("regBirthday");
+        Date d= Date.valueOf(regBirthday);
         String regJob = request.getParameter("regJob");
         String regAdd = request.getParameter("regAdd");
 
-        Customer userObj = new Customer(regName, regBirthday, regPass, regJob, regMail, regCredit, regPhone, regAdd);
+        Customer userObj = new Customer(regName, d, regPass, regJob, regMail, regCredit, regPhone, regAdd);
 
-        RegistrationFacade registrationFacadeObj = new RegistrationFacade();
+        CustomerService regCustomerService = new CustomerService();
 
-        if (registrationFacadeObj.register(userObj)) {
+        if (regCustomerService.register(userObj)) {
             request.getRequestDispatcher("home").forward(request, response);
         } else {
-            request.getRequestDispatcher("registration.jsp").forward(request, response);
+            request.getRequestDispatcher("registration").forward(request, response);
         }
     }
 

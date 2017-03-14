@@ -23,25 +23,28 @@
                         },"json");
             });
         });
-        var buyReq = null;
-        function buyCart()
-        {
-            if (window.XMLHttpRequest)
-                buyReq = new XMLHttpRequest();
-            else
-                buyReq = new ActiveXObject(Microsoft.XMLHTTP);
-            buyReq.onreadystatechange = handleReq;
-            var url = "BuyServlet?date=" + new Date().toString();
-            buyReq.open("GET", url, true);
-            buyReq.send(null);
-        }
-        function handleReq()
-        {
-            if (buyReq.readyState == 4)
-            {
-                document.getElementById("result").innerHTML = buyReq.responseText;
-            }
-        }
+        $('#buybtn').click(function () {
+            $.ajax({url: "BuyServlet", type: 'GET', contentType: 'text/html', data: new Date().toString(), dataType: 'text', success: function (data) {
+                   
+                    if(data=="-1")
+                    {
+                        $('#result').html("quanities of products available now are less than your chosen quantity.\n please decrease your quantity and try again");
+                    }
+                    else if(data=="-10")
+                    {
+                         $('#result').html("Your credit is less than total price.\n please recharge your credit first");
+                    }
+                    else if(data=="-100")
+                    {
+                        $('#result').html("Cart is Empty.\n please choose items to buy first");
+                    }
+                    else
+                    {
+                         $('#result').html("Buying operation finished successfully.\nyour current credit = $"+data);
+                         $('#cart').html("");
+                    }
+                }});
+        });
     });
 
 </script>
@@ -52,12 +55,13 @@
             <li class="active">Cart</li>
         </ol>
         <div class="cart-top">
-            <a href="index.html"><< home</a>
+            <a href="index.html"> home</a>
         </div>	
 
         <div class="col-md-9 cart-items">
             <c:set var="numItems" value="${myShoppingCart.getItems().size()}" />
             <h2>My Shopping Bag (<span id="numItems" >${numItems}</span>)</h2>
+            <div id="cart">
             <c:set var="counter" value="0" />
             <c:forEach items="${myShoppingCart.getItems()}" var="currentItem" >
 
@@ -84,7 +88,7 @@
                 </div>
                 <%--<c:set var="counter" value="${counter+1}" />--%>
             </c:forEach>
-
+            </div>
         </div>
 
         <div class="col-md-3 cart-total">
@@ -102,9 +106,9 @@
             <h4 class="last-price">TOTAL</h4>
             <span class="total final" id="totalFinal">${myShoppingCart.getTotalCost() + 100.00}</span>
             <div class="clearfix"></div>
-            <a class="order" onclick="buyCart()">Place Order</a>
+            <a class="order" id="buybtn">Place Order</a>
             <div class="total-item">
-                <h4 id="result"></h4>
+                <div id="result"></div>
             </div>
         </div>
     </div>

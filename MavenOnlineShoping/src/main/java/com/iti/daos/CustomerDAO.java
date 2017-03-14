@@ -45,14 +45,14 @@ public class CustomerDAO extends DBHandler {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String addQuery = "INSERT INTO Customer (id,name, birthday, password,job, email,credit, phone, address) values('" + nextRowId + "', ?,?,?,?,?,?,?,?)";
+        String addQuery = "INSERT INTO Customer (name, birthday, password,job, email,credit, phone, address) values(?,?,?,?,?,?,?,?)";
 
         try {
 
             pst = connection.prepareStatement(addQuery);
 
             pst.setString(1, customerObj.getName());
-            pst.setDate(2, Date.valueOf(customerObj.getBirthday()));
+            pst.setDate(2, customerObj.getBirthday());
             pst.setString(3, customerObj.getPassword());
             pst.setString(4, customerObj.getJob());
             pst.setString(5, customerObj.getEmail());
@@ -68,21 +68,21 @@ public class CustomerDAO extends DBHandler {
         }
         return addFlag;
     }
-    
-     public boolean updateCustomer(Customer customer) {
+
+    public boolean updateCustomer(Customer customer) {
         try {
-            pst=connection.prepareStatement("update CUSTOMER set NAME=? ,BIRTHDAY=? ,PASSWORD=? ,JOB=? ,EMAIL=? ,CREDIT=? ,PHONE=?,ADDRESS=? where ID=?");
-            pst.setString(0,customer.getName());
-            pst.setDate(1,Date.valueOf(customer.getBirthday()));
-            pst.setString(2,customer.getPassword());
-            pst.setString(3,customer.getJob());
-            pst.setString(4,customer.getEmail());
-            pst.setInt(5,customer.getCredit());
-            pst.setInt(6,customer.getPhone());
-            pst.setString(7,customer.getAddress());
-            pst.setInt(8,customer.getId());
-            int addedRows=pst.executeUpdate();
-            return addedRows>0;
+            pst = connection.prepareStatement("update CUSTOMER set NAME=? ,BIRTHDAY=? ,PASSWORD=? ,JOB=? ,EMAIL=? ,CREDIT=? ,PHONE=?,ADDRESS=? where ID=?");
+            pst.setString(1, customer.getName());
+            pst.setDate(2, customer.getBirthday());
+            pst.setString(3, customer.getPassword());
+            pst.setString(4, customer.getJob());
+            pst.setString(5, customer.getEmail());
+            pst.setInt(6, customer.getCredit());
+            pst.setInt(7, customer.getPhone());
+            pst.setString(8, customer.getAddress());
+            pst.setInt(9, customer.getId());
+            int addedRows = pst.executeUpdate();
+            return addedRows > 0;
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -99,13 +99,13 @@ public class CustomerDAO extends DBHandler {
             while (rs.next()) {
                 String uName = rs.getString(1);
                 customerObj.setName(uName);
-                String uBirthday = rs.getString(2);
+                Date uBirthday = rs.getDate(2);
                 String uPassword = rs.getString(3);
                 String uJob = rs.getString(4);
                 String uEmail = rs.getString(5);
                 int uCredit = rs.getInt(6);
                 int uPhone = rs.getInt(7);
-
+                
                 customerObj.setBirthday(uBirthday);
                 customerObj.setEmail(uEmail);
                 customerObj.setJob(uJob);
@@ -136,14 +136,16 @@ public class CustomerDAO extends DBHandler {
 
         String selectQuery = "SELECT NAME, PASSWORD FROM CUSTOMER WHERE NAME=? AND PASSWORD=? ";
         try {
-            pst = connection.prepareStatement(selectQuery);
-            pst.setString(1, customerObj.getName());
-            pst.setString(2, customerObj.getPassword());
+            if (connection != null) {
+                pst = connection.prepareStatement(selectQuery);
+                pst.setString(1, customerObj.getName());
+                pst.setString(2, customerObj.getPassword());
 
-            rs = pst.executeQuery();
-            while (rs.next()) {
-                flag = true;
-                System.out.println("name " + rs.getString(1) + "pass: " + (rs.getString(2)));
+                rs = pst.executeQuery();
+                while (rs.next()) {
+                    flag = true;
+                    System.out.println("name " + rs.getString(1) + "pass: " + (rs.getString(2)));
+                }
             }
         } catch (SQLException ex) {
             System.out.println("checkExistance Failed");
@@ -183,22 +185,14 @@ public class CustomerDAO extends DBHandler {
 
             while (rs.next()) {
                 String uName = rs.getString(1);
-                String uBirthday = rs.getString(2);
+                Date bd = rs.getDate(2);
                 String uPassword = rs.getString(3);
                 String uJob = rs.getString(4);
                 String uEmail = rs.getString(5);
                 int uCredit = rs.getInt(6);
                 int uPhone = rs.getInt(7);
                 String uAddress = rs.getString(8);
-
-//                customerObj.setName(uName);
-//                customerObj.setBirthday(uBirthday);
-//                customerObj.setEmail(uEmail);
-//                customerObj.setJob(uJob);
-//                customerObj.setPassword(uPassword);
-//                customerObj.setPhone(uPhone);
-//                customerObj.setCredit(uCredit);
-                customerObj = new Customer(id, uName, uBirthday, uPassword, uJob, uEmail, uCredit, uPhone, uAddress);
+                customerObj = new Customer(id, uName, bd, uPassword, uJob, uEmail, uCredit, uPhone, uAddress);
             }
         } catch (SQLException ex) {
             System.out.println("Selection Failed");
@@ -206,5 +200,28 @@ public class CustomerDAO extends DBHandler {
         return customerObj;
     }
 
+    public boolean checkName(String name) {
+        boolean flag = false;
+
+        String selectQuery = "SELECT NAME from CUSTOMER ";
+        try {
+            pst = connection.prepareStatement(selectQuery);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String retrievedName = rs.getString(1);
+
+                if (name.equalsIgnoreCase(retrievedName)) {
+                    flag = true;
+                }
+
+                System.out.println("name: " + retrievedName);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Selection Failed");
+        }
+        return flag;
+
+    }
 
 }

@@ -49,7 +49,15 @@
 	 <div class="container">
 		 <div class="main-header">
 			  <div class="carting">
-				 <ul><li><a href="${homeUrl}/login"> LOGIN</a></li></ul>
+				 <ul><li>
+                                <c:if test="${loggedIn == 'true'}">
+                                    <li>Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong></li>
+                                    <a href="${homeUrl}/logout"> LOGOUT</a>
+                                </c:if>
+                                 <c:if test="${loggedIn != 'true'}">
+                                    <a href="${homeUrl}/login"> LOGIN</a>
+                                 </c:if>
+                            </li></ul>
 				 </div>
 			 <div class="logo">
 				 <h3><a href="${homeUrl}/home">SPORTS SHOP</a></h3>

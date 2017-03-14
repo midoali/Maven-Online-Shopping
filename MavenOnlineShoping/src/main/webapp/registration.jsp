@@ -9,6 +9,22 @@
                 <li class="active">Registration</li>
             </ol>
             
+            <script>
+                function checkReg(){
+                    var regName= $("#regNameId").val();
+                       $.ajax({
+                        url:'CustomerNameServlet',
+                        type:'POST',
+                        contentType:'html/plain',
+                        data: regName,
+                        dataType:'html/plain',
+                        success: function(data){
+                            $("#regSpan").html(data);
+                        }
+                       });
+                }
+              
+            </script>
             <!-- *****  *********************    -->
             <!-- Registration Form-->
             <h2>Registration</h2>
@@ -19,7 +35,7 @@
                     <form action="registration" method="post">
                         <ul>
                             <li class="text-info">Name:* </li>
-                            <li><input type="text" name="regName" required/></li>
+                            <li><input type="text" name="regName" id="regNameId"required/><span id="regSpan"></span></li>
                         </ul>
                         <!--                        <ul>
                                                     <li class="text-info">Last Name: </li>

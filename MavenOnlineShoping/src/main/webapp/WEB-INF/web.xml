@@ -4,7 +4,7 @@
     
     
 
-    <security-constraint>
+<!--    <security-constraint>
         <web-resource-collection>
             <web-resource-name>admin pages</web-resource-name>
             <url-pattern>/admin/*</url-pattern>
@@ -19,10 +19,10 @@
     <login-config>
   <auth-method>FORM</auth-method>
   <form-login-config>
-    <form-login-page>/adminLogin.html</form-login-page>
-    <form-error-page>/404.jsp</form-error-page>
+    <form-login-page>/adminLogin.jsp</form-login-page>
+    <form-error-page>/adminLogin.jsp</form-error-page>
   </form-login-config>
-</login-config> 
+</login-config> -->
 
     <servlet>
         <servlet-name>CartItemsAddetion</servlet-name>

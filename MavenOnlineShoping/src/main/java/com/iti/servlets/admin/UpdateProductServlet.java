@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.iti.servlets;
+package com.iti.servlets.admin;
 
 import com.iti.dtos.Product;
 import com.iti.facadeservices.ProductService;
@@ -19,13 +19,17 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author fatma
  */
-@WebServlet(name = "AddProductServlet", urlPatterns = {"/addproduct"})
-public class AddProductServlet extends HttpServlet {
+@WebServlet(name = "UpdateProductServlet", urlPatterns = {"/admin/updateproduct"})
+public class UpdateProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/addproduct.html");
+        String id=request.getParameter("productID");
+        ProductService productService=new ProductService();
+        Product p=productService.getSingleProduct(Integer.parseInt(id));
+        request.setAttribute("productInfo", p);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/updateproduct.html");
         requestDispatcher.forward(request, response);
     }
 
@@ -33,6 +37,7 @@ public class AddProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Product product = new Product();
+        product.setId(Integer.parseInt(request.getParameter("id")));
         product.setType(request.getParameter("type"));
         product.setDescription(request.getParameter("desc"));
         product.setBrand(request.getParameter("brand"));
@@ -40,7 +45,7 @@ public class AddProductServlet extends HttpServlet {
         product.setQuantity(Integer.parseInt(request.getParameter("quan")));
         product.setColor(request.getParameter("color"));
         product.setImagePath(request.getParameter("imgname"));
-        new ProductService().addProduct(product);
+        new ProductService().updateProduct(product);
         response.sendRedirect("/home");
     }
 

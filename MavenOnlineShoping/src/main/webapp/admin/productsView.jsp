@@ -83,16 +83,16 @@
                           </li>-->
                     <li><a href="#">Customers</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+<!--                <ul class="nav navbar-nav navbar-right">
                     <li><a href="admin/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                </ul>
+                </ul>-->
             </div>
         </nav>
 
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
-                    <button type="button" id="addBtn" class="btn btn-success">Add New Product</button>
+                    <button type="button" id="addBtn" class="btn btn-success" onclick="location.href='/admin/addproduct'">Add New Product</button>
                 </div>
                 <div class="col-sm-4">
                     <form class="form-inline">
