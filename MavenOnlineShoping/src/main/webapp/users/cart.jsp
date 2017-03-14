@@ -51,7 +51,7 @@
             <li class="active">Cart</li>
         </ol>
         <div class="cart-top">
-            <a href="index.html"><< home</a>
+            <a href="index.html"> home</a>
         </div>	
 
         <div class="col-md-9 cart-items">
@@ -101,7 +101,7 @@
             <h4 class="last-price">TOTAL</h4>
             <span class="total final">${myShoppingCart.getTotalCost() + 100.00}</span>
             <div class="clearfix"></div>
-            <a class="order" id="buybtn"">Place Order</a>
+            <a class="order" id="buybtn">Place Order</a>
             <div class="total-item">
                 <div id="result"></div>
             </div>

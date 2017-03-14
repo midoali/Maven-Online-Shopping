@@ -79,7 +79,7 @@ public class CustomerService {
         CustomerDAO customerDao = new CustomerDAO();
         customerObj = customerDao.getInfo(id);
 
-        System.out.println("getCustomerInfo " + customerObj.getName() + " id: " + customerObj.getId());
+//        System.out.println("getCustomerInfo " + customerObj.getName() + " id: " + customerObj.getId());
         return customerObj;
     }
 
@@ -101,6 +101,15 @@ public class CustomerService {
         CustomerDAO customerDAO = new CustomerDAO();
 
         customerDAO.updateCustomer(cObj);
+    }
+
+    public boolean checkCustomerName(String name) {
+        boolean flag = false;
+        
+        CustomerDAO customerDao= new CustomerDAO();
+        flag=customerDao.checkName(name);
+        
+        return flag;
 
     }
 

@@ -9,6 +9,7 @@ import com.iti.dtos.Customer;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -27,29 +28,29 @@ public class AdminDAO extends DBHandler {
     }
 
     public Vector<Customer> getCustomerData() {
-
-        
         String selectQuery = "SELECT NAME, BIRTHDAY, PASSWORD,JOB, EMAIL, CREDIT, PHONE, ID FROM CUSTOMER";
         try {
 //            pst = connection.prepareStatement("SELECT NAME, Birthday, password,job, email,credit, phone, id from CUSTOMER", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-            pst = connection.prepareStatement(selectQuery);
-            rs = pst.executeQuery();
+            if (connection != null) {
+                pst = connection.prepareStatement(selectQuery);
+                rs = pst.executeQuery();
 
-            while (rs.next()) {
-                Customer customerObj = new Customer();
-                customerObj.setName(rs.getString(1));
-                customerObj.setBirthday(rs.getDate(2));
-                customerObj.setPassword(rs.getString(3));
-                customerObj.setJob(rs.getString(4));
-                customerObj.setEmail(rs.getString(5));
-                customerObj.setCredit(rs.getInt(6));
-                customerObj.setPhone(rs.getInt(7));
-                customerObj.setId(rs.getInt(8));
+                while (rs.next()) {
+                    Customer customerObj = new Customer();
+                    customerObj.setName(rs.getString(1));
+                    customerObj.setBirthday(rs.getDate(2));
+                    customerObj.setPassword(rs.getString(3));
+                    customerObj.setJob(rs.getString(4));
+                    customerObj.setEmail(rs.getString(5));
+                    customerObj.setCredit(rs.getInt(6));
+                    customerObj.setPhone(rs.getInt(7));
+                    customerObj.setId(rs.getInt(8));
 
-                customerList.add(customerObj);
-            }
-            for (int i = 0; i < customerList.size(); i++) {
-                System.out.println("customerList.get(i).getName()  " + i + "  " + customerList.get(i).getName());
+                    customerList.add(customerObj);
+                }
+                for (int i = 0; i < customerList.size(); i++) {
+                    System.out.println("customerList.get(i).getName()  " + i + "  " + customerList.get(i).getName());
+                }
             }
         } catch (SQLException ex) {
             System.out.println("Selection Failed");

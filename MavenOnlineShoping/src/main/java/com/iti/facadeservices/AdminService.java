@@ -23,13 +23,6 @@ public class AdminService {
         AdminDAO adminDAO = new AdminDAO();
         custVector = adminDAO.getCustomerData();
 
-//        for (Customer c : customerList) {
-//        System.out.println("getCustomers: **" + custVector.size());
-//        }
-
-//        for (int i = 0; i <custVector.size(); i++) {
-//            System.out.println("getCustomers: " + custVector.get(i).getName());
-//        }
         return custVector;
     }
 }

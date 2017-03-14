@@ -27,7 +27,6 @@
                 custReq.onreadystatechange = handleCustReq;
 //                openReq(custReq);
                 custReq.open("GET", "Adminservlet?timeStamp=" + new Date().getDate(), true);
-//                custReq.open("GET", "myFile.txt?timeStamp=" + new Date().getDate(), true);
 
                 custReq.send(null);
 
@@ -39,10 +38,13 @@
                     document.getElementById("results").innerHTML = custReq.responseText;
             }
 
+    setInterval(createConnection, 500);
+        
         </script>
     </head>
 
-    <body onload="setInterval(createConnection, 3000)">
+    <!--onload="setInterval(createConnection, 3000)"-->
+    <body> 
         <table Border="1">
             <tr>
                 <th>Customer Name</th>
@@ -57,7 +59,8 @@
             <tr>
 
             <div id="results"> </div>
-
+            
+            <td><input type="button" value=" View Order History"/></td>
         </tr>
     </table>
 

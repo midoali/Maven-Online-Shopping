@@ -7,7 +7,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8" session="false"%>
 <html>
-      <head>
+    <head>
         <title>Sports Shopping Cart</title>
         <link href="${homeUrl}/Resources/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
         <link href="${homeUrl}/Resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -38,16 +38,37 @@
             $(document).ready(function () {
                 $(".megamenu").megamenu();
             });
+
+            $(document).ready(function () {
+                $("#viewBtn").click(function () {
+                    $.ajax({url: 'Adminservlet',
+                        type: 'GET',
+                        contentType: 'application/json',
+                        dataType: 'json',
+                        success: function (data) {
+                            $("#tbID").empty();
+                            for (var i = 0; i < data.length; i++) {
+                                $("#tbID").append("<tr><td>'" + data[i].name + "'</td><td>'" + data[i].birthday + "' </td><td>'" + data[i].job + "'</td><td>'" + data[i].email + "'</td><td>'" + data[i].credit + "'</td><td>'" + data[i].phone + "'</td><td><input type="submit" value="View Orders History"/></td></tr>");
+                            }
+                        }
+                    });
+                });
+            });
+//                setInterval(,500);
         </script>
         <!-- start menu -->
     </head>
 
-<body>
-    <form action="Adminservlet" method="">
-        <input type="button" value="View Customers"/>
-    </form>
-</body>
-<%--<jsp:directive.include file="/footer.jsp"/>--%>
+    <body>
+        <form action="Adminservlet" method="">
+            <input type="button" value="View Customers" id="viewBtn"/>
+        </form>
+
+        <table id="tbID" border="1">
+        </table>
+
+    </body>
+    <%--<jsp:directive.include file="/footer.jsp"/>--%>
 
 </html>
 
