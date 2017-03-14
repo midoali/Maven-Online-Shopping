@@ -211,7 +211,6 @@
                         <li><a href="#tab1">Clothes</a></li>
                         <li><a href="#tab2">Shoes</a></li>
                         <li><a href="#tab3">Equipments</a></li>
-                        <li><a href="adminView.jsp" id="viewBtn">ADMIN view</a></li>
 
                         <script>
                             function addTblData() {

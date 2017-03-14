@@ -11,6 +11,7 @@ package com.iti.dtos;
  */
 public class Product {
     private int id;
+    private int categoryId;
     private String type;
     private String brand;
     private double price;
@@ -25,9 +26,18 @@ public class Product {
         brand=new String();
         price=0.0;
         quantity=0;
+        categoryId=0;
         description=new String();
         imagePath=new String();
         color=new String();
+    }
+    
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
     
     public int getId() {

@@ -30,7 +30,7 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/addproduct.html");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/addproduct.html");
         requestDispatcher.forward(request, response);
     }
 
@@ -41,6 +41,7 @@ public class AddProductServlet extends HttpServlet {
         product.setType(request.getParameter("type"));
         product.setDescription(request.getParameter("desc"));
         product.setBrand(request.getParameter("brand"));
+        product.setCategoryId(Integer.parseInt(request.getParameter("category")));
         product.setPrice(Double.parseDouble(request.getParameter("price")));
         product.setQuantity(Integer.parseInt(request.getParameter("quan")));
         product.setColor(request.getParameter("color"));

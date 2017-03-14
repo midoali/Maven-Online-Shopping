@@ -101,11 +101,10 @@
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <span class="btn btn-default btn-file">
-                                        Browse… <input type="file" id="imgInp">
+                                        Browse… <input type="file" id="imgInp" name="imgpath">
                                     </span>
                                 </span>
                                 <input type="text" name="imgname" class="form-control" readonly>
-                                <input type="hidden" name="imgpath">
                             </div>
                             <img id='img-upload'/>
                         </div>
