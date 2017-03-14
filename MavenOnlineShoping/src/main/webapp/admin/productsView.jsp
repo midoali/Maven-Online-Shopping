@@ -83,16 +83,16 @@
                           </li>-->
                     <li><a href="#">Customers</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
+<!--                <ul class="nav navbar-nav navbar-right">
                     <li><a href="admin/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-                </ul>
+                </ul>-->
             </div>
         </nav>
 
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
-                    <button type="button" id="addBtn" class="btn btn-success">Add New Product</button>
+                    <button type="button" id="addBtn" class="btn btn-success" onclick="location.href='${homeUrl}/admin/addproduct'">Add New Product</button>
                 </div>
                 <div class="col-sm-4">
                     <form class="form-inline">
@@ -138,7 +138,7 @@
                                         <td>${product.quantity}</td>
                                         <td>${product.description}</td>
                                         <td>${product.color}</td>
-                                        <td><button type="button" product_id="${product.id}" id="update_${product.id}" class="btn btn-primary">Update</button>
+                                        <td><button type="button" product_id="${product.id}" id="update_${product.id}" onclick="location.href='${homeUrl}/admin/updateproduct?id=${product.id}'" class="btn btn-primary">Update</button>
                                             <button type="button" data-toggle="confirmation"  product_id="${product.id}" id="delete_${product.id}" class="btn btn-danger delBtn">Delete</button></td>
 
                                     </tr>
