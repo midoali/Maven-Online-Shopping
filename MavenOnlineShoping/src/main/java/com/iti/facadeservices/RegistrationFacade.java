@@ -16,11 +16,11 @@
 //
 //    boolean regFlag = false;
 //
-//    public boolean register(Customer customerObj) {
+//    public boolean register(Customer userObj) {
 //
-//        CustomerDAO customerDAO = new CustomerDAO();
+//        CustomerDAO userDAO = new CustomerDAO();
 //
-//        regFlag = customerDAO.addCustomer(customerObj);
+//        regFlag = userDAO.addUser(userObj);
 //        System.out.println("RegistrationFacade " + regFlag);
 //        return regFlag;
 //    }

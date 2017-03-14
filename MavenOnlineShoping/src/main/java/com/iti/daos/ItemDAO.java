@@ -28,10 +28,10 @@ public class ItemDAO extends DBHandler{
     public boolean addItem(Item item) {
         try {
             preparedStatement=connection.prepareStatement("insert into ITEM (RECEIPT_ID,PRODUCT_ID,PRICE,QUANTITY) values(?,?,?,?)");
-            preparedStatement.setInt(0,item.getReceiptId());
-            preparedStatement.setInt(1,item.getProductId());
-            preparedStatement.setDouble(2,item.getPrice());
-            preparedStatement.setInt(3,item.getQuantity());
+            preparedStatement.setInt(1,item.getReceiptId());
+            preparedStatement.setInt(2,item.getProductId());
+            preparedStatement.setDouble(3,item.getPrice());
+            preparedStatement.setInt(4,item.getQuantity());
             int addedRows=preparedStatement.executeUpdate();
             return addedRows>0;
         } catch (SQLException ex) {

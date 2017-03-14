@@ -10,8 +10,8 @@ import com.iti.classes.MyShoppingCart;
 import com.iti.dtos.Customer;
 import com.iti.dtos.Product;
 import com.iti.facadeservices.CustomerService;
-
 import com.iti.facadeservices.ProductService;
+
 import java.io.IOException;
 import java.util.Vector;
 import javax.servlet.RequestDispatcher;
@@ -39,6 +39,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String loginName = request.getParameter("loginName");
         String loginPass = request.getParameter("loginPass");
 
@@ -49,14 +50,27 @@ public class LoginServlet extends HttpServlet {
         System.out.println("status=" + status);
         if (!"true".equals(status)) {
             if (customerService.checkValidate(loginName, loginPass)) {
+
                 HttpSession session = request.getSession(true);
                 session.setAttribute("loggedIn", "true");
                 session.setAttribute("myCustomer", customerService.getCustomer());
+
+                ///////////////
+                Customer custObj = new Customer(loginName, loginPass);
+                int id = customerService.getCustomerID(custObj);
+                System.out.println("id ... " + id);
+                
+                Customer customerInfo = customerService.getCustomerInfo(id);
+                session.setAttribute("myCustomerInfo", customerInfo);
+                System.out.println("customerInfo.getName()  " + customerInfo.getName());
+
+                ///////////////
                 MyShoppingCart myCart = new MyShoppingCart();
                 ProductService productService = new ProductService();
                 Vector<Product> products = productService.getProductsTestData();
                 MyItem item = new MyItem(products.elementAt(0), 2);
                 MyItem item2 = new MyItem(products.elementAt(1), 3);
+
                 myCart.getItems().add(item);
                 myCart.getItems().add(item2);
                 session.setAttribute("myShoppingCart", myCart);
@@ -64,13 +78,7 @@ public class LoginServlet extends HttpServlet {
                 System.out.println("logged in successfully");
                 response.sendRedirect(request.getServletContext().getContextPath() + "/home");
 
-                Customer custObj = new Customer(loginName, loginPass);
-                int id = customerService.getCustomerID(custObj);
-                System.out.println("id ... " + id);
-
-                Customer customerInfo = customerService.getCustomerInfo(id);
-                session.setAttribute("myCustomerInfo", customerInfo);
-                System.out.println("customerInfo.getName()  " + customerInfo.getName());
+               
 
             } else {
                 request.getRequestDispatcher("login").forward(request, response);
@@ -78,6 +86,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             System.out.println("you are already logged in");
             response.sendRedirect(request.getServletContext().getContextPath() + "/home");
+
         }
     }
 

@@ -30,9 +30,9 @@ public class ReceiptDAO extends DBHandler{
         
         try {
             preparedStatement=connection.prepareStatement("insert into RECEIPT (ORDER_DATE,CUSTOMER_ID,TOTAL_COST) values(?,?,?)");
-            preparedStatement.setDate(0,receipt.getDate());
-            preparedStatement.setInt(1,receipt.getCustomerId());
-            preparedStatement.setDouble(2,receipt.getTotalCost());
+            preparedStatement.setDate(1,receipt.getDate());
+            preparedStatement.setInt(2,receipt.getCustomerId());
+            preparedStatement.setDouble(3,receipt.getTotalCost());
             int addedRows=preparedStatement.executeUpdate();
             addItems(receipt);
             return addedRows>0;
@@ -78,8 +78,8 @@ public class ReceiptDAO extends DBHandler{
         try {
             ResultSet resultSet;
             preparedStatement=connection.prepareStatement("select ID from RECEIPT where CUSTOMER_ID=? and ORDER_DATE=?",ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
-            preparedStatement.setInt(0, receipt.getCustomerId());
-            preparedStatement.setDate(1, receipt.getDate());
+            preparedStatement.setInt(1, receipt.getCustomerId());
+            preparedStatement.setDate(2, receipt.getDate());
             resultSet=preparedStatement.executeQuery();
             resultSet.next();
             return resultSet.getInt("ID");

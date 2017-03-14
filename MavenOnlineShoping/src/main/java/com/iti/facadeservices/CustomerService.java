@@ -27,6 +27,7 @@ public class CustomerService {
         customerDAO.disConnect();
         return result;
     }
+
     /**
      * *****************nour end****************
      */
@@ -45,7 +46,6 @@ public class CustomerService {
     /**
      * ******************fatma Start**************
      */
-
     boolean flag = false;
 
     public boolean checkValidate(String name, String pass) {
@@ -105,10 +105,10 @@ public class CustomerService {
 
     public boolean checkCustomerName(String name) {
         boolean flag = false;
-
-        CustomerDAO customerDao = new CustomerDAO();
-        flag = customerDao.checkName(name);
-
+        
+        CustomerDAO customerDao= new CustomerDAO();
+        flag=customerDao.checkName(name);
+        
         return flag;
 
     }

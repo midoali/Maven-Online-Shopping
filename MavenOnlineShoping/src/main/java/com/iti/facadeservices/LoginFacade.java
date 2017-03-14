@@ -5,32 +5,60 @@
 // */
 //package com.iti.facadeservices;
 //
-//
 //import com.iti.daos.CustomerDAO;
 //import com.iti.dtos.Customer;
-//
+//import java.sql.Connection;
+//import java.sql.PreparedStatement;
+//import java.sql.ResultSet;
+//import java.sql.Statement;
 //
 ///**
 // *
 // * @author fatma
 // */
 //public class LoginFacade {
+//
 //    boolean flag = false;
+//
+//    protected Connection connection;
+//    protected Statement stm;
+//    protected String dbUser = "fatma";
+//    protected String dbPass = "fatma28";
+//    private PreparedStatement pst;
+//    private ResultSet rs;
+//
 //    public boolean checkValidate(String name, String pass) {
 //
-//        Customer customerObj = new Customer(name, pass);
-//        CustomerDAO customerDAO = new CustomerDAO();
-//        System.out.println("checkValidate : " + customerObj.getName() + customerObj.getPassword());
+//        Customer userObj = new Customer(name, pass);
+//        CustomerDAO userDAO = new CustomerDAO();
+//        System.out.println("checkValidate : " + userObj.getName() + userObj.getPassword());
 //
-//        flag = customerDAO.checkExistance(customerObj);
-//        
+//        flag = userDAO.checkExistance(userObj);
 //        System.out.println("checkExistance " + flag);
 //
 //        return flag;
 //    }
-//   
-//    public Customer getCustomer(){
+//
+//    public Customer getCustomer() {
 //        CustomerDAO customerDAO = new CustomerDAO();
+//
 //        return customerDAO.getCustomer();
+//    }
+//
+//    public int getCustomerID(Customer custObj) {
+//
+//        CustomerDAO customerDao = new CustomerDAO();
+//        int id = customerDao.getId(custObj);
+//        return id;
+//    }
+//
+//    public Customer getCustomerInfo(int id) {
+//        Customer customerObj = new Customer();
+//
+//        CustomerDAO customerDao = new CustomerDAO();
+//        customerObj = customerDao.getInfo(id);
+//
+//        System.out.println("getCustomerInfo " + customerObj.getName() + " id: " + customerObj.getId());
+//        return customerObj;
 //    }
 //}
