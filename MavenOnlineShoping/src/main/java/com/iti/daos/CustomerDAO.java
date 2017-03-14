@@ -69,21 +69,21 @@ public class CustomerDAO extends DBHandler {
         }
         return addFlag;
     }
-    
-     public boolean updateCustomer(Customer customer) {
+
+    public boolean updateCustomer(Customer customer) {
         try {
-            pst=connection.prepareStatement("update CUSTOMER set NAME=? ,BIRTHDAY=? ,PASSWORD=? ,JOB=? ,EMAIL=? ,CREDIT=? ,PHONE=?,ADDRESS=? where ID=?");
-            pst.setString(0,customer.getName());
-            pst.setDate(1,Date.valueOf(customer.getBirthday()));
-            pst.setString(2,customer.getPassword());
-            pst.setString(3,customer.getJob());
-            pst.setString(4,customer.getEmail());
-            pst.setInt(5,customer.getCredit());
-            pst.setInt(6,customer.getPhone());
-            pst.setString(7,customer.getAddress());
-            pst.setInt(8,customer.getId());
-            int addedRows=pst.executeUpdate();
-            return addedRows>0;
+            pst = connection.prepareStatement("update CUSTOMER set NAME=? ,BIRTHDAY=? ,PASSWORD=? ,JOB=? ,EMAIL=? ,CREDIT=? ,PHONE=?,ADDRESS=? where ID=?");
+            pst.setString(0, customer.getName());
+            pst.setDate(1, Date.valueOf(customer.getBirthday()));
+            pst.setString(2, customer.getPassword());
+            pst.setString(3, customer.getJob());
+            pst.setString(4, customer.getEmail());
+            pst.setInt(5, customer.getCredit());
+            pst.setInt(6, customer.getPhone());
+            pst.setString(7, customer.getAddress());
+            pst.setInt(8, customer.getId());
+            int addedRows = pst.executeUpdate();
+            return addedRows > 0;
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -192,14 +192,16 @@ public class CustomerDAO extends DBHandler {
                 int uPhone = rs.getInt(7);
                 String uAddress = rs.getString(8);
 
-//                customerObj.setName(uName);
-//                customerObj.setBirthday(uBirthday);
-//                customerObj.setEmail(uEmail);
-//                customerObj.setJob(uJob);
-//                customerObj.setPassword(uPassword);
-//                customerObj.setPhone(uPhone);
-//                customerObj.setCredit(uCredit);
-                customerObj = new Customer(id, uName, uBirthday, uPassword, uJob, uEmail, uCredit, uPhone, uAddress);
+                customerObj.setName(uName);
+                customerObj.setBirthday(uBirthday);
+                customerObj.setEmail(uEmail);
+                customerObj.setJob(uJob);
+                customerObj.setPassword(uPassword);
+                customerObj.setPhone(uPhone);
+                customerObj.setCredit(uCredit);
+                customerObj.setAddress(uAddress);
+                
+//                customerObj = new Customer(id, uName, uBirthday, uPassword, uJob, uEmail, uCredit, uPhone, uAddress);
             }
         } catch (SQLException ex) {
             System.out.println("Selection Failed");
@@ -207,5 +209,26 @@ public class CustomerDAO extends DBHandler {
         return customerObj;
     }
 
+    public boolean checkName(String name) {
+        boolean flag = false;
+
+        String selectQuery = "SELECT NAME from CUSTOMER ";
+        try {
+            pst = connection.prepareStatement(selectQuery);
+            rs = pst.executeQuery();
+
+            while (rs.next()) {
+                String retrievedName = rs.getString(1);
+                if (name.equalsIgnoreCase(retrievedName)) {
+                    flag = true;
+                }
+                System.out.println("name: " + retrievedName);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Selection Failed");
+        }
+        return flag;
+
+    }
 
 }

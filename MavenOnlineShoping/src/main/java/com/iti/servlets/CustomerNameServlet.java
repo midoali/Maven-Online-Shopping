@@ -5,11 +5,9 @@
  */
 package com.iti.servlets;
 
-import com.iti.dtos.Customer;
 import com.iti.facadeservices.CustomerService;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author fatma
  */
-@WebServlet(name = "RegisterServlet", urlPatterns = {"/registration"})
-public class RegisterServlet extends HttpServlet {
+@WebServlet(name = "CustomerNameServlet", urlPatterns = {"/CustomerNameServlet"})
+public class CustomerNameServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +38,10 @@ public class RegisterServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterServlet</title>");
+            out.println("<title>Servlet CustomerNameServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CustomerNameServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,8 +59,20 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("registration.jsp"); 
-        requestDispatcher.forward(request, response);
+        // processRequest(request, response);
+        boolean flag = false;
+        PrintWriter out = response.getWriter();
+        String loginName = request.getParameter("uName");
+        System.out.println("loginName " + loginName);
+        CustomerService customerService = new CustomerService();
+        flag = customerService.checkCustomerName(loginName);
+
+        if (flag) {
+            out.print("Right User Name");
+        } else {
+            out.print("Sorry, You have to register firstly");
+        }
+
     }
 
     /**
@@ -76,26 +86,22 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        
+        //   processRequest(request, response);
+
+        boolean flag = false;
+        PrintWriter out = response.getWriter();
         String regName = request.getParameter("regName");
-        String regPass = request.getParameter("regPass");
-        String regMail = request.getParameter("regMail");
-        int regCredit = 1;//Integer.parseInt(request.getParameter("regCredit"));
-        int regPhone = Integer.parseInt(request.getParameter("regPhone"));
-        String regBirthday = request.getParameter("regBirthday");
-        String regJob = request.getParameter("regJob");
-        String regAdd = request.getParameter("regAdd");
+        System.out.println("regName " + regName);
+        
+        CustomerService customerService = new CustomerService();
+        flag = customerService.checkCustomerName(regName);
 
-        Customer userObj = new Customer(regName, regBirthday, regPass, regJob, regMail, regCredit, regPhone, regAdd);
-
-        CustomerService regCustomerService = new CustomerService();
-
-        if (regCustomerService.register(userObj)) {
-            request.getRequestDispatcher("index.html").forward(request, response);
+        if (!flag) {
+            out.print("Valid Name");
         } else {
-            request.getRequestDispatcher("registration.html").forward(request, response);
+            out.print("this name is taken");
         }
+
     }
 
     /**

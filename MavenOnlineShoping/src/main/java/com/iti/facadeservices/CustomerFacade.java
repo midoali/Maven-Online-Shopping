@@ -20,12 +20,12 @@ public class CustomerFacade {
 
     boolean flag = false;
 
-    protected Connection connection;
-    protected Statement stm;
-    protected String dbUser = "fatma";
-    protected String dbPass = "fatma28";
-    private PreparedStatement pst;
-    private ResultSet rs;
+//    protected Connection connection;
+//    protected Statement stm;
+//    protected String dbUser = "fatma";
+//    protected String dbPass = "fatma28";
+//    private PreparedStatement pst;
+//    private ResultSet rs;
 
     public boolean checkValidate(String name, String pass) {
 
