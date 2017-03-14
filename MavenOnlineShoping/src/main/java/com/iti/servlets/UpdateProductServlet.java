@@ -7,12 +7,7 @@ package com.iti.servlets;
 
 import com.iti.dtos.Product;
 import com.iti.facadeservices.ProductService;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,13 +19,17 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author fatma
  */
-@WebServlet(name = "AddProductServlet", urlPatterns = {"/addproduct"})
-public class AddProductServlet extends HttpServlet {
+@WebServlet(name = "UpdateProductServlet", urlPatterns = {"/updateproduct"})
+public class UpdateProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/addproduct.html");
+        String id=request.getParameter("productID");
+        ProductService productService=new ProductService();
+        Product p=productService.getSingleProduct(Integer.parseInt(id));
+        request.setAttribute("productInfo", p);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/updateproduct.html");
         requestDispatcher.forward(request, response);
     }
 
@@ -38,6 +37,7 @@ public class AddProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Product product = new Product();
+        product.setId(Integer.parseInt(request.getParameter("id")));
         product.setType(request.getParameter("type"));
         product.setDescription(request.getParameter("desc"));
         product.setBrand(request.getParameter("brand"));
@@ -45,9 +45,7 @@ public class AddProductServlet extends HttpServlet {
         product.setQuantity(Integer.parseInt(request.getParameter("quan")));
         product.setColor(request.getParameter("color"));
         product.setImagePath(request.getParameter("imgname"));
-        new ProductService().addProduct(product);
-        String frompath=request.getParameter("imgpath");
-        copyImg(frompath,request.getContextPath());
+        new ProductService().updateProduct(product);
         response.sendRedirect("/home");
     }
 
@@ -60,26 +58,5 @@ public class AddProductServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void copyImg(String srcpath ,String ContextPath) throws IOException {
-        File src=new File(srcpath);
-        String destpath=ContextPath+"/Resources/images/"+src.getName();
-        File dest=new File(destpath);
-        dest.createNewFile();
-        InputStream is = null;
-        OutputStream os = null;
-        try {
-            is = new FileInputStream(src);
-            os = new FileOutputStream(dest); // buffer size 1K 
-            byte[] buf = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = is.read(buf)) > 0) {
-                os.write(buf, 0, bytesRead);
-            }
-        } finally {
-            is.close();
-            os.close();
-        }
-    }
 
 }

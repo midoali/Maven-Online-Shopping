@@ -94,9 +94,9 @@ public class RegisterServlet extends HttpServlet {
         RegistrationFacade registrationFacadeObj = new RegistrationFacade();
 
         if (registrationFacadeObj.register(userObj)) {
-            request.getRequestDispatcher("index.html").forward(request, response);
+            request.getRequestDispatcher("home").forward(request, response);
         } else {
-            request.getRequestDispatcher("registration.html").forward(request, response);
+            request.getRequestDispatcher("registration").forward(request, response);
         }
     }
 

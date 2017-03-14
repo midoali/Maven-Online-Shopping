@@ -99,14 +99,13 @@ public class CustomerDAO extends DBHandler {
             while (rs.next()) {
                 String uName = rs.getString(1);
                 customerObj.setName(uName);
-                String uBirthday = rs.getString(2);
+                Date uBirthday = rs.getDate(2);
                 String uPassword = rs.getString(3);
                 String uJob = rs.getString(4);
                 String uEmail = rs.getString(5);
                 int uCredit = rs.getInt(6);
                 int uPhone = rs.getInt(7);
-                Date d=Date.valueOf(uBirthday);
-                customerObj.setBirthday(d);
+                customerObj.setBirthday(uBirthday);
                 customerObj.setEmail(uEmail);
                 customerObj.setJob(uJob);
                 customerObj.setPassword(uPassword);

@@ -31,7 +31,6 @@ and open the template in the editor.
             cursor: inherit;
             display: block;
         }
-
         #img-upload{
             width: 100%;
         }
@@ -40,15 +39,15 @@ and open the template in the editor.
         $(document).ready(function () {
             $(document).on('change', '.btn-file :file', function () {
                 var input = $(this),
-                label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
                 input.trigger('fileselect', [label]);
-                alert("input="+input);
+                alert("input=" + input);
             });
 
             $('.btn-file :file').on('fileselect', function (event, label) {
 
                 var input = $(this).parents('.input-group').find(':text'),
-                log = label;
+                        log = label;
                 if (input.length) {
                     input.val(log);
                 } else {
@@ -91,17 +90,23 @@ and open the template in the editor.
                 </div>
             </div>
             <div class="form-group">
+                <label class="control-label col-sm-2">Category :</label>
+                <div class="col-sm-4">
+                    <select class="form-control" name="category" required>
+                        <option value="clothes" selected>Clothes</option>
+                        <option value="shoes">Shoes</option>
+                        <option value="accessories">Accessories</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
                 <label class="control-label col-sm-2">Type :</label>
                 <div class="col-sm-4">
-                    <select class="form-control" name="type" required>
-                        <option>Clothes</option>
-                        <option>Shoes</option>
-                        <option>Accessories</option>
-                    </select>
+                    <input type="text" class="form-control" name="type" placeholder="Enter product Type" >
                 </div>
                 <label class="control-label col-sm-2">Brand :</label>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" name="brand" placeholder="Enter product brand" required>
+                    <input type="text" class="form-control" name="brand" placeholder="Enter product brand">
                 </div>
             </div>
             <div class="form-group">
@@ -111,13 +116,13 @@ and open the template in the editor.
                 </div>
                 <label class="control-label col-sm-2">Quantity :</label>
                 <div class="col-sm-4">
-                    <input type="number" class="form-control" name="quan" placeholder="Enter product quantity" min="0" required>
+                    <input type="number" class="form-control" name="quan" placeholder="Enter product quantity" min="0" value="1" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2">Color :</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" name="color" placeholder="Enter product color" required>
+                    <input type="text" class="form-control" name="color" placeholder="Enter product color" >
                 </div>
             </div>
             <div class="form-group">
@@ -127,11 +132,10 @@ and open the template in the editor.
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-default btn-file">
-                                    Browse… <input type="file" id="imgInp">
+                                    Browse… <input type="file" id="imgInp" name="imgpath">
                                 </span>
                             </span>
                             <input type="text" name="imgname" class="form-control" readonly>
-                            <input type="hidden" name="imgpath">
                         </div>
                         <img id='img-upload'/>
                     </div>
