@@ -9,9 +9,9 @@ import com.iti.classes.MyItem;
 import com.iti.classes.MyShoppingCart;
 import com.iti.dtos.Customer;
 import com.iti.dtos.Product;
-import com.iti.facadeservices.CustomerFacade;
-import com.iti.facadeservices.LoginFacade;
+import com.iti.facadeservices.CustomerService;
 import com.iti.facadeservices.ProductService;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
@@ -48,6 +48,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String loginName = request.getParameter("loginName");
         String loginPass = request.getParameter("loginPass");
 
@@ -57,32 +58,27 @@ public class LoginServlet extends HttpServlet {
             System.out.println("you are already logged in");
             response.sendRedirect(request.getServletContext().getContextPath() + "/home");
         } else {
-            //LoginFacade loginFacadeObj = new LoginFacade();
-            CustomerFacade customerFacade=new CustomerFacade();
-                    
+            CustomerService customerService = new CustomerService();
             String status = (String) request.getSession(false).getAttribute("loggedIn");
             System.out.println("status=" + status);
             if (!"true".equals(status)) {
-                if (customerFacade.checkValidate(loginName, loginPass)) {
+                if (customerService.checkValidate(loginName, loginPass)) {
+
                     HttpSession session = request.getSession(true);
                     session.setAttribute("loggedIn", "true");
-                    Customer c=customerFacade.getCustomer();
-                    session.setAttribute("myCustomer", c);
-                    MyShoppingCart myCart = new MyShoppingCart();
-                    ProductService productService = new ProductService();
-                    Vector<Product> products = productService.getProductsTestData();
-                    MyItem item = new MyItem(products.elementAt(0), 2);
-                    MyItem item2 = new MyItem(products.elementAt(1), 3);
+                    Customer custObj = new Customer(loginName, loginPass);
+                    int id = customerService.getCustomerID(custObj);
+                    Customer customerInfo = customerService.getCustomerInfo(id);
+                    session.setAttribute("myCustomer", customerInfo);
 
-                    myCart.getItems().add(item);
-                    myCart.getItems().add(item2);
+                    ///////////////
+                    MyShoppingCart myCart = new MyShoppingCart();
                     session.setAttribute("myShoppingCart", myCart);
                     session.setAttribute("homeUrl", request.getServletContext().getContextPath());
                     System.out.println("logged in successfully");
-                    
                     Vector<Customer> onlineUsers = (Vector<Customer>) config.getServletContext().getAttribute("onlineUsers");
-                    onlineUsers.add(c);
-                    config.getServletContext().setAttribute("onlineUsers",onlineUsers);
+                    onlineUsers.add(customerInfo);
+                    config.getServletContext().setAttribute("onlineUsers", onlineUsers);
                     response.sendRedirect(request.getServletContext().getContextPath() + "/home");
 
                 } else {
@@ -106,10 +102,10 @@ public class LoginServlet extends HttpServlet {
     }// </editor-fold>
 
     private boolean checkloggedin(String loginName, String loginPass) {
-        System.out.println("logging user:"+loginName+",pass:"+loginPass);
+        System.out.println("logging user:" + loginName + ",pass:" + loginPass);
         Vector<Customer> onlineUsers = (Vector<Customer>) config.getServletContext().getAttribute("onlineUsers");
         for (Customer onlineUser : onlineUsers) {
-            System.out.println("Online users:"+onlineUser.toString());
+            System.out.println("Online users:" + onlineUser.toString());
             if (onlineUser.getName().equals(loginName) && onlineUser.getPassword().equals(loginPass)) {
                 return true;
             }

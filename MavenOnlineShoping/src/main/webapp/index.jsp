@@ -32,13 +32,13 @@
                         {},
                         function (data) {
                             console.log(data);
-                           if(data.status == 'ok'){
-                               console.log(data.message);
-                               $("#simpleCart_quantity").html("0");
-                               $("#cartCost").html("0.00");
-                           }
-                        },"json");
-                }
+                            if (data.status == 'ok') {
+                                console.log(data.message);
+                                $("#simpleCart_quantity").html("0");
+                                $("#cartCost").html("0.00");
+                            }
+                        }, "json");
+            }
             $(document).ready(function () {
                 $(".megamenu").megamenu();
             });
@@ -53,12 +53,12 @@
                     <div class="carting">
                         <ul><li>
                                 <c:if test="${loggedIn == 'true'}">
-                                    <li>Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong></li>
-                                    <a href="${homeUrl}/logout"> LOGOUT</a>
-                                </c:if>
-                                 <c:if test="${loggedIn != 'true'}">
-                                    <a href="${homeUrl}/login"> LOGIN</a>
-                                 </c:if>
+                                <li>Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong></li>
+                                <a href="${homeUrl}/logout"> LOGOUT</a>
+                            </c:if>
+                            <c:if test="${loggedIn != 'true'}">
+                                <a href="${homeUrl}/login"> LOGIN</a>
+                            </c:if>
                             </li></ul>
                     </div>
                     <div class="logo">
@@ -74,11 +74,11 @@
                                         ${myShoppingCart.getItems().size()}
                                     </c:if>
                                 </span> items)<img src="${homeUrl}/Resources/images/cart.png" alt="" /></h3></a>
-                                <p><a href="javascript:;"
-                                      <c:if test="${loggedIn == 'true'}"  >
-                                      onclick="clearCart()"
-                                      </c:if>
-                                      class="simpleCart_empty">clear cart</a></p>
+                        <p><a href="javascript:;"
+                              <c:if test="${loggedIn == 'true'}"  >
+                                  onclick="clearCart()"
+                              </c:if>
+                              class="simpleCart_empty">clear cart</a></p>
 
                     </div>
 
@@ -189,9 +189,10 @@
                     </li>
                     <li class="grid"><a href="${homeUrl}/aboutus">ABOUT US</a></li>
                     <li class="grid"><a href="blog.html">BLOG</a></li>			
-                     <%--<c:if test="${loggedIn == 'true'}"  >--%>
-                         <li class="grid"><a href="CustHomeServlet">Edit Profile</a></li>	
-                    <%--</c:if>--%>
+                        <c:if test="${loggedIn == 'true'}"  >
+                        <li class="grid"><a href="CustHomeServlet">Edit Profile</a></li>	
+                        </c:if>
+
 
                 </ul> 			 
                 <div class="clearfix"></div>			   	
@@ -210,6 +211,32 @@
                         <li><a href="#tab1">Clothes</a></li>
                         <li><a href="#tab2">Shoes</a></li>
                         <li><a href="#tab3">Equipments</a></li>
+                        <li><a href="adminView.jsp" id="viewBtn">ADMIN view</a></li>
+
+                        <script>
+                            function addTblData() {
+                                $(document).ready(function () {
+                                    $("#viewBtn").click(function () {
+
+                                        $.ajax(
+                                                {url: 'Adminservlet',
+                                                    type: 'GET',
+                                                    contentType: 'application/json',
+                                                    dataType: 'json',
+                                                    success: function (data) {
+                                                        $("#tbID").empty();
+                                        for (var i = 0; i < data.length; i++) {
+                                            $("#tbID").append("<tr><td>'" + data[i].name + "'</td><td>'" + data[i].birthday + "' </td><td>'" + data[i].job + "'</td><td>'" + data[i].email + "'</td><td>'" + data[i].credit + "'</td><td>'" + data[i].phone + "'</td></tr>");
+                                        }
+                                                    }
+
+                                                });
+                                    });
+                                });
+                            }
+
+                            setInterval(addTblData, 500);
+                        </script>
                     </ul>
                     <div class="clearfix"> </div>
                     <div class="tab-grids">

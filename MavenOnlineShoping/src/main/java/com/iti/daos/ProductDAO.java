@@ -156,7 +156,7 @@ public class ProductDAO extends DBHandler{
             
 //            connection  = DataSource.getInstance().getConnection();
       
-//            if(connection != null){
+            if(connection != null){
             preparedStatement=connection.prepareStatement("select * from PRODUCT");
             System.out.println("get all function ");
             resultSet=preparedStatement.executeQuery();
@@ -172,7 +172,7 @@ public class ProductDAO extends DBHandler{
                 product.setDescription(resultSet.getString("DESCRIPTION"));
                 product.setImagePath(resultSet.getString("iMAGE"));
                 products.addElement(product);
-//            }
+            }
             }
             return products;
         } catch (SQLException ex) {

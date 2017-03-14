@@ -33,36 +33,36 @@
 
                             <ul>
                                 <li class="text-info">Name*</li>
-                                <li> <input type="text" value="<c:out value="${sessionScope.myCustomerInfo.name}"/>" name="updatedName" required/></li> 
+                                <li> <input type="text" value="<c:out value="${sessionScope.myCustomer.name}"/>" name="updatedName" required/></li> 
                             </ul>
                             <ul>
                                 <li class="text-info">Email:*</li>
-                                <li> <input type="text" value="<c:out value="${sessionScope.myCustomerInfo.email}"/>" name="updatedMail" required/></li> 
+                                <li> <input type="text" value="<c:out value="${sessionScope.myCustomer.email}"/>" name="updatedMail" required/></li> 
                             </ul>
 
                             <ul>
                                 <li class="text-info">Mobile Number:* </li>
-                                <li> <input type="number" name="updatedPhone" value="${sessionScope.myCustomerInfo.phone}" required/></li>
+                                <li> <input type="number" name="updatedPhone" value="${sessionScope.myCustomer.phone}" required/></li>
                             </ul>					
 
                             <ul>
                                 <li class="text-info">Credit Limit:* </li>
-                                <li><input type="number" name="updatedCredit" value="${sessionScope.myCustomerInfo.credit}"/></li>
+                                <li><input type="number" name="updatedCredit" value="${sessionScope.myCustomer.credit}"/></li>
                             </ul>
 
                             <ul>
                                 <li class="text-info">Address: </li>
-                                <li> <input type="text" name="updatedAdd" value="${sessionScope.myCustomerInfo.address}"/></li>
+                                <li> <input type="text" name="updatedAdd" value="${sessionScope.myCustomer.address}"/></li>
                             </ul>
 
                             <ul>
                                 <li class="text-info">Birthday: </li>
-                                <li><input type="date" name="updatedBirthday" value="${sessionScope.myCustomerInfo.birthday}"/></li>
+                                <li><input type="date" name="updatedBirthday" value="${sessionScope.myCustomer.birthday}"/></li>
                             </ul>
 
                             <ul>
                                 <li class="text-info">Job: </li>
-                                <li><input type="text" name="updatedJob" value="${sessionScope.myCustomerInfo.job}" /></li>
+                                <li><input type="text" name="updatedJob" value="${sessionScope.myCustomer.job}" /></li>
                             </ul>
 
                             <input type="submit" value="Save Changes">

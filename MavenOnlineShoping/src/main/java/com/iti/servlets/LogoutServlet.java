@@ -5,14 +5,7 @@
  */
 package com.iti.servlets;
 
-import com.iti.classes.MyItem;
-import com.iti.classes.MyShoppingCart;
-import com.iti.dtos.Product;
-import com.iti.facadeservices.LoginFacade;
-import com.iti.facadeservices.ProductService;
 import java.io.IOException;
-import java.util.Vector;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,11 +23,11 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            HttpSession session = request.getSession();
-            session.invalidate();
-            response.sendRedirect(request.getServletContext().getContextPath()+"/home");
-          
+
+        HttpSession session = request.getSession();
+        session.invalidate();
+        response.sendRedirect(request.getServletContext().getContextPath() + "/home");
+
     }
 
     @Override

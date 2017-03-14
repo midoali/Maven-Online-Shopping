@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.iti.servlets;
+package com.iti.servlets.admin;
 
 import com.iti.dtos.Product;
 import com.iti.facadeservices.ProductService;
@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author fatma
  */
-@WebServlet(name = "UpdateProductServlet", urlPatterns = {"/updateproduct"})
+@WebServlet(name = "UpdateProductServlet", urlPatterns = {"/admin/updateproduct"})
 public class UpdateProductServlet extends HttpServlet {
 
     @Override
