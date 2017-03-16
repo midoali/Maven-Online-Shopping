@@ -208,39 +208,59 @@
             <div class="container">
                 <div class="tabs-box">
                     <ul class="tabs-menu">
-                        <li><a href="#tab1">Clothes</a></li>
-                        <li><a href="#tab2">Shoes</a></li>
-                        <li><a href="#tab3">Equipments</a></li>
-                        <li><a href="adminView.jsp" id="viewBtn">ADMIN view</a></li>
-
+                        <li><a href="#clothes" category_id="2" class="catSelect">Clothes</a></li>
+                        <li><a href="#shoes" category_id="1" class="catSelect">Shoes</a></li>
+                        <li><a href="#accessories" category_id="3" class="catSelect">Accessories</a></li>
+                        <li><a href="#all" category_id="0" class="catSelect" >All</a></li>
+                        <input type="hidden" name="selectedCategory" id="selectedCategory" value="0" />
                         <script>
-                            function addTblData() {
-                                $(document).ready(function () {
-                                    $("#viewBtn").click(function () {
-
-                                        $.ajax(
-                                                {url: 'Adminservlet',
-                                                    type: 'GET',
-                                                    contentType: 'application/json',
-                                                    dataType: 'json',
-                                                    success: function (data) {
-                                                        $("#tbID").empty();
-                                        for (var i = 0; i < data.length; i++) {
-                                            $("#tbID").append("<tr><td>'" + data[i].name + "'</td><td>'" + data[i].birthday + "' </td><td>'" + data[i].job + "'</td><td>'" + data[i].email + "'</td><td>'" + data[i].credit + "'</td><td>'" + data[i].phone + "'</td></tr>");
-                                        }
-                                                    }
-
-                                                });
-                                    });
-                                });
+                            var category_id = 0;
+                            function renderHome(data){
+                                
+                                var output = "";
+                                for(var i=0;i < data.length;i++){
+                                    output += '<div class="product-grid">';
+                                    output += '<a href="SingleProduct?productId='+data[i].id+'" ><div class="more-product-info"><span>NEW</span></div>';
+                                    output += '<div class="product-img b-link-stripe b-animate-go  thickbox">';
+                                    output += '<img src="Resources/images/products/'+data[i].imagePath+'" class="img-responsive" alt="" style="width:400px;height: 350px;"/>';
+                                    output += '<div class="b-wrapper">';
+                                    output += '<h4 class="b-animate b-from-left  b-delay03">';
+                                    output += '<button class="btns">ORDER NOW</button>';
+                                    output += '</h4>';
+                                    output += '</div>';
+                                    output += '</div></a>';
+                                    output += '<div class="product-info simpleCart_shelfItem">';
+                                    output += '<div class="product-info-cust">';
+                                    output += '<h4>'+data[i].type+' '+data[i].id+'</h4>';
+                                    output += '<span class="item_price">$'+data[i].price+'</span>';
+                                    output += '<input type="number" class="item_quantity" min="0" max="'+data[i].quantity+'" value="0" /></div><div class="clearfix"> </div> </div> </div>';
+                                    
+                                }
+                                $("#tab").html("");
+                                $("#tab").append(output);
                             }
-
-                            setInterval(addTblData, 500);
+                          function updateHome(){
+                              $.post("${homeUrl}/getHomeProducts?date="+new Date().toDateString(),
+                              {cat_id: category_id},
+                              function(data){
+                                  renderHome(data);
+                              },
+                              "json");
+                          }
+                           $(document).ready(function(){
+                               $(".catSelect").click(function(){
+                                  category_id = $(this).attr("category_id");
+                                  $("#selectedCategory").val(category_id);
+                                  updateHome();
+                                  
+                               });
+                              setInterval(updateHome,10000); 
+                           });
                         </script>
                     </ul>
                     <div class="clearfix"> </div>
                     <div class="tab-grids">
-                        <div id="tab1" class="tab-grid1">
+                        <div id="tab" >
                             <c:if test="${empty requestScope.products}">
                                 <center> <h1>No Products to View</h1></center>
                                 </c:if>
@@ -270,25 +290,17 @@
                             <div class="clearfix"></div>
                         </div>				
 
-                        <div id="tab2" class="tab-grid2">
-                            <div class="clearfix"></div>
-                        </div>
-
-                        <div id="tab3" class="tab-grid3">
-                            <div class="clearfix"></div>					
-                        </div>
+                     
                     </div>				
                 </div>
                 <!-- tabs-box -->
                 <!-- Comman-js-files -->
                 <script>
                     $(document).ready(function () {
-                        $("#tab2").hide();
-                        $("#tab3").hide();
                         $(".tabs-menu a").click(function (event) {
                             event.preventDefault();
                             var tab = $(this).attr("href");
-                            $(".tab-grid1,.tab-grid2,.tab-grid3").not(tab).css("display", "none");
+//                            $(".tab-grid1,.tab-grid2,.tab-grid3").not(tab).css("display", "none");
                             $(tab).fadeIn("slow");
                         });
                         $("ul.tabs-menu li a").click(function () {
