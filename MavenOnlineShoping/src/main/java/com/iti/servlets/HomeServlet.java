@@ -9,7 +9,6 @@ import com.iti.dtos.Customer;
 import com.iti.dtos.Product;
 import com.iti.facadeservices.ProductService;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Vector;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -36,15 +35,21 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (config.getServletContext().getAttribute("onlineUsers") == null ) {
-            config.getServletContext().setAttribute("onlineUsers", new Vector<>());
-        }
-        System.out.println("Size"+((Vector<Customer>)config.getServletContext().getAttribute("onlineUsers")).size());
-        System.out.println("hello from homeservlet");
-        Vector<Product> products = new ProductService().getAllProducts();
-        request.setAttribute("products", products);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
-        requestDispatcher.forward(request, response);
+            if (config.getServletContext().getAttribute("onlineUsers") == null ) {
+                config.getServletContext().setAttribute("onlineUsers", new Vector<>());
+            }
+            System.out.println("Size"+((Vector<Customer>)config.getServletContext().getAttribute("onlineUsers")).size());
+            System.out.println("hello from homeservlet");
+            Vector<Product> products = new ProductService().getAllProducts();
+            request.setAttribute("products", products);
+            int maxId = 0;
+            if(products.size() > 0 )
+                maxId = products.get(0).getId();
+            
+            request.setAttribute("maxIdProduct",maxId);
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("index.jsp");
+            requestDispatcher.forward(request, response);
+       
     }
 
     @Override

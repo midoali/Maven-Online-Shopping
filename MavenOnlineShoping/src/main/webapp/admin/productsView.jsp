@@ -37,7 +37,7 @@
                });
                
                
-               $("#searchBtn").click(function(){
+               $("#searchField").keyup(function(){
                     console.log("ff");
                    var searchField = $("#searchField").val();
                    $("#pbod").html("");
@@ -54,7 +54,7 @@
                                 strTable += "<td>"+data[i].quantity+"</td>";
                                 strTable += "<td>"+data[i].description+"</td>";
                                 strTable += "<td>"+data[i].color+"</td>";
-                                strTable += "<td><button type='button' product_id='"+data[i].id+"' id='update_"+data[i].id+"' class='btn btn-primary'>Update</button>";
+                                strTable += "<td><button type='button' product_id='"+data[i].id+"' id='update_"+data[i].id+"' onclick=\"location.href='updateproduct?id="+data[i].id+"'\"  class='btn btn-primary'>Update</button>";
                                 strTable +="<button type='button' product_id='"+data[i].id+"' id='delete_"+data[i].id+"' class='btn btn-danger delBtn'>Delete</button></td></tr>";
                                 $("#pbod").append(strTable);
                             }

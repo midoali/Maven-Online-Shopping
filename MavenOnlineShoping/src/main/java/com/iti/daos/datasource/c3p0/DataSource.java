@@ -5,41 +5,34 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import javax.naming.NamingException;
+import oracle.jdbc.pool.OracleDataSource;
 
 public class DataSource {
-
-    private static DataSource datasource;
-    private final ComboPooledDataSource cpds;
+    private static DataSource instance;
+    private static javax.sql.DataSource datasource;
     private final String dbUser = "mydbuser";
     private final String dbPass = "mydbuser";
+    private static OracleDataSource ds;
 
     private DataSource() throws IOException, SQLException, PropertyVetoException {
-        cpds = new ComboPooledDataSource();
-        cpds.setDriverClass("oracle.jdbc.driver.OracleDriver"); //loads the jdbc driver
-        cpds.setJdbcUrl("jdbc:oracle:thin:@127.0.0.1:1521:xe");
-        cpds.setUser(dbUser);
-        cpds.setPassword(dbPass);
-
-        // the settings below are optional -- c3p0 can work with defaults
-        cpds.setMinPoolSize(5);
-        cpds.setAcquireIncrement(5);
-        cpds.setMaxPoolSize(200);
-        cpds.setMaxStatements(1800);
-
+        ds = new OracleDataSource();
+        ds.setURL("jdbc:oracle:thin:@127.0.0.1:1521:xe");
     }
-
+    
+//
     public static DataSource getInstance() throws IOException, SQLException, PropertyVetoException {
-        if (datasource == null) {
-            datasource = new DataSource();
-            return datasource;
+        if (instance == null) {
+            instance = new DataSource();
+            return instance;
         } else {
-            return datasource;
+            return instance;
         }
     }
 
-    public Connection getConnection() throws SQLException {
-        return this.cpds.getConnection();
+    public Connection getConnection() throws SQLException, NamingException {
+        Connection conn = ds.getConnection(dbUser, dbPass);
+        return conn;
     }
 
 }
