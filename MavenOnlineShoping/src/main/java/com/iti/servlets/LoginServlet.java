@@ -5,15 +5,11 @@
  */
 package com.iti.servlets;
 
-import com.iti.classes.MyItem;
 import com.iti.classes.MyShoppingCart;
 import com.iti.dtos.Customer;
-import com.iti.dtos.Product;
 import com.iti.facadeservices.CustomerService;
-import com.iti.facadeservices.ProductService;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Vector;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
@@ -85,9 +81,7 @@ public class LoginServlet extends HttpServlet {
                     Vector<Customer> onlineUsers = (Vector<Customer>) config.getServletContext().getAttribute("onlineUsers");
                     onlineUsers.add(customerInfo);
                     config.getServletContext().setAttribute("onlineUsers", onlineUsers);
-                    if (request.getServletContext() != null && request.getServletContext().getContextPath() != null) {
-                        absPath = request.getServletContext().getContextPath();
-                    }
+                    absPath = request.getServletContext().getContextPath();
                     response.sendRedirect(absPath + "/home");
 
                 } else {

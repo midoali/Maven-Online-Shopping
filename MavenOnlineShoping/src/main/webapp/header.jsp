@@ -49,16 +49,16 @@
 	 <div class="container">
 		 <div class="main-header">
 			  <div class="carting">
-				 <ul><li>
-                                <c:if test="${loggedIn == 'true'}">
-                                    <li>Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong></li>
-                                    <a href="${homeUrl}/logout"> LOGOUT</a>
-                                </c:if>
-                                 <c:if test="${loggedIn != 'true'}">
-                                    <a href="${homeUrl}/login"> LOGIN</a>
-                                 </c:if>
+                        <ul><li>
+                            <c:if test="${loggedIn == 'true'}">
+                            <li style="color:wheat;">Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong></li>
+                            <a style="color:white;font-weight:bold;" href="${homeUrl}/logout">&nbsp;-&nbsp; LOGOUT</a>
+                            </c:if>
+                            <c:if test="${loggedIn != 'true'}">
+                                <a href="${homeUrl}/login"> LOGIN</a>
+                            </c:if>
                             </li></ul>
-				 </div>
+                    </div>
 			 <div class="logo">
 				 <h3><a href="${homeUrl}/home">SPORTS SHOP</a></h3>
 			  </div>
@@ -181,7 +181,7 @@
                     <li class="grid"><a href="${homeUrl}/aboutus">ABOUT US</a></li>
                     <li class="grid"><a href="blog.html">BLOG</a></li>			
                      <%--<c:if test="${loggedIn == 'true'}"  >--%>
-                         <li class="grid"><a href="CustHomeServlet">Edit Profile</a></li>	
+                         <li class="grid"><a href="${homeUrl}/users/CustHomeServlet">Edit Profile</a></li>	
                     <%--</c:if>--%>
 
                 </ul> 
