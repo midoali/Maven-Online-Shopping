@@ -5,10 +5,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import oracle.jdbc.pool.OracleDataSource;
 
