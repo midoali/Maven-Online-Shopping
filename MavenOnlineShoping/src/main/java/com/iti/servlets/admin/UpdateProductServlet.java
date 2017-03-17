@@ -7,7 +7,12 @@ package com.iti.servlets.admin;
 
 import com.iti.dtos.Product;
 import com.iti.facadeservices.ProductService;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,11 +30,11 @@ public class UpdateProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id=request.getParameter("productID");
+        String id=request.getParameter("id");
         ProductService productService=new ProductService();
         Product p=productService.getSingleProduct(Integer.parseInt(id));
         request.setAttribute("productInfo", p);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("admin/updateproduct.html");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/updateproduct.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -40,13 +45,14 @@ public class UpdateProductServlet extends HttpServlet {
         product.setId(Integer.parseInt(request.getParameter("id")));
         product.setType(request.getParameter("type"));
         product.setDescription(request.getParameter("desc"));
+        product.setCategoryId(Integer.parseInt(request.getParameter("category")));
         product.setBrand(request.getParameter("brand"));
         product.setPrice(Double.parseDouble(request.getParameter("price")));
         product.setQuantity(Integer.parseInt(request.getParameter("quan")));
         product.setColor(request.getParameter("color"));
-        product.setImagePath(request.getParameter("imgname"));
+        product.setImagePath(request.getParameter("imgpath"));
         new ProductService().updateProduct(product);
-        response.sendRedirect("/home");
+        response.sendRedirect("viewProducts");
     }
 
     /**

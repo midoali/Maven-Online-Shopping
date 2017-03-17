@@ -56,7 +56,9 @@ public class LoginServlet extends HttpServlet {
 
         if (checkloggedin(loginName, loginPass)) {
             System.out.println("you are already logged in");
-            response.sendRedirect(request.getServletContext().getContextPath() + "/home");
+            request.setAttribute("error", "you are already logged in");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
+            requestDispatcher.forward(request, response);
         } else {
             CustomerService customerService = new CustomerService();
             String status = (String) request.getSession(false).getAttribute("loggedIn");

@@ -40,6 +40,7 @@ public class ProductDAO extends DBHandler {
                 product.setType(resultSet.getString("TYPE"));
                 product.setPrice(resultSet.getDouble("PRICE"));
                 product.setBrand(resultSet.getString("BRAND"));
+                product.setCategoryId(resultSet.getInt("CATEGORY_ID"));
                 product.setQuantity(resultSet.getInt("QUANTITY"));
                 product.setColor(resultSet.getString("COLOR"));
                 product.setDescription(resultSet.getString("DESCRIPTION"));
@@ -57,7 +58,7 @@ public class ProductDAO extends DBHandler {
     public boolean addProduct(Product p) {
 
         try {
-            preparedStatement = connection.prepareStatement("insert into PRODUCT (TYPE,BRAND,PRICE,QUANTITY,DESCRIPTION,IMAGE,COLOR) values(?,?,?,?,?,?,?)");
+            preparedStatement = connection.prepareStatement("insert into PRODUCT (TYPE,BRAND,PRICE,QUANTITY,DESCRIPTION,IMAGE,COLOR,CATEGORY_ID) values(?,?,?,?,?,?,?,?)");
             preparedStatement.setString(1, p.getType());
             preparedStatement.setString(2, p.getBrand());
             preparedStatement.setDouble(3, p.getPrice());
@@ -65,6 +66,7 @@ public class ProductDAO extends DBHandler {
             preparedStatement.setString(5, p.getDescription());
             preparedStatement.setString(6, p.getImagePath());
             preparedStatement.setString(7, p.getColor());
+            preparedStatement.setInt(8, p.getCategoryId());
             int addedRows = preparedStatement.executeUpdate();
             return addedRows > 0;
         } catch (SQLException ex) {
@@ -98,7 +100,7 @@ public class ProductDAO extends DBHandler {
 
     public boolean updateProduct(Product p) {
         try {
-            preparedStatement = connection.prepareStatement("update PRODUCT set TYPE=? ,BRAND=? ,PRICE=? ,QUANTITY=? ,DESCRIPTION=? ,IMAGE=? ,COLOR=? where ID=?");
+            preparedStatement = connection.prepareStatement("update PRODUCT set TYPE=? ,BRAND=? ,PRICE=? ,QUANTITY=? ,DESCRIPTION=? ,IMAGE=? ,COLOR=? ,CATEGORY_ID=? where ID=?");
             preparedStatement.setString(1, p.getType());
             preparedStatement.setString(2, p.getBrand());
             preparedStatement.setDouble(3, p.getPrice());
@@ -106,7 +108,8 @@ public class ProductDAO extends DBHandler {
             preparedStatement.setString(5, p.getDescription());
             preparedStatement.setString(6, p.getImagePath());
             preparedStatement.setString(7, p.getColor());
-            preparedStatement.setInt(8, p.getId());
+            preparedStatement.setInt(8, p.getCategoryId());
+            preparedStatement.setInt(9, p.getId());
             int addedRows = preparedStatement.executeUpdate();
             return addedRows > 0;
         } catch (SQLException ex) {
@@ -132,6 +135,7 @@ public class ProductDAO extends DBHandler {
                 Product product = new Product();
                 product.setId(resultSet.getInt("ID"));
                 product.setType(resultSet.getString("TYPE"));
+                product.setCategoryId(resultSet.getInt("CATEGORY_ID"));
                 product.setPrice(resultSet.getDouble("PRICE"));
                 product.setBrand(resultSet.getString("BRAND"));
                 product.setQuantity(resultSet.getInt("QUANTITY"));
@@ -163,6 +167,7 @@ public class ProductDAO extends DBHandler {
                     Product product = new Product();
                     product.setId(resultSet.getInt("ID"));
                     product.setType(resultSet.getString("TYPE"));
+                    product.setCategoryId(resultSet.getInt("CATEGORY_ID"));
                     product.setPrice(resultSet.getDouble("PRICE"));
                     product.setBrand(resultSet.getString("BRAND"));
                     product.setQuantity(resultSet.getInt("QUANTITY"));
@@ -171,11 +176,9 @@ public class ProductDAO extends DBHandler {
                     product.setImagePath(resultSet.getString("iMAGE"));
                     products.addElement(product);
                 }
-                resultSet.close();
-                preparedStatement.close();
-            }
 
-            return products;
+                return products;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -193,6 +196,7 @@ public class ProductDAO extends DBHandler {
                 product.setId(resultSet.getInt("ID"));
                 product.setType(resultSet.getString("TYPE"));
                 product.setPrice(resultSet.getDouble("PRICE"));
+                product.setCategoryId(resultSet.getInt("CATEGORY_ID"));
                 product.setBrand(resultSet.getString("BRAND"));
                 product.setQuantity(resultSet.getInt("QUANTITY"));
                 product.setColor(resultSet.getString("COLOR"));

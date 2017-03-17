@@ -13,16 +13,24 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Iterator;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
- * 
+ *
  */
 @WebServlet(name = "AddProductServlet", urlPatterns = {"/admin/addproduct"})
 public class AddProductServlet extends HttpServlet {
@@ -37,18 +45,52 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Product product = new Product();
-        product.setType(request.getParameter("type"));
-        product.setDescription(request.getParameter("desc"));
-        product.setBrand(request.getParameter("brand"));
-        product.setPrice(Double.parseDouble(request.getParameter("price")));
-        product.setQuantity(Integer.parseInt(request.getParameter("quan")));
-        product.setColor(request.getParameter("color"));
-        product.setImagePath(request.getParameter("imgname"));
-        new ProductService().addProduct(product);
-        String frompath=request.getParameter("imgpath");
-        copyImg(frompath,request.getContextPath());
-        response.sendRedirect("/home");
+        try {
+            Product product = new Product();
+
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            List<FileItem> items = upload.parseRequest(request);
+            Iterator<FileItem> iter = items.iterator();
+            while (iter.hasNext()) {
+                FileItem item = iter.next();
+                if (!item.isFormField()) {
+                    item.write(new File("/MavenOnlineShoping/Web Pages/Resources/images/products/" + item.getFieldName()));
+                    product.setImagePath(item.getFieldName());
+                } else {
+                    switch (item.getFieldName()) {
+                        case "type":
+                            product.setType(item.getString());
+                            break;
+                        case "desc":
+                            product.setDescription(item.getString());
+                            break;
+                        case "brand":
+                            product.setBrand(item.getString());
+                            break;
+                        case "category":
+                            product.setCategoryId(Integer.parseInt(item.getString()));
+                            break;
+                        case "price":
+                            product.setPrice(Double.parseDouble(item.getString()));
+                            break;
+                        case "quan":
+                            product.setQuantity(Integer.parseInt(item.getString()));
+                            break;
+                        case "color":
+                            product.setColor(item.getString());
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            System.out.println(product.toString());
+            new ProductService().addProduct(product);
+            response.sendRedirect("viewProducts");
+        } catch (Exception ex) {
+            Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -59,27 +101,25 @@ public class AddProductServlet extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }// </editor-fold>// </editor-fold>
 
-    private void copyImg(String srcpath ,String ContextPath) throws IOException {
-        File src=new File(srcpath);
-        String destpath=ContextPath+"/Resources/images/"+src.getName();
-        File dest=new File(destpath);
-        dest.createNewFile();
-        InputStream is = null;
-        OutputStream os = null;
+    private void savePhoto(HttpServletRequest request) {
         try {
-            is = new FileInputStream(src);
-            os = new FileOutputStream(dest); // buffer size 1K 
-            byte[] buf = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = is.read(buf)) > 0) {
-                os.write(buf, 0, bytesRead);
+            DiskFileItemFactory factory = new DiskFileItemFactory();
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            List<FileItem> items = upload.parseRequest(request);
+            Iterator<FileItem> iter = items.iterator();
+            while (iter.hasNext()) {
+                FileItem item = iter.next();
+                if (!item.isFormField()) {
+                    item.write(new File("/MavenOnlineShoping/Web Pages/Resources/images/products/" + item.getFieldName()));
+                }
             }
-        } finally {
-            is.close();
-            os.close();
+        } catch (FileUploadException ex) {
+            Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
 
+    }
 }
