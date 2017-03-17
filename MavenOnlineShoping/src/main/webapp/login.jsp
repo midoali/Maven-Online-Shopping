@@ -52,7 +52,7 @@
                 <h5>Password:</h5>
                 <input type="password" name="loginPass"/>			
                 <input type="submit" value="Login">
-                <a href="#">Forgot Password ?</a>
+                <div style="color: red">${requestScope.error}</div>
             </form>	
 
         </div>
