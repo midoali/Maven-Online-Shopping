@@ -70,6 +70,11 @@
             .cd-popup-trigger:hover{
                 text-decoration: none;
             }
+            <c:if test="${!sessionScope.loggedIn == 'true'}" >
+            .megamenu>li>a {
+                        padding: 9px 6.5%!important;
+            }
+            </c:if>
         </style>
     </head>
     <body>
@@ -79,9 +84,9 @@
                 <div class="main-header">
                     <div class="carting">
                         <ul><li>
-                                <c:if test="${loggedIn == 'true'}">
-                                <li>Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong></li>
-                                <a href="${homeUrl}/logout"> LOGOUT</a>
+                            <c:if test="${loggedIn == 'true'}">
+                            <li style="color:wheat;">Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong></li>
+                            <a style="color:white;font-weight:bold;" href="${homeUrl}/logout">&nbsp;-&nbsp; LOGOUT</a>
                             </c:if>
                             <c:if test="${loggedIn != 'true'}">
                                 <a href="${homeUrl}/login"> LOGIN</a>
@@ -217,7 +222,7 @@
                     <li class="grid"><a href="${homeUrl}/aboutus">ABOUT US</a></li>
                     <li class="grid"><a href="blog.html">BLOG</a></li>			
                         <c:if test="${loggedIn == 'true'}"  >
-                        <li class="grid"><a href="CustHomeServlet">Edit Profile</a></li>	
+                        <li class="grid"><a href="${homeUrl}/users/CustHomeServlet">Edit Profile</a></li>	
                         </c:if>
 
 
@@ -243,6 +248,7 @@
                         <script>
                             var category_id = 0;
                             var last_id = ${maxIdProduct};
+                            var emptyContent = false;
                             function renderHome(data){
                                 if(data.length > 0)
                                     last_id = data[0].id;
@@ -272,8 +278,9 @@
                               $.post("${homeUrl}/getHomeProducts?date="+new Date().toDateString(),
                               {cat_id: category_id,latest_id:last_id},
                               function(data){
-                                  if(data.length > 0)
+                                  if(data.length > 0 && !emptyContent)
                                       $(".cd-popup-trigger").show();
+                                  emptyContent = false;
                                   renderHome(data);
                               },
                               "json");
@@ -289,9 +296,11 @@
                                });
                                $(".catSelect").click(function(){
                                   category_id = $(this).attr("category_id");
+                                  last_id = 0;
+                                  $("#tab").html("");
+                                  emptyContent = true;
                                   $("#selectedCategory").val(category_id);
                                   updateHome();
-                                  
                                });
                               setInterval(updateHome,10000); 
                            });
