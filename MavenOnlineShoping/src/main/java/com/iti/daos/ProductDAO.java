@@ -160,8 +160,8 @@ public class ProductDAO extends DBHandler {
 
 //            connection  = DataSource.getInstance().getConnection();
             if (connection != null) {
-                preparedStatement = connection.prepareStatement("select * from PRODUCT");
-                System.out.println("get all function ");
+                preparedStatement = connection.prepareStatement("select * from PRODUCT order by id desc");
+                System.out.println("get all function  ");
                 resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {
                     Product product = new Product();
@@ -232,6 +232,70 @@ public class ProductDAO extends DBHandler {
                 products.addElement(product);
 //            }
             }
+            return products;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return null;
+    }
+
+    public Vector<Product> getProductsByCategory(int categoryId, int lastId) {
+        try {
+            ResultSet resultSet;
+            Vector<Product> products = new Vector<>();
+            String sqlQuery = "Select * from PRODUCT where category_id = " + categoryId + "and id > "+lastId+" order by id desc";
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            System.out.println(sqlQuery);
+//
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Product product = new Product();
+                product.setId(resultSet.getInt("ID"));
+                product.setType(resultSet.getString("TYPE"));
+                product.setPrice(resultSet.getDouble("PRICE"));
+                product.setBrand(resultSet.getString("BRAND"));
+                product.setQuantity(resultSet.getInt("QUANTITY"));
+                product.setColor(resultSet.getString("COLOR"));
+                product.setDescription(resultSet.getString("DESCRIPTION"));
+                product.setImagePath(resultSet.getString("iMAGE"));
+                products.addElement(product);
+//            }
+            }
+            return products;
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return null;
+    }
+    
+    public Vector<Product> getAllProducts(int last_id) {
+        try {
+            ResultSet resultSet;
+            Vector<Product> products = new Vector<>();
+
+//            connection  = DataSource.getInstance().getConnection();
+            if (connection != null) {
+                preparedStatement = connection.prepareStatement("select * from PRODUCT where id > "+last_id+" order by id desc");
+                System.out.println("get all function  ");
+                resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    Product product = new Product();
+                    product.setId(resultSet.getInt("ID"));
+                    product.setType(resultSet.getString("TYPE"));
+                    product.setPrice(resultSet.getDouble("PRICE"));
+                    product.setBrand(resultSet.getString("BRAND"));
+                    product.setQuantity(resultSet.getInt("QUANTITY"));
+                    product.setColor(resultSet.getString("COLOR"));
+                    product.setDescription(resultSet.getString("DESCRIPTION"));
+                    product.setImagePath(resultSet.getString("iMAGE"));
+                    products.addElement(product);
+                }
+                resultSet.close();
+                preparedStatement.close();
+            }
+
             return products;
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);

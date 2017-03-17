@@ -86,6 +86,20 @@ public class ProductService {
         productDAO.disConnect();
         return result;
     }
+
+    public Vector<Product> getProductsByCategory(int categoryId, int lastId) {
+        ProductDAO productDAO = new ProductDAO();
+        Vector<Product> result = productDAO.getProductsByCategory(categoryId,lastId);
+        productDAO.disConnect();
+        return result;
+    }
+
+    public Vector<Product> getAllProducts(int lastId) {
+        ProductDAO productDAO = new ProductDAO();
+        Vector<Product> result = productDAO.getAllProducts(lastId);
+        productDAO.disConnect();
+        return result;
+    }
     /**
      * *****************youssef end****************
      */
