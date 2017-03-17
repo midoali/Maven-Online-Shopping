@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.naming.NamingException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,10 +29,13 @@ public class DBHandler implements DBHandlerInt{
     @Override
     public final void connect() {
         try {
+            
             connection  = DataSource.getInstance().getConnection();
-        } catch (IOException ex) {
-            Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
+            Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NamingException ex) {
+            Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PropertyVetoException ex) {
             Logger.getLogger(DBHandler.class.getName()).log(Level.SEVERE, null, ex);
@@ -40,12 +44,12 @@ public class DBHandler implements DBHandlerInt{
 
     @Override
     public void disConnect() {
-//        try {
-////            connection.close();
-//            System.out.println("Connection Closed");
-//        } catch (SQLException ex) {
-//            System.out.println("Connection Failed!");
-//        }
+        try {
+            connection.close();
+            System.out.println("Connection Closed");
+        } catch (SQLException ex) {
+            System.out.println("Connection Failed!");
+        }
     }
 
     

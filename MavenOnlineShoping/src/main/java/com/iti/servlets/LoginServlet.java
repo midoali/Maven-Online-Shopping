@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        String absPath = null;
         String loginName = request.getParameter("loginName");
         String loginPass = request.getParameter("loginPass");
 
@@ -70,6 +70,9 @@ public class LoginServlet extends HttpServlet {
                     int id = customerService.getCustomerID(custObj);
                     Customer customerInfo = customerService.getCustomerInfo(id);
                     session.setAttribute("myCustomer", customerInfo);
+                    
+                    
+                    ///////////////////
 
                     ///////////////
                     MyShoppingCart myCart = new MyShoppingCart();
@@ -79,10 +82,14 @@ public class LoginServlet extends HttpServlet {
                     Vector<Customer> onlineUsers = (Vector<Customer>) config.getServletContext().getAttribute("onlineUsers");
                     onlineUsers.add(customerInfo);
                     config.getServletContext().setAttribute("onlineUsers", onlineUsers);
-                    response.sendRedirect(request.getServletContext().getContextPath() + "/home");
+                    if(request.getServletContext() != null  && request.getServletContext().getContextPath() != null)
+                        absPath = request.getServletContext().getContextPath();
+                    response.sendRedirect(absPath + "/home");
 
-                } else {
-                    request.getRequestDispatcher("login").forward(request, response);
+                } 
+                else {
+                    response.sendRedirect(absPath + "/login");
+
                 }
             } else {
                 System.out.println("you are already logged in");

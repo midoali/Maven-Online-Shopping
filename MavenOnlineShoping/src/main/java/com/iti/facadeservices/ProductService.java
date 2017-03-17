@@ -24,14 +24,14 @@ public class ProductService {
     public Vector<Product> getAllProducts() {
         ProductDAO productDAO = new ProductDAO();
         Vector<Product> result = productDAO.getAllProducts();
-//        productDAO.disConnect();
+        productDAO.disConnect();
         return result;
     }
 
     public boolean updateProduct(Product product) {
         ProductDAO productDAO = new ProductDAO();
         boolean result = productDAO.updateProduct(product);
-//        productDAO.disConnect();
+        productDAO.disConnect();
         return result;
     }
     
@@ -51,7 +51,7 @@ public class ProductService {
     public Product getSingleProduct(int id) {
         ProductDAO pDao = new ProductDAO();
         Product p= pDao.getSingleProduct(id);
-//        pDao.disConnect();
+        pDao.disConnect();
         return p;
     }
 
@@ -65,7 +65,14 @@ public class ProductService {
     public Vector<Product> getProductsByKeyword(String keyWord) {
         ProductDAO productDAO = new ProductDAO();
         Vector<Product> result = productDAO.getProductsByKeyword(keyWord);
-//        productDAO.disConnect();
+        productDAO.disConnect();
+        return result;
+    }
+    
+    public Vector<Product> getProductsByCategory(int categoryId) {
+        ProductDAO productDAO = new ProductDAO();
+        Vector<Product> result = productDAO.getProductsByCategory(categoryId);
+        productDAO.disConnect();
         return result;
     }
     
@@ -76,7 +83,7 @@ public class ProductService {
     public Vector<Product> getProductsTestData() {
         ProductDAO productDAO = new ProductDAO();
         Vector<Product> result = productDAO.getProductsTest();
-//        productDAO.disConnect();
+        productDAO.disConnect();
         return result;
     }
     /**

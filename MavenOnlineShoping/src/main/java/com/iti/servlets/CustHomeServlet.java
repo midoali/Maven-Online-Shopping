@@ -45,7 +45,7 @@ public class CustHomeServlet extends HttpServlet {
             throws ServletException, IOException {
         // processRequest(request, response);
 
-        request.getRequestDispatcher("editProfile.jsp").forward(request, response);
+        request.getRequestDispatcher("users/editProfile.jsp").forward(request, response);
     }
 
     /**
