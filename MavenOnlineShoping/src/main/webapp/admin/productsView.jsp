@@ -81,7 +81,7 @@
                               <li><a href="#">Page 1-3</a></li>
                             </ul>
                           </li>-->
-                    <li><a href="#">Customers</a></li>
+                    <li><a href="${homeUrl}/admin/customerView">Customers</a></li>
                 </ul>
 <!--                <ul class="nav navbar-nav navbar-right">
                     <li><a href="admin/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>

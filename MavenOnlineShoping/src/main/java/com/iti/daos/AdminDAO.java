@@ -28,7 +28,7 @@ public class AdminDAO extends DBHandler {
     }
 
     public Vector<Customer> getCustomerData() {
-        String selectQuery = "SELECT NAME, BIRTHDAY, PASSWORD,JOB, EMAIL, CREDIT, PHONE, ID FROM CUSTOMER";
+        String selectQuery = "SELECT NAME, BIRTHDAY,JOB, EMAIL, CREDIT, PHONE, ID, PASSWORD FROM CUSTOMER";
         try {
 //            pst = connection.prepareStatement("SELECT NAME, Birthday, password,job, email,credit, phone, id from CUSTOMER", ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
             if (connection != null) {
@@ -39,12 +39,12 @@ public class AdminDAO extends DBHandler {
                     Customer customerObj = new Customer();
                     customerObj.setName(rs.getString(1));
                     customerObj.setBirthday(rs.getDate(2));
-                    customerObj.setPassword(rs.getString(3));
-                    customerObj.setJob(rs.getString(4));
-                    customerObj.setEmail(rs.getString(5));
-                    customerObj.setCredit(rs.getInt(6));
-                    customerObj.setPhone(rs.getInt(7));
-                    customerObj.setId(rs.getInt(8));
+                    customerObj.setJob(rs.getString(3));
+                    customerObj.setEmail(rs.getString(4));
+                    customerObj.setCredit(rs.getInt(5));
+                    customerObj.setPhone(rs.getInt(6));
+                    customerObj.setId(rs.getInt(7));
+                    customerObj.setPassword(rs.getString(8));
 
                     customerList.add(customerObj);
                 }
