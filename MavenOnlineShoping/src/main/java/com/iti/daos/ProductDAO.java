@@ -66,7 +66,7 @@ public class ProductDAO extends DBHandler{
             preparedStatement.setString(5,p.getDescription());
             preparedStatement.setString(6,p.getImagePath());
             preparedStatement.setString(7,p.getColor());
-            preparedStatement.setInt(7,p.getCategoryId());
+            preparedStatement.setInt(8,p.getCategoryId());
             int addedRows=preparedStatement.executeUpdate();
             return addedRows>0;
         } catch (SQLException ex) {

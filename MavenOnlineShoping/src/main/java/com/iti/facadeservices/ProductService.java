@@ -38,7 +38,7 @@ public class ProductService {
     public void addProduct(Product product)
     {
         ProductDAO productDAO = new ProductDAO();
-        productDAO.updateProduct(product);
+        productDAO.addProduct(product);
         productDAO.disConnect();
     }
 

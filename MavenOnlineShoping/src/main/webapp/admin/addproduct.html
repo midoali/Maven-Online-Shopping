@@ -41,7 +41,7 @@ and open the template in the editor.
                 var input = $(this),
                         label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
                 input.trigger('fileselect', [label]);
-                alert("input=" + input);
+                // alert("input=" + input);
             });
 
             $('.btn-file :file').on('fileselect', function (event, label) {
@@ -76,71 +76,105 @@ and open the template in the editor.
 </head>
 <body>
     <div class="container">
-        <center><h2>ADD Product</h2></center>
-        <form class="form-horizontal" method="post" action="addproduct">
-            <div class="form-group">        
-                <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">ADD</button>
+        <form class="well form-horizontal" method="post" action="addproduct" enctype="MULTIPART/FORM-DATA">
+            <fieldset>
+                <legend>Add Product</legend>
+
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Description :</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign"></i></span>
+                            <textarea class="form-control" name="desc" placeholder="Enter product description" required></textarea>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">Description :</label>
-                <div class="col-sm-10">
-                    <textarea class="form-control" name="desc" placeholder="Enter product description" rows="3" required></textarea>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Category :</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
+                            <select class="form-control" name="category" required>
+                                <option value="1">Clothes</option>
+                                <option value="2">Shoes</option>
+                                <option value="3">Accessories</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">Category :</label>
-                <div class="col-sm-4">
-                    <select class="form-control" name="category" required>
-                        <option value="1">Clothes</option>
-                        <option value="2">Shoes</option>
-                        <option value="3">Accessories</option>
-                    </select>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Type :</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                            <input type="text" class="form-control" name="type" placeholder="Enter product Type" >
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">Type :</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" name="type" placeholder="Enter product Type" >
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Brand :</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
+                            <input type="text" class="form-control" name="brand" placeholder="Enter product brand" list="productList">
+                            <datalist id="productList">
+                                <option value="nike">Nike</option>
+                                <option value="adidas">Adidas</option>
+                                <option value="puma">Puma</option>
+                                <option value="nb">NB</option>
+                            </datalist>
+                        </div>
+                    </div>
                 </div>
-                <label class="control-label col-sm-2">Brand :</label>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control" name="brand" placeholder="Enter product brand">
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Price :</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                            <input type="number" class="form-control" name="price" placeholder="Enter product price" min="0" required>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">Price :</label>
-                <div class="col-sm-4">
-                    <input type="number" class="form-control" name="price" placeholder="Enter product price" min="0" required>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Quantity :</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            <input type="number" class="form-control" name="quan" placeholder="Enter product quantity" min="0" value="1" required>
+                        </div>
+                    </div>
                 </div>
-                <label class="control-label col-sm-2">Quantity :</label>
-                <div class="col-sm-4">
-                    <input type="number" class="form-control" name="quan" placeholder="Enter product quantity" min="0" value="1" required>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Color :</label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-text-background"></i></span>
+                            <input type="text" class="form-control" name="color" placeholder="Enter product color" >
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label class="control-label col-sm-2">Color :</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" name="color" placeholder="Enter product color" >
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label class="control-label col-sm-offset-2 col-sm-2">Upload Image:</label>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Upload Image :</label>
+                    <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <span class="btn btn-default btn-file">
-                                    Browse… <input type="file" id="imgInp" name="imgpath">
+                                    Browse… <input type="file" id="imgInp" name="imgpath" accept="image/*">
                                 </span>
                             </span>
-                            <input type="text" name="imgname" class="form-control" readonly>
+                            <input type="text" class="form-control" name="imgname" readonly>
                         </div>
                         <img id='img-upload'/>
                     </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label"></label>
+                    <div class="col-md-8">
+                        <button type="submit" class="btn btn-success " >Add<span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <a href="viewProducts" class="btn btn-danger ">Cancel<span class="glyphicon glyphicon-remove-sign"></span></a>
+                    </div>
+                </div>
+            </fieldset>
         </form>
     </div>
 </body>

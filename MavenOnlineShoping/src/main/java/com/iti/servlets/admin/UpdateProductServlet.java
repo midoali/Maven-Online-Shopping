@@ -30,11 +30,11 @@ public class UpdateProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id=request.getParameter("productID");
+        String id=request.getParameter("id");
         ProductService productService=new ProductService();
         Product p=productService.getSingleProduct(Integer.parseInt(id));
         request.setAttribute("productInfo", p);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/updateproduct.html");
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/admin/updateproduct.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -50,11 +50,9 @@ public class UpdateProductServlet extends HttpServlet {
         product.setPrice(Double.parseDouble(request.getParameter("price")));
         product.setQuantity(Integer.parseInt(request.getParameter("quan")));
         product.setColor(request.getParameter("color"));
-        product.setImagePath(request.getParameter("imgname"));
+        product.setImagePath(request.getParameter("imgpath"));
         new ProductService().updateProduct(product);
-        String frompath=request.getParameter("imgpath");
-        copyImg(frompath,request.getContextPath());
-        response.sendRedirect("/home");
+        response.sendRedirect("viewProducts");
     }
 
     /**
@@ -67,24 +65,4 @@ public class UpdateProductServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void copyImg(String srcpath ,String ContextPath) throws IOException {
-        File src=new File(srcpath);
-        String destpath=ContextPath+"/Resources/images/"+src.getName();
-        File dest=new File(destpath);
-        dest.createNewFile();
-        InputStream is = null;
-        OutputStream os = null;
-        try {
-            is = new FileInputStream(src);
-            os = new FileOutputStream(dest); // buffer size 1K 
-            byte[] buf = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = is.read(buf)) > 0) {
-                os.write(buf, 0, bytesRead);
-            }
-        } finally {
-            is.close();
-            os.close();
-        }
-    }
 }

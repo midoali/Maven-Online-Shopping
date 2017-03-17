@@ -40,6 +40,44 @@
                 width: 100%;
             }
         </style>
+        <script>
+            $(document).ready(function () {
+                $(document).on('change', '.btn-file :file', function () {
+                    var input = $(this),
+                            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+                    input.trigger('fileselect', [label]);
+                    // alert("input=" + input);
+                });
+
+                $('.btn-file :file').on('fileselect', function (event, label) {
+
+                    var input = $(this).parents('.input-group').find(':text'),
+                            log = label;
+                    if (input.length) {
+                        input.val(log);
+                    } else {
+                        if (log)
+                            alert(log);
+                    }
+
+                });
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#img-upload').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+
+                $("#imgInp").change(function () {
+                    readURL(this);
+                });
+            });
+        </script>
     </head>
     <body>
         <div class="container">
@@ -55,16 +93,28 @@
                 <div class="form-group">
                     <label class="control-label col-sm-2">Description :</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" name="desc" placeholder="Enter product description" rows="3" required><c:out value="${product.description}"></c:out>"</textarea>
+                        <textarea class="form-control" name="desc" placeholder="Enter product description" rows="3" required><c:out value="${product.description}"></c:out></textarea>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Category :</label>
-                    <div class="col-sm-4">
-                        <select class="form-control" name="category" required>
-                            <option value="clothes">Clothes</option>
-                            <option value="shoes">Shoes</option>
-                            <option value="accessories">Accessories</option>
+                    <div class="form-group">
+                        <label class="control-label col-sm-2">Category :</label>
+                        <div class="col-sm-4">
+                            <select class="form-control" name="category" required>
+                            <c:if test="${product.categoryId == 1}">
+                                <option value="1" selected="selected">Clothes</option>
+                                <option value="2">Shoes</option>
+                                <option value="3">Accessories</option>
+                            </c:if>
+                            <c:if test="${product.categoryId == 2}">
+                                <option value="1" >Clothes</option>
+                                <option value="2" selected="selected">Shoes</option>
+                                <option value="3">Accessories</option>
+                            </c:if>
+                            <c:if test="${product.categoryId == 3}">
+                                <option value="1" >Clothes</option>
+                                <option value="2">Shoes</option>
+                                <option value="3" selected="selected">Accessories</option>
+                            </c:if>
                         </select>
                     </div>
                 </div>
@@ -75,7 +125,13 @@
                     </div>
                     <label class="control-label col-sm-2">Brand :</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control" name="brand" placeholder="Enter product brand" value="${product.brand}">
+                        <input type="text" class="form-control" name="brand" placeholder="Enter product brand" value="${product.brand}" list="productList">
+                        <datalist id="productList">
+                            <option value="nike">Nike</option>
+                            <option value="adidas">Adidas</option>
+                            <option value="puma">Puma</option>
+                            <option value="nb">NB</option>
+                        </datalist>
                     </div>
                 </div>
                 <div class="form-group">
@@ -97,16 +153,16 @@
                 <div class="form-group">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label class="control-label col-sm-offset-2 col-sm-2">Change Image:</label>
+                            <label class="control-label col-sm-offset-2 col-sm-2">Change Image :</label>
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <span class="btn btn-default btn-file">
-                                        Browse… <input type="file" id="imgInp" name="imgpath">
+                                        Browse… <input type="file" id="imgInp" accept="image/*" value="${product.imagePath}">
                                     </span>
                                 </span>
-                                <input type="text" name="imgname" class="form-control" readonly>
+                                    <input type="text" class="form-control" name="imgpath" value="${product.imagePath}" readonly>
                             </div>
-                            <img id='img-upload'/>
+                            <img id='img-upload' src="../Resources/images/products/${product.imagePath}"/>
                         </div>
                     </div>
                 </div>
