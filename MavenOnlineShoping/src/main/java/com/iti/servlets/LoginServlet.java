@@ -76,6 +76,7 @@ public class LoginServlet extends HttpServlet {
                     
                     ///////////////////
 
+                    ///////////////////
                     ///////////////
                     MyShoppingCart myCart = new MyShoppingCart();
                     session.setAttribute("myShoppingCart", myCart);
@@ -84,18 +85,20 @@ public class LoginServlet extends HttpServlet {
                     Vector<Customer> onlineUsers = (Vector<Customer>) config.getServletContext().getAttribute("onlineUsers");
                     onlineUsers.add(customerInfo);
                     config.getServletContext().setAttribute("onlineUsers", onlineUsers);
-                    if(request.getServletContext() != null  && request.getServletContext().getContextPath() != null)
+                    if (request.getServletContext() != null && request.getServletContext().getContextPath() != null) {
                         absPath = request.getServletContext().getContextPath();
+                    }
                     response.sendRedirect(absPath + "/home");
 
-                } 
-                else {
-                    response.sendRedirect(absPath + "/login");
-
+                } else {
+                    request.setAttribute("error", "Invalid username or password");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
+                    requestDispatcher.forward(request, response);
                 }
             } else {
-                System.out.println("you are already logged in");
-                response.sendRedirect(request.getServletContext().getContextPath() + "/home");
+                request.setAttribute("error", "you are already logged in");
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
+                requestDispatcher.forward(request, response);
             }
         }
     }

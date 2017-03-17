@@ -23,17 +23,15 @@
     <form-error-page>/adminLogin.jsp</form-error-page>
   </form-login-config>
 </login-config> -->
+
     <servlet>
         <servlet-name>CartItemsAddetion</servlet-name>
         <servlet-class>com.iti.servlets.CartItemsAddetion</servlet-class>
     </servlet>
+    
     <servlet>
         <servlet-name>securityTest</servlet-name>
         <servlet-class>com.iti.servlets.securityTest</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>QuantityAvailability</servlet-name>
-        <servlet-class>com.iti.servlets.QuantityAvailability</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CartItemsAddetion</servlet-name>
@@ -42,10 +40,6 @@
     <servlet-mapping>
         <servlet-name>securityTest</servlet-name>
         <url-pattern>/admin/securityTest</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>QuantityAvailability</servlet-name>
-        <url-pattern>/users/QuantityAvailability</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
