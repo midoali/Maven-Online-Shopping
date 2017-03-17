@@ -116,13 +116,13 @@ and open the template in the editor.
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
-                            <input type="text" class="form-control" name="brand" placeholder="Enter product brand" list="productList">
-                            <datalist id="productList">
-                                <option value="nike">Nike</option>
+                             <select class="form-control" name="brand" required>
                                 <option value="adidas">Adidas</option>
+                                <option value="nike">Nike</option>
                                 <option value="puma">Puma</option>
                                 <option value="nb">NB</option>
-                            </datalist>
+                                <option value="kappa">Kappa</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -170,8 +170,8 @@ and open the template in the editor.
                 <div class="form-group">
                     <label class="col-md-4 control-label"></label>
                     <div class="col-md-8">
-                        <button type="submit" class="btn btn-success " >Add<span class="glyphicon glyphicon-plus-sign"></span></button>
-                        <a href="viewProducts" class="btn btn-danger ">Cancel<span class="glyphicon glyphicon-remove-sign"></span></a>
+                        <button type="submit" class="btn btn-success " >Add <span class="glyphicon glyphicon-plus-sign"></span></button>
+                        <a href="viewProducts" class="btn btn-danger ">Cancel <span class="glyphicon glyphicon-remove-sign"></span></a>
                     </div>
                 </div>
             </fieldset>
