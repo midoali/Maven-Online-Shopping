@@ -44,6 +44,33 @@
             });
         </script>
         <!-- start menu -->
+        <style>
+            .cd-popup-trigger{
+                display: block;
+                width: 170px;
+                height: 50px;
+                line-height: 50px;
+                margin: 3em auto;
+                text-align: center;
+                font-size: 12px;
+                /*font-size: 0.875rem;*/
+                font-weight: bold;
+                text-transform: uppercase;
+                border-radius: 50em;
+                background: #3054E3;
+                box-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
+                color: white;
+                text-decoration: none;
+                font-family: sans-serif;
+                position: fixed;
+                z-index: 19;
+                bottom: 86%;
+                left: 42%;
+            }
+            .cd-popup-trigger:hover{
+                text-decoration: none;
+            }
+        </style>
     </head>
     <body>
         <!--header-->
@@ -215,8 +242,10 @@
                         <input type="hidden" name="selectedCategory" id="selectedCategory" value="0" />
                         <script>
                             var category_id = 0;
+                            var last_id = ${maxIdProduct};
                             function renderHome(data){
-                                
+                                if(data.length > 0)
+                                    last_id = data[0].id;
                                 var output = "";
                                 for(var i=0;i < data.length;i++){
                                     output += '<div class="product-grid">';
@@ -236,18 +265,28 @@
                                     output += '<input type="number" class="item_quantity" min="0" max="'+data[i].quantity+'" value="0" /></div><div class="clearfix"> </div> </div> </div>';
                                     
                                 }
-                                $("#tab").html("");
-                                $("#tab").append(output);
+//                                $("#tab").html("");
+                                $("#tab").prepend(output);
                             }
                           function updateHome(){
                               $.post("${homeUrl}/getHomeProducts?date="+new Date().toDateString(),
-                              {cat_id: category_id},
+                              {cat_id: category_id,latest_id:last_id},
                               function(data){
+                                  if(data.length > 0)
+                                      $(".cd-popup-trigger").show();
                                   renderHome(data);
                               },
                               "json");
                           }
                            $(document).ready(function(){
+                               $('.cd-popup-trigger').on('click', function(event){
+                                    $(this).hide();
+                                    event.preventDefault();
+
+                                    $('html, body').animate({
+                                        scrollTop: $( $.attr(this, 'href') ).offset().top
+                                    }, 500);
+                               });
                                $(".catSelect").click(function(){
                                   category_id = $(this).attr("category_id");
                                   $("#selectedCategory").val(category_id);
@@ -259,6 +298,7 @@
                         </script>
                     </ul>
                     <div class="clearfix"> </div>
+                    <a href="#features" class="cd-popup-trigger" style="display:none;" id="popUp">New Products</a>
                     <div class="tab-grids">
                         <div id="tab" >
                             <c:if test="${empty requestScope.products}">
