@@ -50,7 +50,7 @@ public class BuyServlet extends HttpServlet {
                     int currentCredit = updateUserCredit(customer, total);
                     updateProductsQuantity(myCart);
                     makeReceipt(myCart, customer);
-                    //clearCart(session, myCart);
+                    clearCart(session, myCart);
                     out.print(currentCredit);
                 } else {
                     out.print("-1");
@@ -103,8 +103,6 @@ public class BuyServlet extends HttpServlet {
         }
     }
 
-    
-
     private void makeReceipt(MyShoppingCart myCart, Customer customer) {
         Receipt receipt = new Receipt();
         receipt.setCustomerId(customer.getId());
@@ -125,4 +123,8 @@ public class BuyServlet extends HttpServlet {
 
     }
 
+    private void clearCart(HttpSession session, MyShoppingCart myCart) {
+        myCart.getItems().clear();
+        session.setAttribute("myShoppingCart", myCart);
+    }
 }

@@ -23,6 +23,11 @@
             });
         });
         $('#buybtn').click(function () {
+            console.log($('#someSwitchOptionPrimary').is(':checked'));
+            if ($('#someSwitchOptionPrimary').is(':checked'))
+            {
+                window.location.href = "receipt.doc";
+            }
             $.ajax({url: "BuyServlet?", type: 'GET', contentType: 'text/html', data: new Date().toString(), dataType: 'text', success: function (data) {
 
                     if (data == "-1")
@@ -37,7 +42,6 @@
                     } else
                     {
                         $('#result').html("Buying operation finished successfully.\nyour current credit = $" + data);
-                        $.ajax({url: "PrintServlet?print=" + $("#someSwitchOptionPrimary").val(), type: 'GET', contentType: 'text/html', data: new Date().toString(), dataType: 'json', success: function (data) {}});
                         $('#cart').html("");
                         $('#numItems').html("0");
                         $('#totalCostReceipt').html("0.0");
