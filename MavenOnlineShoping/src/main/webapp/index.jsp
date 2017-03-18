@@ -45,6 +45,10 @@
         </script>
         <!-- start menu -->
         <style>
+            .disableddiv {
+                pointer-events: none;
+                opacity: 0.5;
+            }
             .cd-popup-trigger{
                 display: block;
                 width: 170px;
@@ -315,25 +319,48 @@
                                 </c:if>
                                 <c:if test="${!empty requestScope.products}">
                                     <c:forEach items="${requestScope.products}" var="product">
-                                    <div class="product-grid">					  
-                                        <a href="SingleProduct?productId=${product.id}" ><div class="more-product-info"><span>NEW</span></div>						
-                                            <div class="product-img b-link-stripe b-animate-go  thickbox">						   
-                                                <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt="" style="width:400px;height: 350px;"/>
-                                                <div class="b-wrapper">
-                                                    <h4 class="b-animate b-from-left  b-delay03">							
-                                                        <button class="btns">ORDER NOW</button>
-                                                    </h4>
-                                                </div>
-                                            </div></a>						
-                                        <div class="product-info simpleCart_shelfItem">
-                                            <div class="product-info-cust">
-                                                <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
-                                                <span class="item_price">$<c:out value="${product.price}"/></span>
-                                                <input type="number" class="item_quantity" min="0" max="${product.quantity}" value="0" />
-                                            </div>													
-                                            <div class="clearfix"> </div>
+                                        <c:if test="${product.quantity == 0}">
+                                        <div class="product-grid disableddiv">					  
+                                            <a href="SingleProduct?productId=${product.id}" ><div class="finished-product-info"><span>OUT OF STOCK</span></div>						
+                                                <div class="product-img b-link-stripe b-animate-go  thickbox">						   
+                                                    <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt="" style="width:400px;height: 350px;"/>
+                                                    <div class="b-wrapper">
+                                                        <h4 class="b-animate b-from-left  b-delay03">							
+                                                            <button class="btns">ORDER NOW</button>
+                                                        </h4>
+                                                    </div>
+                                                </div></a>						
+                                            <div class="product-info simpleCart_shelfItem">
+                                                <div class="product-info-cust">
+                                                    <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
+                                                    <span class="item_price">$<c:out value="${product.price}"/></span>
+                                                    <input type="number" class="item_quantity" min="0" max="${product.quantity}" value="0" />
+                                                </div>													
+                                                <div class="clearfix"> </div>
+                                            </div>
                                         </div>
-                                    </div>	
+                                    </c:if>
+                                    <c:if test="${product.quantity != 0}">
+                                        <div class="product-grid">					  
+                                            <a href="SingleProduct?productId=${product.id}" ><div class="more-product-info"><span>NEW</span></div>						
+                                                <div class="product-img b-link-stripe b-animate-go  thickbox">						   
+                                                    <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt="" style="width:400px;height: 350px;"/>
+                                                    <div class="b-wrapper">
+                                                        <h4 class="b-animate b-from-left  b-delay03">							
+                                                            <button class="btns">ORDER NOW</button>
+                                                        </h4>
+                                                    </div>
+                                                </div></a>						
+                                            <div class="product-info simpleCart_shelfItem">
+                                                <div class="product-info-cust">
+                                                    <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
+                                                    <span class="item_price">$<c:out value="${product.price}"/></span>
+                                                    <input type="number" class="item_quantity" min="0" max="${product.quantity}" value="0" />
+                                                </div>													
+                                                <div class="clearfix"> </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
                                 </c:forEach>
                             </c:if>
                             <div class="clearfix"></div>
