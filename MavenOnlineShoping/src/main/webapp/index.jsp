@@ -85,8 +85,8 @@
                     <div class="carting">
                         <ul><li>
                             <c:if test="${loggedIn == 'true'}">
-                            <li style="color:wheat;">Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong></li>
-                            <a style="color:white;font-weight:bold;" href="${homeUrl}/logout">&nbsp;-&nbsp; LOGOUT</a>
+                            <li style="color:wheat;">Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong>&nbsp;-&nbsp;</li>
+                            <a style="color:white;font-weight:bold;" href="${homeUrl}/logout"> LOGOUT</a>
                             </c:if>
                             <c:if test="${loggedIn != 'true'}">
                                 <a href="${homeUrl}/login"> LOGIN</a>
@@ -240,10 +240,10 @@
             <div class="container">
                 <div class="tabs-box">
                     <ul class="tabs-menu">
-                        <li><a href="#clothes" category_id="2" class="catSelect">Clothes</a></li>
-                        <li><a href="#shoes" category_id="1" class="catSelect">Shoes</a></li>
+                        <li><a href="#clothes" category_id="2" class="catSelect">Shoes</a></li>
+                        <li><a href="#shoes" category_id="1" class="catSelect">Clothes</a></li>
                         <li><a href="#accessories" category_id="3" class="catSelect">Accessories</a></li>
-                        <li><a href="#all" category_id="0" class="catSelect" >All</a></li>
+                        <li class="active"><a href="#all" category_id="0" class="catSelect" >All</a></li>
                         <input type="hidden" name="selectedCategory" id="selectedCategory" value="0" />
                         <script>
                             var category_id = 0;

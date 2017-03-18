@@ -51,8 +51,8 @@
 			  <div class="carting">
                         <ul><li>
                             <c:if test="${loggedIn == 'true'}">
-                            <li style="color:wheat;">Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong></li>
-                            <a style="color:white;font-weight:bold;" href="${homeUrl}/logout">&nbsp;-&nbsp; LOGOUT</a>
+                            <li style="color:wheat;">Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong>&nbsp;-&nbsp;</li>
+                            <a style="color:white;font-weight:bold;" href="${homeUrl}/logout"> LOGOUT</a>
                             </c:if>
                             <c:if test="${loggedIn != 'true'}">
                                 <a href="${homeUrl}/login"> LOGIN</a>
