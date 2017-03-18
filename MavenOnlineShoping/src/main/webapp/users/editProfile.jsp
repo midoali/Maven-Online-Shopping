@@ -29,15 +29,16 @@
                         <%--<c:out value="${sessionScope.myCustomer}"></c:out>--%>
 
                         <!--  Action:  ::     servlet to save into db-->
-                        <form action="UpdatedDataServlet" method="post">
-
+                        <form action="../UpdatedDataServlet" method="post">
+                            <input type="hidden" value="${sessionScope.myCustomer.id}" name="id"/>
+                            <input type="hidden" value="${sessionScope.myCustomer.password}" name="password"/>
                             <ul>
                                 <li class="text-info">Name*</li>
-                                <li> <input type="text" value="<c:out value="${sessionScope.myCustomer.name}"/>" name="updatedName" required/></li> 
+                                <li> <input type="text" value="${sessionScope.myCustomer.name}" name="updatedName" required/></li> 
                             </ul>
                             <ul>
                                 <li class="text-info">Email:*</li>
-                                <li> <input type="text" value="<c:out value="${sessionScope.myCustomer.email}"/>" name="updatedMail" required/></li> 
+                                <li> <input type="text" value="${sessionScope.myCustomer.email}" name="updatedMail" required/></li> 
                             </ul>
 
                             <ul>
@@ -64,10 +65,7 @@
                                 <li class="text-info">Job: </li>
                                 <li><input type="text" name="updatedJob" value="${sessionScope.myCustomer.job}" /></li>
                             </ul>
-
                             <input type="submit" value="Save Changes">
-
-                            <p class="click">By clicking this button, you agree to my modern style <a href="#">Policy Terms and Conditions</a> to Use</p> 
                         </form>
                     </div>
                 </div>

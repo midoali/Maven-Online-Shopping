@@ -100,7 +100,7 @@ public class CustomerService {
 
         CustomerDAO customerDAO = new CustomerDAO();
 
-        customerDAO.updateCustomer(cObj);
+        boolean result=customerDAO.updateCustomer(cObj);
     }
 
     public boolean checkCustomerName(String name) {

@@ -180,9 +180,9 @@
                     </li>
                     <li class="grid"><a href="${homeUrl}/aboutus">ABOUT US</a></li>
                     <li class="grid"><a href="blog.html">BLOG</a></li>			
-                     <%--<c:if test="${loggedIn == 'true'}"  >--%>
+                     <c:if test="${loggedIn == 'true'}"  >
                          <li class="grid"><a href="${homeUrl}/users/CustHomeServlet">Edit Profile</a></li>	
-                    <%--</c:if>--%>
+                    </c:if>
 
                 </ul> 
 			 </div>

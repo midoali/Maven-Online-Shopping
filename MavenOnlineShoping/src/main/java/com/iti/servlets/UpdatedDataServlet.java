@@ -75,11 +75,8 @@ public class UpdatedDataServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // processRequest(request, response);
-
-        Customer cSession = (Customer) request.getSession().getAttribute("myCustomerInfo");
-
-        cSession.getId();
-
+        int id=Integer.parseInt(request.getParameter("id"));
+        String password=request.getParameter("password");
         String updatedName = request.getParameter("updatedName");
         String updatedMail = request.getParameter("updatedMail");
         int updatedPhone = Integer.parseInt(request.getParameter("updatedPhone"));
@@ -88,14 +85,12 @@ public class UpdatedDataServlet extends HttpServlet {
         String updatedBirthday = request.getParameter("updatedBirthday");
         String updatedJob = request.getParameter("updatedJob");
 
-        Customer cObj = new Customer(cSession.getId(), updatedName, java.sql.Date.valueOf(updatedBirthday), updatedJob, updatedMail, updatedCredit, updatedPhone, updatedAdd);
+        Customer cObj = new Customer(id, updatedName, java.sql.Date.valueOf(updatedBirthday),password, updatedJob, updatedMail, updatedCredit, updatedPhone, updatedAdd);
 
-//        UpdateCustomerFacade updateCustomer = new UpdateCustomerFacade();
-//        updateCustomer.updateInfo(cObj);
         CustomerService customerServiceObj = new CustomerService();
         customerServiceObj.updateInfo(cObj);
-
-        request.getRequestDispatcher("homePage.html").forward(request, response);
+        request.getSession().setAttribute("myCustomer",cObj);
+        response.sendRedirect("home");
     }
 
     /**

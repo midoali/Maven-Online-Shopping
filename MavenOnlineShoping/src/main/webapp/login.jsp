@@ -48,7 +48,7 @@
             <!--            <p>If you have previously Login with us, <span>click here</span></p>-->
             <form action="login" method="post">
                 <h5>User Name:</h5>	
-                <input type="text" name="loginName" id="loginNameId" onblur="checkName()"/><span id="nameSpan"></span>
+                <input type="text" name="loginName" id="loginNameId" onblur="checkName()" autofocus/><span id="nameSpan"></span>
                 <h5>Password:</h5>
                 <input type="password" name="loginPass"/>			
                 <input type="submit" value="Login">
