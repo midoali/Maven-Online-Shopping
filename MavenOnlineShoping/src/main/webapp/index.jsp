@@ -45,9 +45,48 @@
             $(document).ready(function () {
                 $(".megamenu").megamenu();
             });
+            function clearModal()
+            {
+                $("#code").val("");
+                $("#modalfooter").html("");
+                $("#codespan").html("");
+            }
+            function checkcode()
+            {
+                $.ajax({url: "credit?code=" + $("#code").val(), type: "get", contentType: 'text/html', data: new Date().toString(), dataType: 'text', success: function (data) {
+                        $("#codespan").html(data);
+                    }});
+            }
+            function chargeCredit()
+            {
+                $.ajax({url: "credit?code=" + $("#code").val(), type: "post", contentType: 'text/html', data: new Date().toString(), dataType: 'text', success: function (data) {
+                        if (data === "-1")
+                        {
+                            $("#modalfooter").html("Inncorrect Code.<br> please enter a valid one.");
+                        } else if (data === "0")
+                        {
+                            $("#modalfooter").html("This card has already been charged.<br> please enter a new one.");
+                        } else
+                        {
+                            $("#modalfooter").html("you have successfully recharged your credit.<br> your current credit = " + data + "$");
+                        }
+                    }});
+            }
+
         </script>
         <!-- start menu -->
         <style>
+            .modal-header, h4, .close {
+                background-color: #3054E3;
+                color:white !important;
+                text-align: center;
+                font-size: 30px;
+            }
+            .modal-footer {
+                background-color: lightgray;
+                color: darkred !important;
+                text-align: center;
+            }
             .disableddiv {
                 pointer-events: none;
                 opacity: 0.5;
@@ -92,7 +131,31 @@
                     <div class="carting">
                         <ul><li>
                                 <c:if test="${loggedIn == 'true'}">
-                                    <a href="${homeUrl}/users/CustHomeServlet" style="color:white;"><span class="glyphicon glyphicon-credit-card"></span></a>
+                                    <a data-toggle="modal" data-target="#myModal" data-backdrop="static"><span class="glyphicon glyphicon-credit-card"></span></a>
+                                    <div class="modal fade" id="myModal" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header" style="padding:35px 50px;">
+                                                    <button type="button" class="close" data-dismiss="modal" onclick="clearModal()">&times;</button>
+                                                    <h4 class="modal-title"><span class="glyphicon glyphicon-usd"></span>Recharge your Credit</h4>
+                                                </div>
+                                                <div class="modal-body" id="modalbody">
+                                                    <form role="form">
+                                                        <div class="form-group">
+                                                            <label for="code" class="control-label"><span class="glyphicon glyphicon-credit-card"></span> Enter credit code</label>
+                                                            <input type="number" class="form-control" id="code" placeholder="ex: 4200000" style="width:  300px!important;" onkeyup="checkcode()" pattern="/d{9}" required autofocus>
+                                                            <span id="codespan" style="color: #31b0d5"></span>
+                                                        </div>
+                                                        <button type="button" class="btn btn-primary btn-block" onclick="chargeCredit()">charge</button>
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer" id="modalfooter"></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 <li style="color:wheat;">Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong>&nbsp;-&nbsp;</li>
                                 <a style="color:white;font-weight:bold;" href="${homeUrl}/logout"> LOGOUT <span class="glyphicon glyphicon-log-out"></span></a>
                                 </c:if>
@@ -277,7 +340,6 @@
                                     output += '<h4>' + data[i].type + ' ' + data[i].id + '</h4>';
                                     output += '<span class="item_price">$' + data[i].price + '</span>';
                                     output += '<input type="number" class="item_quantity" min="0" max="' + data[i].quantity + '" value="0" /></div><div class="clearfix"> </div> </div> </div>';
-
                                 }
 //                                $("#tab").html("");
                                 $("#tab").prepend(output);
@@ -297,7 +359,6 @@
                                 $('.cd-popup-trigger').on('click', function (event) {
                                     $(this).hide();
                                     event.preventDefault();
-
                                     $('html, body').animate({
                                         scrollTop: $($.attr(this, 'href')).offset().top
                                     }, 500);
