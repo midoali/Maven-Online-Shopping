@@ -28,7 +28,7 @@ public class ReceiptDAO extends DBHandler{
 
     public boolean addReceipt(Receipt receipt) {
         
-        try {
+            try {
             preparedStatement=connection.prepareStatement("insert into RECEIPT (ORDER_DATE,CUSTOMER_ID,TOTAL_COST) values(?,?,?)");
             preparedStatement.setDate(1,receipt.getDate());
             preparedStatement.setInt(2,receipt.getCustomerId());
