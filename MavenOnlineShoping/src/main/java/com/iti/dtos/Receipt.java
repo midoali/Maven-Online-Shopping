@@ -13,6 +13,7 @@ import java.util.Vector;
  * @author Nour
  */
 public class Receipt {
+
     private int id;
     private int customerId;
     private Date date;
@@ -20,11 +21,11 @@ public class Receipt {
     private Vector<Item> items;
 
     public Receipt() {
-        id=0;
-        customerId=0;
-        date=getDate();
-        totalCost=0.0;
-        items=new Vector<>();
+        id = 0;
+        customerId = 0;
+        date = getDate();
+        totalCost = 0.0;
+        items = new Vector<>();
     }
 
     public int getId() {
@@ -66,12 +67,10 @@ public class Receipt {
     public void setItems(Vector<Item> items) {
         this.items = items;
     }
-    
-    public void calculateTotalCost()
-    {
-        for(Item item:items)
-        {
-            this.totalCost += item.getPrice()*item.getQuantity();
+
+    public void calculateTotalCost() {
+        for (Item item : items) {
+            this.totalCost += item.getPrice() * item.getQuantity();
         }
     }
 }

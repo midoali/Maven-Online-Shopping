@@ -26,19 +26,36 @@
                     dataType: 'json',
                     success: function (data) {
                     for (var i = 0; i < data.length; i++) {
-                    $("#cbod").append("<tr><td>'" + data[i].name + "'</td>\n\
-                                        <td>'" + data[i].birthday + "' </td>\n\
-                                        <td>'" + data[i].birthday + "' </td>\n\
-                                        <td>'" + data[i].job + "'</td>\n\
-                                        <td>'" + data[i].email + "'</td>\n\
-                                        <td>'" + data[i].credit + "'</td>\n\
-                                        <td>'" + data[i].phone + "'</td>\n\
-                                        </tr>");
+                    $("#cbod").append("<tr><td>" + data[i].name + "</td>\n\
+                                        <td>" + data[i].birthday + " </td>\n\
+                                        <td>" + data[i].job + "</td>\n\
+                                        <td>" + data[i].email + "</td>\n\
+                                        <td>" + data[i].credit + "</td>\n\
+                                        <td>" + data[i].phone + "</td>\n\
+                                        <td><button onclick=\"window.open('${homeUrl}/admin/ViewReceiptServlet?id="+data[i].id+"')\">View Receipt</button></td></tr>");
                     }
-                    });
+                    }
             });
             });
 
+//                    function viewReceipt() {
+//                    var CId = {id: data[i].id};
+//                            jsonId = {id: CId};
+//                            console.log(jsonId);
+//                            $.ajax({
+//                            url: "ViewReceiptServlet",
+//                                    type: 'GET',
+//                                    contentType: 'application/json',
+//                                    data: CId,
+//                                    dataType: 'json',
+//                                    success: function (data) {
+//
+//                                    }
+//                            });
+//                    }
+
+            }
+            );
         </script>
     </head>
     <body>
@@ -49,9 +66,9 @@
                     <a class="navbar-brand" href="#">Admin Panel</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="productsView">Products</a></li>
+                    <li ><a href="${homeUrl}/admin/viewProducts">Products</a></li>
 
-                    <li><a href="#">Customers</a></li>
+                    <li class="active"><a href="#">Customers</a></li>
                 </ul>
 
             </div>
@@ -83,8 +100,8 @@
                                     <th>Email</th>
                                     <th>Credit</th>
                                     <th>Phone</th>
-                                    <th>Id</th>
-                                    <th>Password</th>
+                                    <!--                                    <th>Id</th>
+                                                                        <th>Password</th>-->
                                 </tr>
                             </thead>
                             <tbody id="cbod">

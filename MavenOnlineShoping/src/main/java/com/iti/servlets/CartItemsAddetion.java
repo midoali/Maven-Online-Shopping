@@ -71,6 +71,8 @@ public class CartItemsAddetion extends HttpServlet {
             myShoppingCart.getItems().put(uId,item);
         }
         
+        
+        System.out.println("Here***************");
 // Using DateFormat format method we can create a string 
 // representation of a date with the defined format.
         

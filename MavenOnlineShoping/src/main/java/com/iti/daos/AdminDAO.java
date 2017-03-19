@@ -6,6 +6,7 @@
 package com.iti.daos;
 
 import com.iti.dtos.Customer;
+import com.iti.dtos.Receipt;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,7 +50,7 @@ public class AdminDAO extends DBHandler {
                     customerList.add(customerObj);
                 }
                 for (int i = 0; i < customerList.size(); i++) {
-                    System.out.println("customerList.get(i).getName()  " + i + "  " + customerList.get(i).getName());
+                    System.out.println("customerList.get(i).getId()  " + i + "  " + customerList.get(i).getId());
                 }
             }
         } catch (SQLException ex) {
@@ -58,4 +59,31 @@ public class AdminDAO extends DBHandler {
 
         return customerList;
     }
+
+    public Vector<Receipt> getCustomerReceipt(Receipt receiptObj) {
+        String selectQuery = "SELECT ORDER_DATE, TOTAL_PRICE FROM RECEIPT WHERE CUSTOMER_ID='" + receiptObj.getCustomerId() + "' ";
+        Vector<Receipt> receiptVector = new Vector<>();
+        try {
+            if (connection != null) {
+                pst = connection.prepareStatement(selectQuery);
+                rs = pst.executeQuery();
+
+                while (rs.next()) {
+
+                    Receipt receipt = new Receipt();
+                    receipt.setDate(rs.getDate(1));
+                    receipt.setTotalCost(rs.getInt(2));
+
+                    receiptVector.add(receipt);
+                }
+                for (int i = 0; i < receiptVector.size(); i++) {
+                    System.out.println("receiptVector.get(i).getId()  " + i + "  " + receiptVector.get(i).getTotalCost());
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Selection Failed");
+        }
+        return receiptVector;
+    }
+
 }
