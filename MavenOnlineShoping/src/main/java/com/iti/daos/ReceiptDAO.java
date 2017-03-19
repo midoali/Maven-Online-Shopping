@@ -28,8 +28,8 @@ public class ReceiptDAO extends DBHandler{
 
     public boolean addReceipt(Receipt receipt) {
         
-            try {
-            preparedStatement=connection.prepareStatement("insert into RECEIPT (ORDER_DATE,CUSTOMER_ID,TOTAL_COST) values(?,?,?)");
+        try {
+            preparedStatement=connection.prepareStatement("insert into RECEIPT (ORDER_DATE,CUSTOMER_ID,TOTAL_PRICE) values(?,?,?)");
             preparedStatement.setDate(1,receipt.getDate());
             preparedStatement.setInt(2,receipt.getCustomerId());
             preparedStatement.setDouble(3,receipt.getTotalCost());
@@ -54,7 +54,7 @@ public class ReceiptDAO extends DBHandler{
                 receipt.setId(resultSet.getInt("ID"));
                 receipt.setCustomerId(resultSet.getInt("CUSTOMER_ID"));
                 receipt.setDate(resultSet.getDate("ORDER_DATE"));
-                receipt.setTotalCost(resultSet.getDouble("TOTAL_COST"));
+                receipt.setTotalCost(resultSet.getDouble("TOTAL_PRICE"));
                 receipts.addElement(receipt);
             }
             return receipts;

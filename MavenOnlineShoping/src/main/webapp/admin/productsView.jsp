@@ -154,8 +154,8 @@
                                             <td>${product.quantity}</td>
                                             <td>${product.description}</td>
                                             <td>${product.color}</td>
-                                            <td><button type="button" product_id="${product.id}" id="update_${product.id}" onclick="location.href = '${homeUrl}/admin/updateproduct?id=${product.id}'" class="btn btn-primary">Update</button>
-                                                <button type="button" data-toggle="confirmation"  product_id="${product.id}" id="delete_${product.id}" class="btn btn-danger delBtn">Delete</button></td>
+                                            <td><button type="button" product_id="${product.id}" id="update_${product.id}" onclick="location.href = '${homeUrl}/admin/updateproduct?id=${product.id}'" class="btn btn-primary">Update <span class="glyphicon glyphicon-pencil"></span></button>
+                                                <button type="button" data-toggle="confirmation"  product_id="${product.id}" id="delete_${product.id}" class="btn btn-danger delBtn">Delete <span class="glyphicon glyphicon-trash"></span></button></td>
 
                                         </tr>
 

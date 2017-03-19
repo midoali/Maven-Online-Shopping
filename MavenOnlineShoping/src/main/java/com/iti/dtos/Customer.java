@@ -55,6 +55,7 @@ public class Customer {
     }
 
     public Customer(int id, String name, Date birthday, String job, String email, int credit, int phone, String address) {
+        this.id=id;
         this.name = name;
         this.birthday = birthday;
         this.job = job;

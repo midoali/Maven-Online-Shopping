@@ -81,91 +81,149 @@
     </head>
     <body>
         <div class="container">
-            <center><h2>Update Product</h2></center>
-            <form class="form-horizontal" method="post" action="updateproduct">
-                <div class="form-group">        
-                    <div class="col-sm-10">
-                        <button type="submit" class="btn btn-primary">Save</button>
+            <form class="well form-horizontal" method="post" action="updateproduct" enctype="MULTIPART/FORM-DATA">
+                <fieldset>
+                    <legend>Update Product</legend>
+                    <c:set var="product" value="${requestScope.productInfo}"></c:set>
+                    <input type="hidden" name="id" value="${product.id}"/>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Description :</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-info-sign"></i></span>
+                                <textarea class="form-control" name="desc" placeholder="Enter product description" rows="3" required><c:out value="${product.description}"></c:out></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">Category :</label>
+                            <div class="col-md-4 inputGroupContainer">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-list-alt"></i></span>
+                                    <select class="form-control" name="category" required>
+                                    <c:if test="${product.categoryId == 1}">
+                                        <option value="1" selected="selected">Clothes</option>
+                                        <option value="2">Shoes</option>
+                                        <option value="3">Accessories</option>
+                                    </c:if>
+                                    <c:if test="${product.categoryId == 2}">
+                                        <option value="1" >Clothes</option>
+                                        <option value="2" selected="selected">Shoes</option>
+                                        <option value="3">Accessories</option>
+                                    </c:if>
+                                    <c:if test="${product.categoryId == 3}">
+                                        <option value="1" >Clothes</option>
+                                        <option value="2">Shoes</option>
+                                        <option value="3" selected="selected">Accessories</option>
+                                    </c:if>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <c:set var="product" value="${requestScope.productInfo}"></c:set>
-                <input type="hidden" name="id" value="${product.id}">
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Description :</label>
-                    <div class="col-sm-10">
-                        <textarea class="form-control" name="desc" placeholder="Enter product description" rows="3" required><c:out value="${product.description}"></c:out></textarea>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Type :</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                <input type="text" class="form-control" name="type" placeholder="Enter product Type" value="${product.type}">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">Category :</label>
-                        <div class="col-sm-4">
-                            <select class="form-control" name="category" required>
-                            <c:if test="${product.categoryId == 1}">
-                                <option value="1" selected="selected">Clothes</option>
-                                <option value="2">Shoes</option>
-                                <option value="3">Accessories</option>
-                            </c:if>
-                            <c:if test="${product.categoryId == 2}">
-                                <option value="1" >Clothes</option>
-                                <option value="2" selected="selected">Shoes</option>
-                                <option value="3">Accessories</option>
-                            </c:if>
-                            <c:if test="${product.categoryId == 3}">
-                                <option value="1" >Clothes</option>
-                                <option value="2">Shoes</option>
-                                <option value="3" selected="selected">Accessories</option>
-                            </c:if>
-                        </select>
+                        <label class="col-md-4 control-label">Brand :</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-tags"></i></span>
+                                <select class="form-control" name="brand" required>
+                                    <c:if test="${product.brand == 'adidas'}">
+                                        <option value="adidas" selected="selected">Adidas</option>
+                                        <option value="nike">Nike</option>
+                                        <option value="puma">Puma</option>
+                                        <option value="nb">NB</option>
+                                        <option value="kappa">Kappa</option>
+                                    </c:if>
+                                    <c:if test="${product.brand == 'nike'}">
+                                        <option value="adidas">Adidas</option>
+                                        <option value="nike" selected="selected">Nike</option>
+                                        <option value="puma">Puma</option>
+                                        <option value="nb">NB</option>
+                                        <option value="kappa">Kappa</option>
+                                    </c:if>
+                                    <c:if test="${product.brand == 'puma'}">
+                                        <option value="adidas">Adidas</option>
+                                        <option value="nike">Nike</option>
+                                        <option value="puma" selected="selected">Puma</option>
+                                        <option value="nb">NB</option>
+                                        <option value="kappa">Kappa</option>
+                                    </c:if>
+                                    <c:if test="${product.brand == 'nb'}">
+                                        <option value="adidas">Adidas</option>
+                                        <option value="nike">Nike</option>
+                                        <option value="puma">Puma</option>
+                                        <option value="nb" selected="selected">NB</option>
+                                        <option value="kappa">Kappa</option>
+                                    </c:if>
+                                    <c:if test="${product.brand == 'kappa'}">
+                                        <option value="adidas">Adidas</option>
+                                        <option value="nike">Nike</option>
+                                        <option value="puma">Puma</option>
+                                        <option value="nb">NB</option>
+                                        <option value="kappa" selected="selected">Kappa</option>
+                                    </c:if>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Type :</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" name="type" placeholder="Enter product Type" value="${product.type}">
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Price :</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                                <input type="number" class="form-control" name="price" placeholder="Enter product price" min="0" value="${product.price}" required>
+                            </div>
+                        </div>
                     </div>
-                    <label class="control-label col-sm-2">Brand :</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control" name="brand" placeholder="Enter product brand" value="${product.brand}" list="productList">
-                        <datalist id="productList">
-                            <option value="nike">Nike</option>
-                            <option value="adidas">Adidas</option>
-                            <option value="puma">Puma</option>
-                            <option value="nb">NB</option>
-                        </datalist>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Quantity :</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                <input type="number" class="form-control" name="quan" placeholder="Enter product quantity" min="0" value="${product.quantity}" required>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Price :</label>
-                    <div class="col-sm-4">
-                        <input type="number" class="form-control" name="price" placeholder="Enter product price" min="0" value="${product.price}" required>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Color :</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-text-background"></i></span>
+                                <input type="text" class="form-control" name="color" placeholder="Enter product color" value="${product.color}">
+                            </div>
+                        </div>
                     </div>
-                    <label class="control-label col-sm-2">Quantity :</label>
-                    <div class="col-sm-4">
-                        <input type="number" class="form-control" name="quan" placeholder="Enter product quantity" min="0" value="${product.quantity}" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-sm-2">Color :</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="color" placeholder="Enter product color" value="${product.color}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="control-label col-sm-offset-2 col-sm-2">Change Image :</label>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Upload Image :</label>
+                        <div class="col-md-4 inputGroupContainer">
                             <div class="input-group">
                                 <span class="input-group-btn">
                                     <span class="btn btn-default btn-file">
-                                        Browse… <input type="file" id="imgInp" accept="image/*" value="${product.imagePath}">
+                                        Browse… <input type="file" id="imgInp" name="imgpath" accept="image/*" value="${product.imagePath}">
                                     </span>
                                 </span>
-                                    <input type="text" class="form-control" name="imgpath" value="${product.imagePath}" readonly>
+                                <input type="text" class="form-control" name="imgname" value="${product.imagePath}" readonly>
                             </div>
-                            <img id='img-upload' src="../Resources/images/products/${product.imagePath}"/>
+                                    <img id='img-upload' src="../Resources/images/products/${product.imagePath}"/>
                         </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label class="col-md-4 control-label"></label>
+                        <div class="col-md-8">
+                            <button type="submit" class="btn btn-primary">Save <span class="glyphicon glyphicon-floppy-disk"></span></button>
+                        </div>
+                    </div>
+                </fieldset>
             </form>
         </div>
     </body>
