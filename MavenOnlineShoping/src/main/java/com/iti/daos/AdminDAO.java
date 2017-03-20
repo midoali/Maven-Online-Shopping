@@ -77,7 +77,7 @@ public class AdminDAO extends DBHandler {
                     receiptVector.add(receipt);
                 }
                 for (int i = 0; i < receiptVector.size(); i++) {
-                    System.out.println("receiptVector.get(i).getId()  " + i + "  " + receiptVector.get(i).getTotalCost());
+                    System.out.println("receiptVector.get(i).getId()  " + i + "  " + receiptVector.get(i).getDate());
                 }
             }
         } catch (SQLException ex) {

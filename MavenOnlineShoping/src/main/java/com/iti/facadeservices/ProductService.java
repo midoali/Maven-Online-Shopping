@@ -38,7 +38,7 @@ public class ProductService {
     public void addProduct(Product product)
     {
         ProductDAO productDAO = new ProductDAO();
-        productDAO.updateProduct(product);
+        productDAO.addProduct(product);
         productDAO.disConnect();
     }
 
@@ -83,6 +83,20 @@ public class ProductService {
     public Vector<Product> getProductsTestData() {
         ProductDAO productDAO = new ProductDAO();
         Vector<Product> result = productDAO.getProductsTest();
+        productDAO.disConnect();
+        return result;
+    }
+
+    public Vector<Product> getProductsByCategory(int categoryId, int lastId) {
+        ProductDAO productDAO = new ProductDAO();
+        Vector<Product> result = productDAO.getProductsByCategory(categoryId,lastId);
+        productDAO.disConnect();
+        return result;
+    }
+
+    public Vector<Product> getAllProducts(int lastId) {
+        ProductDAO productDAO = new ProductDAO();
+        Vector<Product> result = productDAO.getAllProducts(lastId);
         productDAO.disConnect();
         return result;
     }

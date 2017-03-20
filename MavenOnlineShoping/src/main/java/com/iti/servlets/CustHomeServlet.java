@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author fatma
  */
-@WebServlet(name = "CustHomeServlet", urlPatterns = {"/CustHomeServlet"})
+@WebServlet(name = "CustHomeServlet", urlPatterns = {"/users/CustHomeServlet"})
 public class CustHomeServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +45,7 @@ public class CustHomeServlet extends HttpServlet {
             throws ServletException, IOException {
         // processRequest(request, response);
 
-        request.getRequestDispatcher("users/editProfile.jsp").forward(request, response);
+        request.getRequestDispatcher("editProfile.jsp").forward(request, response);
     }
 
     /**

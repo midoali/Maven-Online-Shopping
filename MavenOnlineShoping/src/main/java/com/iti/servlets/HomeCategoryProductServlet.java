@@ -36,13 +36,14 @@ public class HomeCategoryProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         int categoryId = Integer.parseInt(request.getParameter("cat_id"));
+        int lastId = Integer.parseInt(request.getParameter("latest_id"));
         
         Vector<Product> products = null;
 //        products = (Vector<Product>) session.getAttribute("products");
         if(categoryId != 0 )
-            products = new ProductService().getProductsByCategory(categoryId);
+            products = new ProductService().getProductsByCategory(categoryId,lastId);
         else
-            products = new ProductService().getAllProducts();
+            products = new ProductService().getAllProducts(lastId);
 
         System.out.println("lenght is : "+products.size());
         Gson gson = new Gson();

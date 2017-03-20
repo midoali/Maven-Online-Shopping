@@ -11,6 +11,9 @@
 <html>
     <head>
         <title>Sports Shopping Cart</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <link href="${homeUrl}/Resources/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
         <link href="${homeUrl}/Resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
         <link href='http://fonts.googleapis.com/css?family=Raleway:400,200,600,800,700,500,300,100,900' rel='stylesheet' type='text/css'>
@@ -44,6 +47,42 @@
             });
         </script>
         <!-- start menu -->
+        <style>
+            .disableddiv {
+                pointer-events: none;
+                opacity: 0.5;
+            }
+            .cd-popup-trigger{
+                display: block;
+                width: 170px;
+                height: 50px;
+                line-height: 50px;
+                margin: 3em auto;
+                text-align: center;
+                font-size: 12px;
+                /*font-size: 0.875rem;*/
+                font-weight: bold;
+                text-transform: uppercase;
+                border-radius: 50em;
+                background: #3054E3;
+                box-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
+                color: white;
+                text-decoration: none;
+                font-family: sans-serif;
+                position: fixed;
+                z-index: 19;
+                bottom: 86%;
+                left: 42%;
+            }
+            .cd-popup-trigger:hover{
+                text-decoration: none;
+            }
+            <c:if test="${!sessionScope.loggedIn == 'true'}" >
+                .megamenu>li>a {
+                    padding: 9px 6.5%!important;
+                }
+            </c:if>
+        </style>
     </head>
     <body>
         <!--header-->
@@ -53,11 +92,12 @@
                     <div class="carting">
                         <ul><li>
                                 <c:if test="${loggedIn == 'true'}">
-                                <li>Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong></li>
-                                <a href="${homeUrl}/logout"> LOGOUT</a>
-                            </c:if>
-                            <c:if test="${loggedIn != 'true'}">
-                                <a href="${homeUrl}/login"> LOGIN</a>
+                                    <a href="${homeUrl}/users/CustHomeServlet" style="color:white;"><span class="glyphicon glyphicon-credit-card"></span></a>
+                                <li style="color:wheat;">Welcome <strong><c:out value="${sessionScope.myCustomer.name}"/></strong>&nbsp;-&nbsp;</li>
+                                <a style="color:white;font-weight:bold;" href="${homeUrl}/logout"> LOGOUT <span class="glyphicon glyphicon-log-out"></span></a>
+                                </c:if>
+                                <c:if test="${loggedIn != 'true'}">
+                                <a href="${homeUrl}/login"><span class="glyphicon glyphicon-log-in"></span> LOGIN </a>
                             </c:if>
                             </li></ul>
                     </div>
@@ -78,7 +118,7 @@
                               <c:if test="${loggedIn == 'true'}"  >
                                   onclick="clearCart()"
                               </c:if>
-                              class="simpleCart_empty">clear cart</a></p>
+                              class="simpleCart_empty">clear cart </a></p>
 
                     </div>
 
@@ -87,8 +127,8 @@
 
                 <!-- start header menu -->
                 <ul class="megamenu skyblue">
-                    <li class="active grid"><a class="color1" href="${homeUrl}/home">Home</a></li>
-                    <li class="grid"><a href="#">Categories</a>
+                    <li class="active grid"><a class="color1" href="${homeUrl}/home"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                    <li class="grid"><a href="#"><span class="glyphicon glyphicon-th-large"></span> Categories</a>
                         <div class="megapanel">
                             <div class="row">
                                 <div class="col1">
@@ -134,7 +174,7 @@
                             </div>
                         </div>
                     </li>
-                    <li><a href="#">Brands</a><div class="megapanel">
+                    <li><a href="#"><span class="glyphicon glyphicon-tags"></span> Brands</a><div class="megapanel">
                             <div class="row">
                                 <div class="col1">
                                     <div class="h_nav">
@@ -187,10 +227,10 @@
                             </div>
                         </div>
                     </li>
-                    <li class="grid"><a href="${homeUrl}/aboutus">ABOUT US</a></li>
-                    <li class="grid"><a href="blog.html">BLOG</a></li>			
+                    <li class="grid"><a href="${homeUrl}/aboutus"><span class="glyphicon glyphicon-info-sign"></span> ABOUT US</a></li>
+                    <li class="grid"><a href="blog.html"><span class="glyphicon glyphicon-film"></span> BLOG</a></li>			
                         <c:if test="${loggedIn == 'true'}"  >
-                        <li class="grid"><a href="CustHomeServlet">Edit Profile</a></li>	
+                        <li class="grid"><a href="${homeUrl}/users/CustHomeServlet"><span class="glyphicon glyphicon-cog"></span> Edit Profile</a></li>	
                         </c:if>
 
 
@@ -208,15 +248,18 @@
             <div class="container">
                 <div class="tabs-box">
                     <ul class="tabs-menu">
-                        <li><a href="#clothes" category_id="2" class="catSelect">Clothes</a></li>
-                        <li><a href="#shoes" category_id="1" class="catSelect">Shoes</a></li>
+                        <li><a href="#clothes" category_id="2" class="catSelect">Shoes</a></li>
+                        <li><a href="#shoes" category_id="1" class="catSelect">Clothes</a></li>
                         <li><a href="#accessories" category_id="3" class="catSelect">Accessories</a></li>
-                        <li><a href="#all" category_id="0" class="catSelect" >All</a></li>
+                        <li class="active"><a href="#all" category_id="0" class="catSelect" >All</a></li>
                         <input type="hidden" name="selectedCategory" id="selectedCategory" value="0" />
                         <script>
                             var category_id = 0;
+                            var last_id = ${maxIdProduct};
+                            var emptyContent = false;
                             function renderHome(data) {
-
+                                if (data.length > 0)
+                                    last_id = data[0].id;
                                 var output = "";
                                 for (var i = 0; i < data.length; i++) {
                                     output += '<div class="product-grid">';
@@ -236,29 +279,43 @@
                                     output += '<input type="number" class="item_quantity" min="0" max="' + data[i].quantity + '" value="0" /></div><div class="clearfix"> </div> </div> </div>';
 
                                 }
-                                $("#tab").html("");
-                                $("#tab").append(output);
+//                                $("#tab").html("");
+                                $("#tab").prepend(output);
                             }
                             function updateHome() {
                                 $.post("${homeUrl}/getHomeProducts?date=" + new Date().toDateString(),
-                                        {cat_id: category_id},
+                                        {cat_id: category_id, latest_id: last_id},
                                         function (data) {
+                                            if (data.length > 0 && !emptyContent)
+                                                $(".cd-popup-trigger").show();
+                                            emptyContent = false;
                                             renderHome(data);
                                         },
                                         "json");
                             }
                             $(document).ready(function () {
+                                $('.cd-popup-trigger').on('click', function (event) {
+                                    $(this).hide();
+                                    event.preventDefault();
+
+                                    $('html, body').animate({
+                                        scrollTop: $($.attr(this, 'href')).offset().top
+                                    }, 500);
+                                });
                                 $(".catSelect").click(function () {
                                     category_id = $(this).attr("category_id");
+                                    last_id = 0;
+                                    $("#tab").html("");
+                                    emptyContent = true;
                                     $("#selectedCategory").val(category_id);
                                     updateHome();
-
                                 });
                                 setInterval(updateHome, 10000);
                             });
                         </script>
                     </ul>
                     <div class="clearfix"> </div>
+                    <a href="#features" class="cd-popup-trigger" style="display:none;" id="popUp">New Products</a>
                     <div class="tab-grids">
                         <div id="tab" >
                             <c:if test="${empty requestScope.products}">
@@ -266,25 +323,48 @@
                                 </c:if>
                                 <c:if test="${!empty requestScope.products}">
                                     <c:forEach items="${requestScope.products}" var="product">
-                                    <div class="product-grid">					  
-                                        <a href="SingleProduct?productId=${product.id}" ><div class="more-product-info"><span>NEW</span></div>						
-                                            <div class="product-img b-link-stripe b-animate-go  thickbox">						   
-                                                <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt="" style="width:400px;height: 350px;"/>
-                                                <div class="b-wrapper">
-                                                    <h4 class="b-animate b-from-left  b-delay03">							
-                                                        <button class="btns">ORDER NOW</button>
-                                                    </h4>
-                                                </div>
-                                            </div></a>						
-                                        <div class="product-info simpleCart_shelfItem">
-                                            <div class="product-info-cust">
-                                                <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
-                                                <span class="item_price">$<c:out value="${product.price}"/></span>
-                                                <input type="number" class="item_quantity" min="0" max="${product.quantity}" value="0" />
-                                            </div>													
-                                            <div class="clearfix"> </div>
+                                        <c:if test="${product.quantity == 0}">
+                                        <div class="product-grid disableddiv">					  
+                                            <a href="SingleProduct?productId=${product.id}" ><div class="finished-product-info"><span>OUT OF STOCK</span></div>						
+                                                <div class="product-img b-link-stripe b-animate-go  thickbox">						   
+                                                    <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt="" style="width:400px;height: 350px;"/>
+                                                    <div class="b-wrapper">
+                                                        <h4 class="b-animate b-from-left  b-delay03">							
+                                                            <button class="btns">ORDER NOW</button>
+                                                        </h4>
+                                                    </div>
+                                                </div></a>						
+                                            <div class="product-info simpleCart_shelfItem">
+                                                <div class="product-info-cust">
+                                                    <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
+                                                    <span class="item_price">$<c:out value="${product.price}"/></span>
+                                                    <input type="number" class="item_quantity" min="0" max="${product.quantity}" value="0" />
+                                                </div>													
+                                                <div class="clearfix"> </div>
+                                            </div>
                                         </div>
-                                    </div>	
+                                    </c:if>
+                                    <c:if test="${product.quantity != 0}">
+                                        <div class="product-grid">					  
+                                            <a href="SingleProduct?productId=${product.id}" ><div class="more-product-info"><span>NEW</span></div>						
+                                                <div class="product-img b-link-stripe b-animate-go  thickbox">						   
+                                                    <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt="" style="width:400px;height: 350px;"/>
+                                                    <div class="b-wrapper">
+                                                        <h4 class="b-animate b-from-left  b-delay03">							
+                                                            <button class="btns">ORDER NOW</button>
+                                                        </h4>
+                                                    </div>
+                                                </div></a>						
+                                            <div class="product-info simpleCart_shelfItem">
+                                                <div class="product-info-cust">
+                                                    <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
+                                                    <span class="item_price">$<c:out value="${product.price}"/></span>
+                                                    <input type="number" class="item_quantity" min="0" max="${product.quantity}" value="0" />
+                                                </div>													
+                                                <div class="clearfix"> </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
                                 </c:forEach>
                             </c:if>
                             <div class="clearfix"></div>
