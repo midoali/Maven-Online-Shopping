@@ -32,20 +32,22 @@
 
                     if (data == "-1")
                     {
-                        $('#result').html("quanities of products available now are less than your chosen quantity.\n please decrease your quantity and try again");
+                        $('#result').html("quanities of products available now are less than your chosen quantity.<br>please decrease your quantity and try again");
                     } else if (data == "-10")
                     {
-                        $('#result').html("Your credit is less than total price.\n please recharge your credit first");
+                        $('#result').html("Your credit is less than total price.<br>please recharge your credit first");
                     } else if (data == "-100")
                     {
-                        $('#result').html("Cart is Empty.\n please choose items to buy first");
+                        $('#result').html("Cart is Empty.<br>please choose items to buy first");
                     } else
                     {
-                        $('#result').html("Buying operation finished successfully.\nyour current credit = $" + data);
+                        $('#result').html("Buying operation finished successfully.<br>your current credit = $" + data);
                         $('#cart').html("");
                         $('#numItems').html("0");
                         $('#totalCostReceipt').html("0.0");
                         $('#totalFinal').html("100.0");
+                        $('#cartCost').html("0");
+                        $('#simpleCart_quantity').html("0");
                     }
                 }});
         });
