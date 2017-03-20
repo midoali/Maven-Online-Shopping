@@ -52,6 +52,7 @@ public class CreditServlet extends HttpServlet {
                 customer.setCredit(customer.getCredit() + credit);
                 customerService.updateCustomer(customer);
                 response.getWriter().print(customer.getCredit());
+                request.getSession().setAttribute("myCustomer",customer);
                 break;
         }
         response.getWriter().close();

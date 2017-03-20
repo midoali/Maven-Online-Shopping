@@ -52,7 +52,9 @@ public class PrintServlet extends HttpServlet {
             System.out.printf("Key : %s and Value: %s %n", entry.getKey(), entry.getValue());
             out.println("- product " + entry.getValue().getProduct().getId() + " : " + entry.getValue().getQuantity() + " x " + entry.getValue().getPrice() + "$");
         }
-        out.println("\nTOTAL = " + myCart.getTotalCost() + "$");
+        out.println("\n+ Delivery = 100$");
+        double total=myCart.getTotalCost()+100;
+        out.println("\nTOTAL = " + total + "$");
         out.println("----------------------------------------------------------------");
         out.println("Thanks for coming to SPORTS SHOP.\nplease come again soon.");
         out.close();
