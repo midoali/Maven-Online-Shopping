@@ -58,7 +58,7 @@
                 text-transform: uppercase;
                 border-radius: 50em;
                 background: #3054E3;
-                box-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
+                box-shadow: 8px 10px 20px 0 rgba(46,61,73,0.15);
                 color: white;
                 text-decoration: none;
                 font-family: sans-serif;
@@ -71,9 +71,9 @@
                 text-decoration: none;
             }
             <c:if test="${!sessionScope.loggedIn == 'true'}" >
-            .megamenu>li>a {
-                        padding: 9px 6.5%!important;
-            }
+                .megamenu>li>a {
+                            padding: 9px 6.5%!important;
+                }
             </c:if>
         </style>
     </head>

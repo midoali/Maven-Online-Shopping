@@ -12,6 +12,7 @@
         <title>Sports Shopping Cart</title>
         <link href="${homeUrl}/Resources/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
         <link href="${homeUrl}/Resources/css/style.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="${homeUrl}/Resources/css/form.css" rel="stylesheet" type="text/css" media="all" />
         <link href='http://fonts.googleapis.com/css?family=Raleway:400,200,600,800,700,500,300,100,900' rel='stylesheet' type='text/css'>
         <link href='http://fonts.googleapis.com/css?family=Arimo:400,700,700italic' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="${homeUrl}/Resources/css/component.css" />
@@ -20,10 +21,17 @@
         <meta name="keywords" content="New Fashions Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
               Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" 
               />
-        <script src="${homeUrl}/Resources/js/jquery.min.js"></script>
+        <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css" type="text/css" media="all" /> 
+        <!--<script src="${homeUrl}/Resources/js/jquery.min.js"></script>-->
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="${homeUrl}/Resources/js/jquery.easydropdown.js"></script>
         <script src="${homeUrl}/Resources/js/simpleCart.min.js"></script>
         <!-- start menu -->
         <link href="${homeUrl}/Resources/css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+        
         <script type="text/javascript" src="${homeUrl}/Resources/js/megamenu.js"></script>
         <script>
             function clearCart() {
