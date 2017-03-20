@@ -52,11 +52,13 @@ public class AddProductServlet extends HttpServlet {
             ServletFileUpload upload = new ServletFileUpload(factory);
             List<FileItem> items = upload.parseRequest(request);
             Iterator<FileItem> iter = items.iterator();
+            String url="D:\\0-Nour\\0-iti\\9-month courses\\NetBeans\\gitprojects\\Maven-Online-Shopping\\MavenOnlineShoping\\src\\main\\webapp\\Resources\\images\\products\\";
+            System.out.println(url);
             while (iter.hasNext()) {
                 FileItem item = iter.next();
                 if (!item.isFormField()) {
-                    item.write(new File("/MavenOnlineShoping/Web Pages/Resources/images/products/" + item.getFieldName()));
-                    product.setImagePath(item.getFieldName());
+                    item.write(new File(url + item.getName()));
+                    product.setImagePath(item.getName());
                 } else {
                     switch (item.getFieldName()) {
                         case "type":
@@ -103,23 +105,4 @@ public class AddProductServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>// </editor-fold>
 
-    private void savePhoto(HttpServletRequest request) {
-        try {
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            List<FileItem> items = upload.parseRequest(request);
-            Iterator<FileItem> iter = items.iterator();
-            while (iter.hasNext()) {
-                FileItem item = iter.next();
-                if (!item.isFormField()) {
-                    item.write(new File("/MavenOnlineShoping/Web Pages/Resources/images/products/" + item.getFieldName()));
-                }
-            }
-        } catch (FileUploadException ex) {
-            Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(AddProductServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
 }

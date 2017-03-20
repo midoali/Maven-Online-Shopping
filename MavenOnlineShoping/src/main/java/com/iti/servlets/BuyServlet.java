@@ -20,6 +20,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Vector;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,8 +42,8 @@ public class BuyServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         MyShoppingCart myCart = (MyShoppingCart) session.getAttribute("myShoppingCart");
         Customer customer = (Customer) session.getAttribute("myCustomer");
-        double total = myCart.getTotalCost()+100;
-        PrintWriter out=response.getWriter();
+        double total = myCart.getTotalCost() + 100;
+        PrintWriter out = response.getWriter();
         if (!myCart.getItems().isEmpty()) {
             if (total <= customer.getCredit()) {
                 if (checkQuantities(myCart)) {
@@ -51,15 +52,15 @@ public class BuyServlet extends HttpServlet {
                     makeReceipt(myCart, customer);
                     clearCart(session, myCart);
                     out.print(currentCredit);
-                }
-                else
+                } else {
                     out.print("-1");
-            }
-            else
+                }
+            } else {
                 out.print("-10");
-        }
-        else
+            }
+        } else {
             out.print("-100");
+        }
         out.close();
     }
 
@@ -75,7 +76,7 @@ public class BuyServlet extends HttpServlet {
 
     private boolean checkQuantities(MyShoppingCart myCart) {
         ProductService productService = new ProductService();
-        for(Map.Entry<String,MyItem> entry : myCart.getItems().entrySet()){
+        for (Map.Entry<String, MyItem> entry : myCart.getItems().entrySet()) {
 //        for (MyItem item : myCart.getItems()) {
             Product product = productService.getSingleProduct(entry.getValue().getProduct().getId());
             if (product.getQuantity() < entry.getValue().getQuantity()) {
@@ -94,17 +95,12 @@ public class BuyServlet extends HttpServlet {
 
     private void updateProductsQuantity(MyShoppingCart myCart) {
         ProductService productService = new ProductService();
-        for(Map.Entry<String,MyItem> entry : myCart.getItems().entrySet()){
+        for (Map.Entry<String, MyItem> entry : myCart.getItems().entrySet()) {
 //        for (MyItem item : myCart.getItems()) {
             Product product = entry.getValue().getProduct();
             product.setQuantity(product.getQuantity() - entry.getValue().getQuantity());
             productService.updateProduct(product);
         }
-    }
-
-    private void clearCart(HttpSession session, MyShoppingCart myCart) {
-        myCart.getItems().clear();
-        session.setAttribute("myShoppingCart", myCart);
     }
 
     private void makeReceipt(MyShoppingCart myCart, Customer customer) {
@@ -113,7 +109,7 @@ public class BuyServlet extends HttpServlet {
         receipt.setDate(Date.valueOf(LocalDate.now()));
         receipt.setTotalCost(myCart.getTotalCost());
         Vector<Item> items = new Vector<>();
-        for(Map.Entry<String,MyItem> entry : myCart.getItems().entrySet()){
+        for (Map.Entry<String, MyItem> entry : myCart.getItems().entrySet()) {
 //        for (MyItem item : myCart.getItems()) {
             Item i = new Item();
             i.setPrice(entry.getValue().getPrice());
@@ -127,4 +123,8 @@ public class BuyServlet extends HttpServlet {
 
     }
 
+    private void clearCart(HttpSession session, MyShoppingCart myCart) {
+        myCart.getItems().clear();
+        session.setAttribute("myShoppingCart", myCart);
+    }
 }

@@ -5,22 +5,18 @@
  */
 package com.iti.servlets;
 
-import com.iti.dtos.Customer;
-import com.iti.facadeservices.CustomerService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author fatma
+ * @author MIDO
  */
-@WebServlet(name = "UpdatedDataServlet", urlPatterns = {"/UpdatedDataServlet"})
-public class UpdatedDataServlet extends HttpServlet {
+public class RegisterCartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,10 +35,10 @@ public class UpdatedDataServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdatedDataServlet</title>");
+            out.println("<title>Servlet RegisterCartServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet UpdatedDataServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RegisterCartServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,23 +70,7 @@ public class UpdatedDataServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // processRequest(request, response);
-        int id=Integer.parseInt(request.getParameter("id"));
-        String password=request.getParameter("password");
-        String updatedName = request.getParameter("updatedName");
-        String updatedMail = request.getParameter("updatedMail");
-        int updatedPhone = Integer.parseInt(request.getParameter("updatedPhone"));
-        int updatedCredit = Integer.parseInt(request.getParameter("updatedCredit"));
-        String updatedAdd = request.getParameter("updatedAdd");
-        String updatedBirthday = request.getParameter("updatedBirthday");
-        String updatedJob = request.getParameter("updatedJob");
-
-        Customer cObj = new Customer(id, updatedName, java.sql.Date.valueOf(updatedBirthday),password, updatedJob, updatedMail, updatedCredit, updatedPhone, updatedAdd);
-
-        CustomerService customerServiceObj = new CustomerService();
-        customerServiceObj.updateInfo(cObj);
-        request.getSession().setAttribute("myCustomer",cObj);
-        response.sendRedirect("home");
+        processRequest(request, response);
     }
 
     /**

@@ -6,6 +6,7 @@
 package com.iti.servlets;
 
 import com.iti.dtos.Customer;
+import com.iti.facadeservices.CartService;
 import com.iti.facadeservices.CustomerService;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -62,7 +63,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("registration.jsp"); 
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("registration.jsp");
         requestDispatcher.forward(request, response);
     }
 
@@ -78,22 +79,28 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        
+
         String regName = request.getParameter("regName");
         String regPass = request.getParameter("regPass");
         String regMail = request.getParameter("regMail");
         int regCredit = 0;//Integer.parseInt(request.getParameter("regCredit"));
         int regPhone = Integer.parseInt(request.getParameter("regPhone"));
         String regBirthday = request.getParameter("regBirthday");
-        Date d= Date.valueOf(regBirthday);
+        Date d = Date.valueOf(regBirthday);
         String regJob = request.getParameter("regJob");
         String regAdd = request.getParameter("regAdd");
 
         Customer userObj = new Customer(regName, d, regPass, regJob, regMail, regCredit, regPhone, regAdd);
 
         CustomerService regCustomerService = new CustomerService();
-
+        CartService cartService = new CartService();
         if (regCustomerService.register(userObj)) {
+            try {
+                int userId = regCustomerService.getCustomerID(userObj);
+                cartService.addCart(userId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             request.getRequestDispatcher("home").forward(request, response);
         } else {
             request.getRequestDispatcher("registration").forward(request, response);
