@@ -6,6 +6,7 @@
 package com.iti.servlets;
 
 import com.iti.classes.MyShoppingCart;
+import com.iti.facadeservices.CartService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -28,8 +29,14 @@ public class CartClearingServlet extends HttpServlet {
         response.setContentType("application/json");
        HttpSession mySession = request.getSession(false);
        MyShoppingCart myCart = (MyShoppingCart)mySession.getAttribute("myShoppingCart");
+       int cartId=(int)mySession.getAttribute("cartId");
+       CartService cs=new CartService();
        
        myCart.getItems().clear();
+        try {
+            cs.clearCart(cartId);
+        } catch (Exception e) {
+        }
        
        String myResponse = "{\"status\":\"ok\",\"message\":\"cart cleared successfully\"}";
        response.getWriter().print(myResponse);
