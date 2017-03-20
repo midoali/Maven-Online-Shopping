@@ -104,7 +104,7 @@
                 text-transform: uppercase;
                 border-radius: 50em;
                 background: #3054E3;
-                box-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
+                box-shadow: 8px 10px 20px 0 rgba(46,61,73,0.15);
                 color: white;
                 text-decoration: none;
                 font-family: sans-serif;

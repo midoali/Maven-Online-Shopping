@@ -5,10 +5,7 @@
  */
 package com.iti.daos;
 
-import com.iti.daos.datasource.c3p0.DataSource;
 import com.iti.dtos.Product;
-import java.beans.PropertyVetoException;
-import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -124,12 +121,7 @@ public class ProductDAO extends DBHandler {
             Vector<Product> products = new Vector<>();
 
             preparedStatement = connection.prepareStatement("Select * from PRODUCT where brand like '%" + keyword + "%' or price like '%" + keyword + "%' or quantity like '%" + keyword + "%' or description like '%" + keyword + "%' or color like '%" + keyword + "%' or type like '%" + keyword + "%' order by id");
-//            preparedStatement.setString(0,keyword);
-//            preparedStatement.setString(1,keyword);
-//            preparedStatement.setString(2,keyword);
-//            preparedStatement.setString(3,keyword);
-//            preparedStatement.setString(4,keyword);
-//            preparedStatement.setString(5,keyword);
+
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Product product = new Product();
@@ -303,4 +295,68 @@ public class ProductDAO extends DBHandler {
         }
         return null;
     }
+    
+    public Vector<Product> searchProducts(int categoryId, String[] brands, int lowerBoundPrice, int upperBoundPrice,String keyword) {
+        try {
+            ResultSet resultSet;
+            Vector<Product> products = new Vector<>();
+            if (connection != null) {
+//                preparedStatement = connection.prepareStatement("select * from  where category_id = "+categoryId+" and price between "+lowerBoundPrice+" and "+upperBoundPrice+" PRODUCT order by id desc");
+                String sqlQuery = "select * from product where ";
+                Boolean whereFilter = false;
+                if(categoryId > 0){
+                    whereFilter = true;
+                    sqlQuery += "category_id = "+categoryId;
+                }
+                if(whereFilter)
+                    sqlQuery += " and ";
+                sqlQuery += " price between "+lowerBoundPrice+" and "+upperBoundPrice;
+                if (brands != null && brands.length > 0) {
+                    sqlQuery += " and (";
+                    int count = 0;
+                    for (String brand : brands) {
+                        if (count == 0) {
+                            sqlQuery += " brand = '" + brand + "'";
+                        } else {
+                            sqlQuery += " or brand = '" + brand + "'";
+                        }
+                        count++;
+                    }
+                    sqlQuery += " ) ";
+                }
+                if(keyword.length() > 0){
+                    sqlQuery += "and ( brand like '%" + keyword + "%' ";
+                    sqlQuery += "or price like '%" + keyword + "%' ";
+                    sqlQuery += "or quantity like '%" + keyword + "%' ";
+                    sqlQuery += "or description like '%" + keyword + "%' ";
+                    sqlQuery += "or color like '%" + keyword + "%' ";
+                    sqlQuery += "or type like '%" + keyword + "%' )";
+                }
+                sqlQuery += " order by id desc";
+                System.out.println(sqlQuery);
+                preparedStatement = connection.prepareStatement(sqlQuery);
+                resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()) {
+                    Product product = new Product();
+                    product.setId(resultSet.getInt("ID"));
+                    product.setType(resultSet.getString("TYPE"));
+                    product.setCategoryId(resultSet.getInt("CATEGORY_ID"));
+                    product.setPrice(resultSet.getDouble("PRICE"));
+                    product.setBrand(resultSet.getString("BRAND"));
+                    product.setQuantity(resultSet.getInt("QUANTITY"));
+                    product.setColor(resultSet.getString("COLOR"));
+                    product.setDescription(resultSet.getString("DESCRIPTION"));
+                    product.setImagePath(resultSet.getString("iMAGE"));
+                    products.addElement(product);
+                }
+
+                return products;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+        }
+        return null;
+    }
+    
 }
