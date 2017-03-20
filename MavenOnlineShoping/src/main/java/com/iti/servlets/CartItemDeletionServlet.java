@@ -27,18 +27,20 @@ public class CartItemDeletionServlet extends HttpServlet {
             throws ServletException, IOException {
 //        response.setContentType("application/json");
        String itemId = request.getParameter("itemIndex");
-            //  int productId = Integer.parseInt(request.getParameter("productId"));
-
+//             int productId = Integer.parseInt(request.getParameter("productId"));
+             
        HttpSession mySession = request.getSession(false);
        MyShoppingCart myCart = (MyShoppingCart)mySession.getAttribute("myShoppingCart");
-      // int cartId=(int)mySession.getAttribute("cartId");
+       int cartId=(int)mySession.getAttribute("cartId");
+              int productId = myCart.getItems().get(itemId).getProduct().getId();
+
        myCart.getItems().remove(itemId);
-      // CartService cs=new CartService();
+       CartService cs=new CartService();
        
-//        try {
-//            cs.deleteCartItem(productId, cartId);
-//        } catch (Exception e) {
-//        }
+        try {
+            cs.deleteCartItem(productId, cartId);
+        } catch (Exception e) {
+        }
         System.out.println("deleteing item");
        String myResponse = "{\"status\":\"ok\",\"message\":\"Item deleted successfully\",\"finalCost\":\""+String.valueOf(myCart.getTotalCost()+100)+"\",\"totalCost\":\""+String.valueOf(myCart.getTotalCost())+"\",\"numItems\":\""+myCart.getItems().size()+"\"}";
        response.getWriter().print(myResponse);
