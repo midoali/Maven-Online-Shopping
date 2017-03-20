@@ -6,6 +6,7 @@
 package com.iti.servlets;
 
 import com.iti.classes.MyShoppingCart;
+import com.iti.facadeservices.CartService;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,10 +27,18 @@ public class CartItemDeletionServlet extends HttpServlet {
             throws ServletException, IOException {
 //        response.setContentType("application/json");
        String itemId = request.getParameter("itemIndex");
+            //  int productId = Integer.parseInt(request.getParameter("productId"));
+
        HttpSession mySession = request.getSession(false);
        MyShoppingCart myCart = (MyShoppingCart)mySession.getAttribute("myShoppingCart");
-       
+      // int cartId=(int)mySession.getAttribute("cartId");
        myCart.getItems().remove(itemId);
+      // CartService cs=new CartService();
+       
+//        try {
+//            cs.deleteCartItem(productId, cartId);
+//        } catch (Exception e) {
+//        }
         System.out.println("deleteing item");
        String myResponse = "{\"status\":\"ok\",\"message\":\"Item deleted successfully\",\"finalCost\":\""+String.valueOf(myCart.getTotalCost()+100)+"\",\"totalCost\":\""+String.valueOf(myCart.getTotalCost())+"\",\"numItems\":\""+myCart.getItems().size()+"\"}";
        response.getWriter().print(myResponse);

@@ -108,6 +108,7 @@ public class BuyServlet extends HttpServlet {
         receipt.setCustomerId(customer.getId());
         receipt.setDate(Date.valueOf(LocalDate.now()));
         receipt.setTotalCost(myCart.getTotalCost());
+
         Vector<Item> items = new Vector<>();
         for (Map.Entry<String, MyItem> entry : myCart.getItems().entrySet()) {
 //        for (MyItem item : myCart.getItems()) {

@@ -116,7 +116,7 @@
                 <c:forEach items="${myShoppingCart.getItems()}" var="currentItem" >
 
                     <div class="cart-header" id="${currentItem.getKey()}" >
-                        <div class="close1" item_id="${currentItem.getKey()}"> </div>
+                        <div class="close1"  item_id="${currentItem.getKey()}"> </div>
                         <div class="cart-sec">
                             <div class="cart-item cyc">
                                 <img src="${homeUrl}/Resources/images/products/${currentItem.getValue().getProduct().getImagePath()}"/>

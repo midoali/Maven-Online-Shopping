@@ -5,7 +5,9 @@
  */
 package com.iti.facadeservices;
 
+import com.iti.daos.CategoryDAO;
 import com.iti.daos.ProductDAO;
+import com.iti.dtos.Category;
 import com.iti.dtos.Product;
 import java.util.Vector;
 
@@ -97,6 +99,20 @@ public class ProductService {
     public Vector<Product> getAllProducts(int lastId) {
         ProductDAO productDAO = new ProductDAO();
         Vector<Product> result = productDAO.getAllProducts(lastId);
+        productDAO.disConnect();
+        return result;
+    }
+    
+    public Vector<Category> getAllCategories(){
+        CategoryDAO categoryDAO = new CategoryDAO();
+        Vector<Category> result = categoryDAO.getAllCategories();
+        categoryDAO.disConnect();
+        return result;
+    }
+
+    public Vector<Product> searchProducts(int categoryId, String[] brands, int lowerBoundPrice, int upperBoundPrice,String keyword) {
+        ProductDAO productDAO = new ProductDAO();
+        Vector<Product> result = productDAO.searchProducts(categoryId,brands,lowerBoundPrice,upperBoundPrice,keyword);
         productDAO.disConnect();
         return result;
     }
