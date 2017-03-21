@@ -53,10 +53,12 @@ public class AddProductServlet extends HttpServlet {
             List<FileItem> items = upload.parseRequest(request);
             Iterator<FileItem> iter = items.iterator();
             String url="D:\\0-Nour\\0-iti\\9-month courses\\NetBeans\\gitprojects\\Maven-Online-Shopping\\MavenOnlineShoping\\src\\main\\webapp\\Resources\\images\\products\\";
-            System.out.println(url);
+            //String url=getServletContext().getRealPath("/Resources/images/products");
+            //System.out.println("destination url="+url);
             while (iter.hasNext()) {
                 FileItem item = iter.next();
                 if (!item.isFormField()) {
+                    //item.write(new File(url+"/" + item.getName()));
                     item.write(new File(url + item.getName()));
                     product.setImagePath(item.getName());
                 } else {

@@ -76,7 +76,7 @@
         </script>
         <!-- start menu -->
         <style>
-            .modal-header, h4, .close {
+            .modal-header, .close {
                 background-color: #3054E3;
                 color:white !important;
                 text-align: center;
