@@ -70,7 +70,7 @@ public class CustomerNameServlet extends HttpServlet {
         if (flag) {
             out.print("Right User Name");
         } else {
-            out.print("Sorry, You have to register firstly");
+            out.print("Sorry, You have to register");
         }
 
     }

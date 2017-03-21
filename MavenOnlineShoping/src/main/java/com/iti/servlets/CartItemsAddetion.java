@@ -45,6 +45,7 @@ public class CartItemsAddetion extends HttpServlet {
         int quantity = Integer.parseInt(request.getParameter("quantity"));
         int proId = Integer.parseInt(request.getParameter("productId"));
         int cartId=(int)session.getAttribute("cartId");
+        String isHome = request.getParameter("home");
         //  Product product=(Product)session.getAttribute("cartProduct");
         Product product = new ProductService().getSingleProduct(proId);
         System.out.println(quantity);
@@ -87,8 +88,13 @@ public class CartItemsAddetion extends HttpServlet {
 // representation of a date with the defined format.
         
         String url = (String) session.getAttribute("homeUrl");
-        
-        response.sendRedirect(url + "/users/cart");
+        if(isHome != null && isHome.equals("true")){
+            String myResponse = "{\"status\":\"ok\",\"message\":\"Item deleted successfully\",\"finalCost\":\""+String.valueOf(myShoppingCart.getTotalCost()+100)+"\",\"totalCost\":\""+String.valueOf(myShoppingCart.getTotalCost())+"\",\"numItems\":\""+myShoppingCart.getItems().size()+"\"}";
+            response.getWriter().print(myResponse);
+            response.getWriter().close();
+        }else{
+            response.sendRedirect(url + "/users/cart");
+        }
     }
 
 }

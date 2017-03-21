@@ -41,12 +41,12 @@ public class CartDAO extends DBHandler {
      
      public int geCarttId(int custId) {
         int id = 0;
-        String selectQuery = "SELECT id FROM CART WHERE CUSTOMER_ID=?";
+        String selectQuery = "SELECT id FROM CART WHERE CUSTOMER_ID="+custId;
         try {
             preparedStatement = connection.prepareStatement(selectQuery);
-            preparedStatement.setInt(1, custId);
+//            preparedStatement.setInt(1, custId);
             ResultSet rs;
-
+            System.out.println("cart query : "+selectQuery);
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 id = rs.getInt(1);

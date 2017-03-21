@@ -118,7 +118,7 @@
             }
             <c:if test="${!sessionScope.loggedIn == 'true'}" >
                 .megamenu>li>a {
-                    padding: 9px 6.5%!important;
+                    padding: 9px 5.5%!important;
                 }
             </c:if>
         </style>
@@ -325,13 +325,16 @@
                                     last_id = data[0].id;
                                 var output = "";
                                 for (var i = 0; i < data.length; i++) {
-                                    output += '<div class="product-grid">';
+                                    if(data[i].quantity == 0)
+                                        output += '<div class="product-grid disableddiv">';
+                                    else
+                                        output += '<div class="product-grid">';
                                     output += '<a href="SingleProduct?productId=' + data[i].id + '" ><div class="more-product-info"><span>NEW</span></div>';
                                     output += '<div class="product-img b-link-stripe b-animate-go  thickbox">';
                                     output += '<img src="Resources/images/products/' + data[i].imagePath + '" class="img-responsive" alt="" style="width:400px;height: 350px;"/>';
                                     output += '<div class="b-wrapper">';
                                     output += '<h4 class="b-animate b-from-left  b-delay03">';
-                                    output += '<button class="btns">ORDER NOW</button>';
+                                    output += '<button class="btns orderBtn">ORDER NOW</button>';
                                     output += '</h4>';
                                     output += '</div>';
                                     output += '</div></a>';
@@ -339,7 +342,7 @@
                                     output += '<div class="product-info-cust">';
                                     output += '<h4>' + data[i].type + ' ' + data[i].id + '</h4>';
                                     output += '<span class="item_price">$' + data[i].price + '</span>';
-                                    output += '<input type="number" class="item_quantity" min="0" max="' + data[i].quantity + '" value="0" /></div><div class="clearfix"> </div> </div> </div>';
+                                    output += '<input type="number" class="item_quantity" min="1" max="' + data[i].quantity + '" quantity_id="'+data[i].id+'" value="1" /></div><div class="clearfix"> </div> </div> </div>';
                                 }
 //                                $("#tab").html("");
                                 $("#tab").prepend(output);
@@ -372,6 +375,22 @@
                                     updateHome();
                                 });
                                 setInterval(updateHome, 10000);
+                                
+                                
+                                $(".orderBtn").click(function(ev){
+                                    ev.preventDefault();
+                                   <c:if test="${empty loggedIn}">
+                                       location.href = '${homeUrl}/login';    
+                                   </c:if>
+                                   <c:if test="${loggedIn == 'true'}">
+                                        var prodId = $(this).attr("prod_id");
+                                        var quantityVal = $("input[quantity_id='"+prodId+"']").val();
+                                        $.post("users/addToCart",{productId:prodId,quantity:quantityVal,home:"true"},function(data){
+                                            $("#simpleCart_quantity").html(data.numItems);
+                                            $("#cartCost").html(data.totalCost);
+                                        },"json");
+                                   </c:if> 
+                                });
                             });
                         </script>
                     </ul>
@@ -399,7 +418,7 @@
                                                 <div class="product-info-cust">
                                                     <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
                                                     <span class="item_price">$<c:out value="${product.price}"/></span>
-                                                    <input type="number" class="item_quantity" min="0" max="${product.quantity}" value="0" />
+                                                    <input type="number" class="item_quantity" min="1" max="${product.quantity}" value="0" />
                                                 </div>													
                                                 <div class="clearfix"> </div>
                                             </div>
@@ -412,7 +431,7 @@
                                                     <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt="" style="width:400px;height: 350px;"/>
                                                     <div class="b-wrapper">
                                                         <h4 class="b-animate b-from-left  b-delay03">							
-                                                            <button class="btns">ORDER NOW</button>
+                                                            <button class="btns orderBtn" prod_id="${product.id}" >ORDER NOW</button>
                                                         </h4>
                                                     </div>
                                                 </div></a>						
@@ -420,7 +439,7 @@
                                                 <div class="product-info-cust">
                                                     <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
                                                     <span class="item_price">$<c:out value="${product.price}"/></span>
-                                                    <input type="number" class="item_quantity" min="0" max="${product.quantity}" value="0" />
+                                                    <input type="number" class="item_quantity" quantity_id="${product.id}" min="1" max="${product.quantity}" value="1" />
                                                 </div>													
                                                 <div class="clearfix"> </div>
                                             </div>
@@ -451,6 +470,7 @@
                     });
                 </script>
                 <!-- Comman-js-files -->
+                
             </div>
         </div>
         <!--fotter-->
