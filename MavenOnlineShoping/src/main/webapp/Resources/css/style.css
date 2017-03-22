@@ -163,7 +163,12 @@ i.arrow{
 	text-align:center;
 	position:absolute;
         top: 45%;
-        margin-left: 150px;
+        margin-left: 11%;
+        text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;  
 }
 .caption h1{
 	font-size:5em;
@@ -2192,7 +2197,7 @@ color:#3C3B3B;
   left: 4%;
 }
 .megamenu>li>a {
-  padding: 9px 56px!important;
+  padding: 9px 8%!important;
 }
 .carting {
   top: 40px;
@@ -3819,3 +3824,5 @@ ul.place li {
             text-decoration: none;
             font-family: sans-serif;
         }
+        
+        

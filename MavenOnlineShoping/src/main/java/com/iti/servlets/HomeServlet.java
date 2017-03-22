@@ -40,7 +40,7 @@ public class HomeServlet extends HttpServlet {
             }
             System.out.println("Size"+((Vector<Customer>)config.getServletContext().getAttribute("onlineUsers")).size());
             System.out.println("hello from homeservlet");
-            Vector<Product> products = new ProductService().getAllProducts();
+            Vector<Product> products = new ProductService().getAllProducts(0);
             request.setAttribute("products", products);
             int maxId = 0;
             if(products.size() > 0 )

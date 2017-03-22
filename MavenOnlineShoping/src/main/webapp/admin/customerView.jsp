@@ -68,7 +68,7 @@
                 <ul class="nav navbar-nav">
                     <li ><a href="${homeUrl}/admin/viewProducts">Products</a></li>
 
-                    <li class="active"><a href="#">Customers</a></li>
+                    <li class="active"><a href="/${homeUrl}/admin/viewCustomer">Customers</a></li>
                 </ul>
 
             </div>

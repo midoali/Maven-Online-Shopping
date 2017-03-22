@@ -98,7 +98,7 @@
                     <a class="navbar-brand" href="#">Admin Panel</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Products</a></li>
+                    <li class="active"><a href="${homeUrl}/admin/viewProducts">Products</a></li>
                     <!--      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                               <li><a href="#">Page 1-1</a></li>

@@ -92,6 +92,36 @@
                 color: darkred !important;
                 text-align: center;
             }
+            <c:if test="${!sessionScope.loggedIn == 'true'}" >
+                .megamenu>li>a {
+                    padding: 9px 12.5%!important;
+                }
+            </c:if>
+                    #loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        margin: 0 auto;
+        z-index: 99;
+        position:fixed;
+        margin-left: 24%;
+    margin-top: -5%;
+        /*margin-left:40%;*/
+    }
+
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
         </style>
         <!-- start menu -->
     </head>
@@ -163,11 +193,11 @@
                                     <div class="h_nav">
                                         <h4>Clothes</h4>
                                         <ul>
-                                            <li><a href="">T-shirts</a></li>
-                                            <li><a href="">Training suits</a></li>
-                                            <li><a href="">Hoodies</a></li>
-                                            <li><a href="">Trousers</a></li>
-                                            <li><a href="">Shorts</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">T-shirts</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Training suits</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Hoodies</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Trousers</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Shorts</a></li>
                                         </ul>	
                                     </div>							
                                 </div>
@@ -175,7 +205,7 @@
                                     <div class="h_nav">
                                         <h4>Shoes</h4>
                                         <ul>
-                                            <li><a href="">Sneakers</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Sneakers</a></li>
                                         </ul>	
                                     </div>							
                                 </div>
@@ -183,12 +213,12 @@
                                     <div class="h_nav">
                                         <h4>Accessories</h4>
                                         <ul>
-                                            <li><a href="">Caps</a></li>
-                                            <li><a href="">Watches</a></li>
-                                            <li><a href="">Glasses</a></li>
-                                            <li><a href="">Balls</a></li>
-                                            <li><a href="">Bags</a></li>
-                                            <li><a href="">Others</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Caps</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Watches</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Glasses</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Balls</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Bags</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Others</a></li>
                                         </ul>	
                                     </div>												
                                 </div>	
@@ -208,10 +238,10 @@
                                     <div class="h_nav">
                                         <h4>Nike</h4>
                                         <ul>
-                                            <li><a href="men.html">shoes</a></li>
-                                            <li><a href="men.html">football shirts</a></li>
-                                            <li><a href="men.html">bags</a></li>
-                                            <li><a href="men.html">accessories</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">shoes</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">football shirts</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">bags</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">accessories</a></li>
                                         </ul>	
                                     </div>							
                                 </div>
@@ -219,11 +249,11 @@
                                     <div class="h_nav">
                                         <h4>addidas</h4>
                                         <ul>
-                                            <li><a href="men.html">shoes</a></li>
-                                            <li><a href="men.html">T-shirts</a></li>
-                                            <li><a href="men.html">training suits</a></li>
-                                            <li><a href="men.html">accessories</a></li>
-                                            <li><a href="men.html">bags</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">shoes</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">T-shirts</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">training suits</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">accessories</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">bags</a></li>
                                         </ul>	
                                     </div>							
                                 </div>
@@ -231,8 +261,8 @@
                                     <div class="h_nav">
                                         <h4>puma</h4>
                                         <ul>
-                                            <li><a href="men.html">bags</a></li>
-                                            <li><a href="men.html">accessories</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">bags</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">accessories</a></li>
                                         </ul>	
                                     </div>												
                                 </div>						
@@ -240,8 +270,8 @@
                                     <div class="h_nav">
                                         <h4>NB</h4>
                                         <ul>
-                                            <li><a href="men.html">shoes</a></li>
-                                            <li><a href="men.html">accessories</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">shoes</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">accessories</a></li>
                                         </ul>	
                                     </div>
                                 </div>
@@ -255,8 +285,8 @@
                             </div>
                         </div>
                     </li>
-                    <li class="grid"><a href="${homeUrl}/aboutus"><span class="glyphicon glyphicon-info-sign"></span> ABOUT US</a></li>
-                    <li class="grid"><a href="blog.html"><span class="glyphicon glyphicon-film"></span> BLOG</a></li>			
+<!--                    <li class="grid"><a href="${homeUrl}/aboutus"><span class="glyphicon glyphicon-info-sign"></span> ABOUT US</a></li>
+                    <li class="grid"><a href="blog.html"><span class="glyphicon glyphicon-film"></span> BLOG</a></li>			-->
                         <c:if test="${loggedIn == 'true'}"  >
                         <li class="grid"><a href="${homeUrl}/users/CustHomeServlet"><span class="glyphicon glyphicon-cog"></span> Edit Profile</a></li>	
                         </c:if>

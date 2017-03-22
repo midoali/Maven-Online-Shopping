@@ -29,6 +29,7 @@ public class ProductService {
         productDAO.disConnect();
         return result;
     }
+    
 
     public boolean updateProduct(Product product) {
         ProductDAO productDAO = new ProductDAO();
@@ -116,6 +117,13 @@ public class ProductService {
         productDAO.disConnect();
         return result;
     }
+    
+//    public Vector<Product> getHomeProducts(int categoryId){
+//    ProductDAO productDAO = new ProductDAO();
+//        Vector<Product> result = productDAO.getProductsByCategory(categoryId,lastId);
+//        productDAO.disConnect();
+//        return result;
+//    }
     /**
      * *****************youssef end****************
      */

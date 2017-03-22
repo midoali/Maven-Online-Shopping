@@ -37,6 +37,7 @@ public class MyItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+        this.price = this.quantity*product.getPrice();
     }
 
     public double getPrice() {

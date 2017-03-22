@@ -67,4 +67,3 @@
 </div>
 <!--fotter-->
 <jsp:directive.include file="/footer.jsp"/>
-

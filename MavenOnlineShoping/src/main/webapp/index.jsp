@@ -118,9 +118,71 @@
             }
             <c:if test="${!sessionScope.loggedIn == 'true'}" >
                 .megamenu>li>a {
-                    padding: 9px 5.5%!important;
+                    padding: 9px 12.5%!important;
                 }
             </c:if>
+            .cd-add-to-cart{
+                display: inline-block;
+                padding: 1.2em 1.8em;
+                background: #2c97de;
+                border-radius: 1em;
+                text-transform: uppercase;
+                color: #ffffff;
+                font-weight: 700;
+                letter-spacing: .1em;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+                -webkit-transition: all .2s;
+                transition: all .2s;
+                text-decoration: none;
+                margin-left: 24%;
+                width: 48%;
+                margin-bottom: 3px;
+                text-align: center;
+            }
+            .cd-add-to-cart:hover{
+                color:white;
+                text-decoration: none;
+            }
+            #loader {
+                border: 16px solid #f3f3f3;
+                border-radius: 50%;
+                border-top: 16px solid #3498db;
+                width: 120px;
+                height: 120px;
+                -webkit-animation: spin 2s linear infinite;
+                animation: spin 2s linear infinite;
+                margin: 0 auto;
+                z-index: 99;
+                display:none;
+            }
+
+            @-webkit-keyframes spin {
+                0% { -webkit-transform: rotate(0deg); }
+                100% { -webkit-transform: rotate(360deg); }
+            }
+
+            @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            .close{
+        float: right;
+        font-size: 21px;
+        font-weight: bold;
+        line-height: 1;
+        color: #000 !important;
+        text-shadow: 0 1px 0 #fff;
+        filter: alpha(opacity=20);
+        opacity: .2;
+        background-color: transparent;
+    }
+    .popupSucc{
+        position:fixed;
+        top:30%;
+        left:41%;
+        z-index: 99999;
+        display:none;
+    }
         </style>
     </head>
     <body>
@@ -198,11 +260,11 @@
                                     <div class="h_nav">
                                         <h4>Clothes</h4>
                                         <ul>
-                                            <li><a href="">T-shirts</a></li>
-                                            <li><a href="">Training suits</a></li>
-                                            <li><a href="">Hoodies</a></li>
-                                            <li><a href="">Trousers</a></li>
-                                            <li><a href="">Shorts</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">T-shirts</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Training suits</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Hoodies</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Trousers</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Shorts</a></li>
                                         </ul>	
                                     </div>							
                                 </div>
@@ -210,7 +272,7 @@
                                     <div class="h_nav">
                                         <h4>Shoes</h4>
                                         <ul>
-                                            <li><a href="">Sneakers</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Sneakers</a></li>
                                         </ul>	
                                     </div>							
                                 </div>
@@ -218,12 +280,12 @@
                                     <div class="h_nav">
                                         <h4>Accessories</h4>
                                         <ul>
-                                            <li><a href="">Caps</a></li>
-                                            <li><a href="">Watches</a></li>
-                                            <li><a href="">Glasses</a></li>
-                                            <li><a href="">Balls</a></li>
-                                            <li><a href="">Bags</a></li>
-                                            <li><a href="">Others</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Caps</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Watches</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Glasses</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Balls</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Bags</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">Others</a></li>
                                         </ul>	
                                     </div>												
                                 </div>	
@@ -243,10 +305,10 @@
                                     <div class="h_nav">
                                         <h4>Nike</h4>
                                         <ul>
-                                            <li><a href="men.html">shoes</a></li>
-                                            <li><a href="men.html">football shirts</a></li>
-                                            <li><a href="men.html">bags</a></li>
-                                            <li><a href="men.html">accessories</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">shoes</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">football shirts</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">bags</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">accessories</a></li>
                                         </ul>	
                                     </div>							
                                 </div>
@@ -254,11 +316,11 @@
                                     <div class="h_nav">
                                         <h4>addidas</h4>
                                         <ul>
-                                            <li><a href="men.html">shoes</a></li>
-                                            <li><a href="men.html">T-shirts</a></li>
-                                            <li><a href="men.html">training suits</a></li>
-                                            <li><a href="men.html">accessories</a></li>
-                                            <li><a href="men.html">bags</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">shoes</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">T-shirts</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">training suits</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">accessories</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">bags</a></li>
                                         </ul>	
                                     </div>							
                                 </div>
@@ -266,8 +328,8 @@
                                     <div class="h_nav">
                                         <h4>puma</h4>
                                         <ul>
-                                            <li><a href="men.html">bags</a></li>
-                                            <li><a href="men.html">accessories</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">bags</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">accessories</a></li>
                                         </ul>	
                                     </div>												
                                 </div>						
@@ -275,8 +337,8 @@
                                     <div class="h_nav">
                                         <h4>NB</h4>
                                         <ul>
-                                            <li><a href="men.html">shoes</a></li>
-                                            <li><a href="men.html">accessories</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">shoes</a></li>
+                                            <li><a href="${homeUrl}/browseProducts">accessories</a></li>
                                         </ul>	
                                     </div>
                                 </div>
@@ -290,9 +352,9 @@
                             </div>
                         </div>
                     </li>
-                    <li class="grid"><a href="${homeUrl}/aboutus"><span class="glyphicon glyphicon-info-sign"></span> ABOUT US</a></li>
-                    <li class="grid"><a href="blog.html"><span class="glyphicon glyphicon-film"></span> BLOG</a></li>			
-                        <c:if test="${loggedIn == 'true'}"  >
+<!--                    <li class="grid"><a href="${homeUrl}/aboutus"><span class="glyphicon glyphicon-info-sign"></span> ABOUT US</a></li>
+                    <li class="grid"><a href="blog.html"><span class="glyphicon glyphicon-film"></span> BLOG</a></li>			-->
+                    <c:if test="${loggedIn == 'true'}"  >
                         <li class="grid"><a href="${homeUrl}/users/CustHomeServlet"><span class="glyphicon glyphicon-cog"></span> Edit Profile</a></li>	
                         </c:if>
 
@@ -325,7 +387,7 @@
                                     last_id = data[0].id;
                                 var output = "";
                                 for (var i = 0; i < data.length; i++) {
-                                    if(data[i].quantity == 0)
+                                    if (data[i].quantity == 0)
                                         output += '<div class="product-grid disableddiv">';
                                     else
                                         output += '<div class="product-grid">';
@@ -334,7 +396,7 @@
                                     output += '<img src="Resources/images/products/' + data[i].imagePath + '" class="img-responsive" alt="" style="width:400px;height: 350px;"/>';
                                     output += '<div class="b-wrapper">';
                                     output += '<h4 class="b-animate b-from-left  b-delay03">';
-                                    output += '<button class="btns orderBtn">ORDER NOW</button>';
+                                    output += '<button class="btns orderBtn" orderBtn" prod_id="'+data[i].id+'">ORDER NOW</button>';
                                     output += '</h4>';
                                     output += '</div>';
                                     output += '</div></a>';
@@ -342,7 +404,7 @@
                                     output += '<div class="product-info-cust">';
                                     output += '<h4>' + data[i].type + ' ' + data[i].id + '</h4>';
                                     output += '<span class="item_price">$' + data[i].price + '</span>';
-                                    output += '<input type="number" class="item_quantity" min="1" max="' + data[i].quantity + '" quantity_id="'+data[i].id+'" value="1" /></div><div class="clearfix"> </div> </div> </div>';
+                                    output += '<input type="number" class="item_quantity" min="1" max="' + data[i].quantity + '" quantity_id="' + data[i].id + '" value="1" /></div><div class="clearfix"> </div> </div> </div>';
                                 }
 //                                $("#tab").html("");
                                 $("#tab").prepend(output);
@@ -355,6 +417,7 @@
                                                 $(".cd-popup-trigger").show();
                                             emptyContent = false;
                                             renderHome(data);
+                                            $("#loader").hide();
                                         },
                                         "json");
                             }
@@ -367,6 +430,7 @@
                                     }, 500);
                                 });
                                 $(".catSelect").click(function () {
+                                    $("#loader").show();
                                     category_id = $(this).attr("category_id");
                                     last_id = 0;
                                     $("#tab").html("");
@@ -375,21 +439,25 @@
                                     updateHome();
                                 });
                                 setInterval(updateHome, 10000);
-                                
-                                
-                                $(".orderBtn").click(function(ev){
+
+
+                                $(".orderBtn").click(function (ev) {
                                     ev.preventDefault();
-                                   <c:if test="${empty loggedIn}">
-                                       location.href = '${homeUrl}/login';    
-                                   </c:if>
-                                   <c:if test="${loggedIn == 'true'}">
+                                    <c:if test="${empty loggedIn}">
+                                        location.href = '${homeUrl}/login';
+                                    </c:if>
+                                    <c:if test="${loggedIn == 'true'}">
                                         var prodId = $(this).attr("prod_id");
-                                        var quantityVal = $("input[quantity_id='"+prodId+"']").val();
-                                        $.post("users/addToCart",{productId:prodId,quantity:quantityVal,home:"true"},function(data){
+                                        var quantityVal = $("input[quantity_id='" + prodId + "']").val();
+                                        $.post("users/addToCart", {productId: prodId, quantity: quantityVal, home: "true"}, 
+                                        function (data) {
+                                            $(".popupSucc").show(function(){
+                                                setTimeout(function(){ $(".popupSucc").fadeOut(2000); }, 1000);
+                                            });
                                             $("#simpleCart_quantity").html(data.numItems);
                                             $("#cartCost").html(data.totalCost);
-                                        },"json");
-                                   </c:if> 
+                                        }, "json");
+                                    </c:if>
                                 });
                             });
                         </script>
@@ -469,8 +537,9 @@
                         });
                     });
                 </script>
+                <div id="loader"></div>
                 <!-- Comman-js-files -->
-                
+                <a href="${homeUrl}/browseProducts" class="cd-add-to-cart" >Show More</a>
             </div>
         </div>
         <!--fotter-->
@@ -511,6 +580,11 @@
                     </div>
                 </div>	 
                 <div class="clearfix"></div>
+                 <div class="alert alert-success fade in popupSucc" >
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <img src="${homeUrl}/Resources/images/success.png" width="50px" height="50px" />
+     <strong>Added to Cart</strong>
+</div>
             </div>
         </div>
         <!--fotter//-->

@@ -7,6 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:directive.include file="/header.jsp"/>
 <style>
+    .disableddiv {
+                pointer-events: none;
+                opacity: 0.5;
+            }
     #search{
         width: 130px;
         box-sizing: border-box;
@@ -52,6 +56,27 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
     }
+    .img-responsive{
+        height:220px;
+    }
+    .close{
+        float: right;
+        font-size: 21px;
+        font-weight: bold;
+        line-height: 1;
+        color: #000 !important;
+        text-shadow: 0 1px 0 #fff;
+        filter: alpha(opacity=20);
+        opacity: .2;
+        background-color: transparent;
+    }
+    .popupSucc{
+        position:fixed;
+        top:30%;
+        left:41%;
+        z-index: 99999;
+        display:none;
+    }
 </style>
 <script
     src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
@@ -67,31 +92,52 @@ crossorigin="anonymous"></script>
             <h2>OUR PRODUCTS <input type="text" name="keyword" id="search" placeholder="Search.." ></h2>
             <div class="col-md-9 product-model-sec" >
                 <div id="productsCont">
-                    <c:forEach items="${products}" var="product" >
-                        <a href="SingleProduct?productId=${product.id}">
-                            <div class="product-grid love-grid">
-                                <div class="more-product"><span> </span></div>						
-                                <div class="product-img b-link-stripe b-animate-go  thickbox">
-                                    <img src="${homeUrl}/Resources/images/products/${product.imagePath}" class="img-responsive" alt=""/>
-                                    <div class="b-wrapper">
-                                        <h4 class="b-animate b-from-left  b-delay03">							
-                                            <button class="btns">ORDER NOW</button>
-                                        </h4>
-
-                                    </div>
-                                </div>
-                        </a>						
-                        <div class="product-info simpleCart_shelfItem">
-                            <div class="product-info-cust">
-                                <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
-                                <span class="item_price">$${product.price}</span>
-                                <input type="number" class="item_quantity" min="0" max="${product.quantity}"value="0" />
-                                <input type="button" class="item_add items" value="ADD">
-                            </div>											
-                            <div class="clearfix"> </div>
-                        </div>
-                    </div>
-                </c:forEach>
+                    <c:if test="${!empty requestScope.products}">
+                                    <c:forEach items="${requestScope.products}" var="product">
+                                        <c:if test="${product.quantity == 0}">
+                                        <div class="product-grid disableddiv">					  
+                                            <a href="SingleProduct?productId=${product.id}" ><div class="finished-product-info"><span>OUT OF STOCK</span></div>						
+                                                <div class="product-img b-link-stripe b-animate-go  thickbox">						   
+                                                    <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt="" style="width:400px;height: 220px;"/>
+                                                    <div class="b-wrapper">
+                                                        <h4 class="b-animate b-from-left  b-delay03">							
+                                                            <button class="btns">ORDER NOW</button>
+                                                        </h4>
+                                                    </div>
+                                                </div></a>						
+                                            <div class="product-info simpleCart_shelfItem">
+                                                <div class="product-info-cust">
+                                                    <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
+                                                    <span class="item_price">$<c:out value="${product.price}"/></span>
+                                                    <input type="number" class="item_quantity" min="1" max="${product.quantity}" value="1" />
+                                                </div>													
+                                                <div class="clearfix"> </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${product.quantity != 0}">
+                                        <div class="product-grid">					  
+                                            <a href="SingleProduct?productId=${product.id}" ><div class="more-product-info"><span>NEW</span></div>						
+                                                <div class="product-img b-link-stripe b-animate-go  thickbox">						   
+                                                    <img src="Resources/images/products/${product.imagePath}" class="img-responsive" alt="" style="width:400px;height: 220px;"/>
+                                                    <div class="b-wrapper">
+                                                        <h4 class="b-animate b-from-left  b-delay03">							
+                                                            <button class="btns orderBtn" prod_id="${product.id}" >ORDER NOW</button>
+                                                        </h4>
+                                                    </div>
+                                                </div></a>						
+                                            <div class="product-info simpleCart_shelfItem">
+                                                <div class="product-info-cust">
+                                                    <h4><c:out value="${product.type}"/> <c:out value="${product.id}"/></h4>
+                                                    <span class="item_price">$<c:out value="${product.price}"/></span>
+                                                    <input type="number" class="item_quantity" quantity_id="${product.id}" min="1" max="${product.quantity}" value="1" />
+                                                </div>													
+                                                <div class="clearfix"> </div>
+                                            </div>
+                                        </div>
+                                    </c:if>
+                                </c:forEach>
+                            </c:if>
             </div>
             <div id="loader"></div>
     </div>
@@ -128,29 +174,26 @@ crossorigin="anonymous"></script>
                 <script type="text/javascript">
                     function renderProducts(data) {
                         var output = "";
-
-
-                        for (var i = 0; i < data.length; i++) {
-                            output += '<a href="SingleProduct?productId=' + data[i].id + '">';
-                            output += '<div class="product-grid love-grid">';
-                            output += '<div class="more-product"><span> </span></div>';
-                            output += '<div class="product-img b-link-stripe b-animate-go  thickbox">';
-                            output += '<img src="${homeUrl}/Resources/images/products/' + data[i].imagePath + '" class="img-responsive" alt=""/>';
-                            output += '<div class="b-wrapper">';
-                            output += '<h4 class="b-animate b-from-left  b-delay03">';
-                            output += '<button class="btns">ORDER NOW</button>';
-                            output += '</h4>';
-                            output += '</div></div></a>';
-                            output += '<div class="product-info simpleCart_shelfItem">';
-                            output += '<div class="product-info-cust">';
-                            output += '<h4>' + data[i].type + ' ' + data[i].id + '</h4>';
-                            output += '<span class="item_price">$' + data[i].price + '</span>';
-                            output += '<input type="number" class="item_quantity" min="0" max="' + data[i].quantity + '"value="0" />';
-                            output += '<input type="button" class="item_add items" value="ADD">';
-                            output += '</div>';
-                            output += '<div class="clearfix"> </div>';
-                            output += '</div></div>';
-                        }
+                                for (var i = 0; i < data.length; i++) {
+                                    if (data[i].quantity == 0)
+                                        output += '<div class="product-grid disableddiv">';
+                                    else
+                                        output += '<div class="product-grid">';
+                                    output += '<a href="SingleProduct?productId=' + data[i].id + '" ><div class="more-product-info"><span>NEW</span></div>';
+                                    output += '<div class="product-img b-link-stripe b-animate-go  thickbox">';
+                                    output += '<img src="Resources/images/products/' + data[i].imagePath + '" class="img-responsive" alt="" style="width:400px;height: 220px;"/>';
+                                    output += '<div class="b-wrapper">';
+                                    output += '<h4 class="b-animate b-from-left  b-delay03">';
+                                    output += '<button class="btns orderBtn" orderBtn" prod_id="'+data[i].id+'">ORDER NOW</button>';
+                                    output += '</h4>';
+                                    output += '</div>';
+                                    output += '</div></a>';
+                                    output += '<div class="product-info simpleCart_shelfItem">';
+                                    output += '<div class="product-info-cust">';
+                                    output += '<h4>' + data[i].type + ' ' + data[i].id + '</h4>';
+                                    output += '<span class="item_price">$' + data[i].price + '</span>';
+                                    output += '<input type="number" class="item_quantity" min="1" max="' + data[i].quantity + '" quantity_id="' + data[i].id + '" value="1" /></div><div class="clearfix"> </div> </div> </div>';
+                                }
 
                         $("#productsCont").html(output);
 
@@ -197,6 +240,25 @@ crossorigin="anonymous"></script>
                         $(".inputSearch").change(function () {
                             searchCats();
                         });
+                        $(".orderBtn").click(function (ev) {
+                                    ev.preventDefault();
+                                    <c:if test="${empty loggedIn}">
+                                        location.href = '${homeUrl}/login';
+                                    </c:if>
+                                    <c:if test="${loggedIn == 'true'}">
+                                        var prodId = $(this).attr("prod_id");
+                                        var quantityVal = $("input[quantity_id='" + prodId + "']").val();
+                                        $(".popupSucc").show();
+                                        $.post("users/addToCart", {productId: prodId, quantity: quantityVal, home: "true"}, 
+                                        function (data) {
+                                            $(".popupSucc").fadeIn(1000,function(){
+                                                setTimeout(function(){ $(".popupSucc").fadeOut(2000); }, 1000);
+                                            });
+                                            $("#simpleCart_quantity").html(data.numItems);
+                                            $("#cartCost").html(data.totalCost);
+                                        }, "json");
+                                    </c:if>
+                                });
                     });
                 </script>
                 <div class="col col-4">
@@ -217,10 +279,15 @@ crossorigin="anonymous"></script>
             </div>
         </section>
         </form>
-    </div>			 
+    </div>	
+                               
     <div class="clearfix"></div>
 
-
+ <div class="alert alert-success fade in popupSucc" >
+    <a href="#" class="close" data-dismiss="alert">&times;</a>
+    <img src="${homeUrl}/Resources/images/success.png" width="50px" height="50px" />
+     <strong>Added to Cart</strong>
+</div>
 </div>
 </div>	        
 <jsp:directive.include file="/footer.jsp"/>

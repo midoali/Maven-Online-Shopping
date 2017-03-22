@@ -236,7 +236,7 @@ public class ProductDAO extends DBHandler {
         try {
             ResultSet resultSet;
             Vector<Product> products = new Vector<>();
-            String sqlQuery = "Select * from PRODUCT where category_id = " + categoryId + "and id > "+lastId+" order by id desc";
+            String sqlQuery = "Select * from PRODUCT where category_id = " + categoryId + "and id > "+lastId+" and ROWNUM <= 12 order by id desc";
             preparedStatement = connection.prepareStatement(sqlQuery);
             System.out.println(sqlQuery);
 //
@@ -269,7 +269,7 @@ public class ProductDAO extends DBHandler {
 
 //            connection  = DataSource.getInstance().getConnection();
             if (connection != null) {
-                preparedStatement = connection.prepareStatement("select * from PRODUCT where id > "+last_id+" order by id desc");
+                preparedStatement = connection.prepareStatement("select * from PRODUCT where id > "+last_id+" and ROWNUM <= 12 order by id desc");
                 System.out.println("get all function  ");
                 resultSet = preparedStatement.executeQuery();
                 while (resultSet.next()) {

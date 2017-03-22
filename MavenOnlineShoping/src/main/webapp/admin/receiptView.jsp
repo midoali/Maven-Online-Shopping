@@ -39,9 +39,9 @@
                     <a class="navbar-brand" href="#">Admin Panel</a>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li ><a href="${homeUrl}/MavenOnlineShoping/admin/viewProducts">Products</a></li>
+                    <li ><a href="${homeUrl}/admin/viewProducts">Products</a></li>
 
-                     <li><a href="${homeUrl}/MavenOnlineShoping/admin/viewCustomer">Customers</a></li>
+                     <li><a href="${homeUrl}/admin/viewCustomer">Customers</a></li>
                 </ul>
 
             </div>

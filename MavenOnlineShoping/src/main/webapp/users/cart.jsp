@@ -24,10 +24,7 @@
         });
         $('#buybtn').click(function () {
             console.log($('#someSwitchOptionPrimary').is(':checked'));
-            if ($('#someSwitchOptionPrimary').is(':checked'))
-            {
-                window.location.href = "receipt.doc";
-            }
+            
             $.ajax({url: "BuyServlet?", type: 'GET', contentType: 'text/html', data: new Date().toString(), dataType: 'text', success: function (data) {
 
                     if (data == "-1")
@@ -48,6 +45,9 @@
                         $('#totalFinal').html("100.0");
                         $('#cartCost').html("0");
                         $('#simpleCart_quantity').html("0");
+                        if ($('#someSwitchOptionPrimary').is(':checked')){
+                                window.location.href = "receipt.doc";
+                        }
                     }
                 }});
         });
@@ -128,8 +128,8 @@
                                 <p class="qty">Quantity ::</p>
                                 <label>${currentItem.getValue().getQuantity()}</label>
                                 <!--<input min="1" max="${currentItem.getValue().getProduct().getQuantity()}" type="number" id="quantity" name="quantity" value="${currentItem.getValue().getQuantity()}" class="form-control input-small">-->
-                                <input  class="btn-info" type="button" id="availableQuantity" value="stil available !"  onclick="check(${currentItem.getValue().getProduct().getId()},${currentItem.getValue().getQuantity()})"  />
-                                <img id="qImg${currentItem.getValue().getProduct().getId()}" width="25" height="25"/><span class="warning" id="checkSpan"   tabindex="1"></span>
+                                <input  style="margin-left: 10px;background-color: #107CAE;border-color: #107CAE;" class="btn btn-primary" type="button" id="availableQuantity" value="stil available !"  onclick="check(${currentItem.getValue().getProduct().getId()},${currentItem.getValue().getQuantity()})"  />
+                                <img class="qImg" id="qImg${currentItem.getValue().getProduct().getId()}" style="display:none;" width="25" height="25"/><span class="warning" id="checkSpan"   tabindex="1"></span>
                             </div>
                             <div class="clearfix"></div>
                             <div class="delivery">
@@ -177,12 +177,13 @@
 
 
     function check(pId, qId) {
-
+        $(".qImg").show();
         $.ajax({url: 'QuantityAvailability?time=' + new Date().getTime(), //servlet url
             type: 'GET', //servlet request type
             data: {"productId": pId, "productQuantity": qId},
             dataType: "text",
             success: function (data) {
+                
                 var result = $.trim(data);
                 if (data == "available") {
                     document.getElementById("qImg" + pId).src = "../Resources/images/right.png";
