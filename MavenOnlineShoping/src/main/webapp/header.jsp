@@ -60,13 +60,13 @@
             }
             function checkcode()
             {
-                $.ajax({url: "credit?code=" + $("#code").val(), type: "get", contentType: 'text/html', data: new Date().toString(), dataType: 'text', success: function (data) {
+                $.ajax({url: "${homeUrl}/credit?code=" + $("#code").val(), type: "get", contentType: 'text/html', data: new Date().toString(), dataType: 'text', success: function (data) {
                         $("#codespan").html(data);
                     }});
             }
             function chargeCredit()
             {
-                $.ajax({url: "credit?code=" + $("#code").val(), type: "post", contentType: 'text/html', data: new Date().toString(), dataType: 'text', success: function (data) {
+                $.ajax({url: "${homeUrl}/credit?code=" + $("#code").val(), type: "post", contentType: 'text/html', data: new Date().toString(), dataType: 'text', success: function (data) {
                         if (data === "-1")
                         {
                             $("#modalfooter").html("Inncorrect Code.<br> please enter a valid one.");

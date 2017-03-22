@@ -198,11 +198,12 @@ crossorigin="anonymous"></script>
                                     output += '<div class="product-info-cust">';
                                     output += '<h4>' + data[i].type + ' ' + data[i].id + '</h4>';
                                     output += '<span class="item_price">$' + data[i].price + '</span>';
-//                                    if(data[i].quantity == 0){
-//                                        output += '<input type="number" class="item_quantity" min="1" max="1" quantity_id="' + data[i].id + '" value="1" /></div><div class="clearfix"> </div> </div> </div>';
-//                                    }else{
+                                    if(data[i].quantity > 0){
                                         output += '<input type="number" class="item_quantity" min="1" max="' + data[i].quantity + '" quantity_id="' + data[i].id + '" value="1" /></div><div class="clearfix"> </div> </div> </div>';
-//                                    }
+                                    }else{
+                                        output += '<input type="number" class="item_quantity" min="1" max="2" quantity_id="' + data[i].id + '" value="1" /></div><div class="clearfix"> </div> </div> </div>';
+                                        
+                                    }
                                 }
 
                         $("#productsCont").html(output);

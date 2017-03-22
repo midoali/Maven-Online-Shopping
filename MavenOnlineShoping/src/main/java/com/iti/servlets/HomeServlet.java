@@ -35,9 +35,7 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            if (config.getServletContext().getAttribute("onlineUsers") == null ) {
-                config.getServletContext().setAttribute("onlineUsers", new Vector<>());
-            }
+            
             System.out.println("Size"+((Vector<Customer>)config.getServletContext().getAttribute("onlineUsers")).size());
             System.out.println("hello from homeservlet");
             Vector<Product> products = new ProductService().getAllProducts(0);
