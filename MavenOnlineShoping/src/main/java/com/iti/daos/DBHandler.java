@@ -44,12 +44,12 @@ public class DBHandler implements DBHandlerInt{
 
     @Override
     public void disConnect() {
-        try {
-            connection.close();
-            System.out.println("Connection Closed");
-        } catch (SQLException ex) {
-            System.out.println("Connection Failed!");
-        }
+//        try {
+//            connection.close();
+//            System.out.println("Connection Closed");
+//        } catch (SQLException ex) {
+//            System.out.println("Connection Failed!");
+//        }
     }
 
     

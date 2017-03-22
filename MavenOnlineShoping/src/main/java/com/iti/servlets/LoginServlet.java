@@ -71,6 +71,13 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String absPath = request.getServletContext().getContextPath();
+        HttpSession sess = request.getSession(false);
+        String loggedIn = (String) sess.getAttribute("loggedIn");
+        if(loggedIn != null && loggedIn == "true"){
+            response.sendRedirect(absPath+"/home");
+            return;
+        }
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("login.jsp");
         requestDispatcher.forward(request, response);
     }

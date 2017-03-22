@@ -101,9 +101,13 @@ public class RegisterServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            request.getRequestDispatcher("home").forward(request, response);
+//            request.getRequestDispatcher("home").forward(request, response);
+            String absPath = request.getServletContext().getContextPath();
+            response.sendRedirect(absPath+"/login");
         } else {
-            request.getRequestDispatcher("registration").forward(request, response);
+            String absPath = request.getServletContext().getContextPath();
+            response.sendRedirect(absPath+"/registration");
+//            request.getRequestDispatcher("registration").forward(request, response);
         }
     }
 

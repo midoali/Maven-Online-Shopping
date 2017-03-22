@@ -175,11 +175,17 @@ crossorigin="anonymous"></script>
                     function renderProducts(data) {
                         var output = "";
                                 for (var i = 0; i < data.length; i++) {
-                                    if (data[i].quantity == 0)
+                                    if (data[i].quantity == 0){
                                         output += '<div class="product-grid disableddiv">';
-                                    else
+                                    }else{
                                         output += '<div class="product-grid">';
-                                    output += '<a href="SingleProduct?productId=' + data[i].id + '" ><div class="more-product-info"><span>NEW</span></div>';
+                                    }
+                                    output += '<a href="SingleProduct?productId=' + data[i].id + '" >';
+                                    if(data[i].quantity== 0){
+                                        output += '<div class="finished-product-info"><span>OUT OF STOCK</span></div>';
+                                    }else{
+                                        output += '<div class="more-product-info"><span>NEW</span></div>';
+                                    }
                                     output += '<div class="product-img b-link-stripe b-animate-go  thickbox">';
                                     output += '<img src="Resources/images/products/' + data[i].imagePath + '" class="img-responsive" alt="" style="width:400px;height: 220px;"/>';
                                     output += '<div class="b-wrapper">';
@@ -192,7 +198,11 @@ crossorigin="anonymous"></script>
                                     output += '<div class="product-info-cust">';
                                     output += '<h4>' + data[i].type + ' ' + data[i].id + '</h4>';
                                     output += '<span class="item_price">$' + data[i].price + '</span>';
-                                    output += '<input type="number" class="item_quantity" min="1" max="' + data[i].quantity + '" quantity_id="' + data[i].id + '" value="1" /></div><div class="clearfix"> </div> </div> </div>';
+//                                    if(data[i].quantity == 0){
+//                                        output += '<input type="number" class="item_quantity" min="1" max="1" quantity_id="' + data[i].id + '" value="1" /></div><div class="clearfix"> </div> </div> </div>';
+//                                    }else{
+                                        output += '<input type="number" class="item_quantity" min="1" max="' + data[i].quantity + '" quantity_id="' + data[i].id + '" value="1" /></div><div class="clearfix"> </div> </div> </div>';
+//                                    }
                                 }
 
                         $("#productsCont").html(output);
